@@ -1,0 +1,655 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+*{margin: 0px;padding: 0px}
+html{font-family: 'Roboto', sans-serif;background-color: rgba(173,173,173,0.4);}
+
+@media only screen and (min-width: 981px) {
+
+    body{
+        color: #fff;
+        display: block;
+        width: 100%;
+        margin: 0px;
+        padding: 0px;
+    }
+
+    header {
+        padding: 0px;
+        display: flex;
+        width: 100%;
+        background: rgba(42, 112, 139, 0.88);
+        box-shadow: inset -2px -1px #5b244e;
+        height: fit-content;
+    }
+
+    /*footer {*/
+        /*font-weight: 400;*/
+        /*font-size: 11px;*/
+        /*line-height: 1.45455;*/
+        /*letter-spacing: .005em;*/
+        /*background-color: #f2f2f2;*/
+        /*color: #333;*/
+        /*overflow: hidden;*/
+        /*position: relative;*/
+        /*z-index: 1;*/
+        /*left: 0%;*/
+        /*bottom: 0%;*/
+        /*position: fixed;*/
+        /*right: 0%;*/
+        /*padding-top: 5px;*/
+        /*padding-left: 10px;*/
+        /*padding-right: 10px;*/
+        /*padding-bottom: 1px;*/
+    /*}*/
+
+    footer{margin-top: 100px;}
+
+    .footer-content-wrapper {
+        background: url(../images/footer/bk_footer.jpg);
+        padding-top: 5px;
+        height: 240px !important;
+    }
+
+    .footer-content-nav-list {
+        display: inline-block;
+        list-style: none;
+        margin: 0;
+        text-align: center;
+        padding: 30px 0 0;
+    }
+
+    ul.footer-content-nav-list li{
+        display: inline; /* Отображать как строчный элемент */
+        margin-right: 5px; /* Отступ слева */
+    }
+
+
+    .footer-content-nav ul li:not(:last-child) a {
+        border-right: 1px solid rgba(90, 160, 190, 1);
+    }
+
+    .footer-content .footer-content-nav ul li a {
+        padding: 5px 10px !important;
+        display: inline-block;
+    }
+
+    .footer-content-nav ul li a {
+        padding: 0 8px;
+        font-family: 'Open Sans', serif;
+        font-size: 14px;
+        font-weight: bold;
+        color: rgba(90, 160, 190, 1);
+        text-shadow: none;
+    }
+
+    .footer-content-nav ul li a:hover{
+        color:rgba(42, 112, 139, 0.88);
+    }
+
+
+    .footer-content {
+        margin: auto;
+    }
+
+    .footer-content-nav {
+        width: 100%;
+        text-align: center;
+        float: none;
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .footer-content-copyright{
+        text-indent: 10px;
+        font-family: 'Roboto', sans-serif;
+        font-size: 15pt;
+        color: #737373;
+        text-align: center;
+    }
+
+
+    .footer-content-social-links ul li a img {
+        border-radius: 4px;
+    }
+    .footer-content-social-links ul li a img:hover{
+        opacity: 0.8;
+    }
+    .footer-content-social-links ul li {
+        display: inline;
+        margin: 5px;
+    }
+    .footer-content-social-links{
+        margin-top: 25px;
+        text-align: center;
+    }
+
+
+
+
+    .page {
+        max-width: 980px;
+        display: block;
+        margin: auto;
+    }
+
+    nav ul #search{
+        padding: 0px;
+    }
+    #searchForm {
+        display: inline-block;
+        width: 80%;
+        padding: 0px;
+        margin: 0px;
+
+    }
+
+    #searchForm input[type=text] {
+        line-height: 1.9;
+        box-shadow: #737373;
+        background: rgba(256, 256, 256, 0.7) url('../images/search.png') no-repeat right;
+    }
+
+    #searchForm input[placeholder] {
+        text-indent: 10px;
+        font-family: 'Roboto', sans-serif;
+        font-size: 10pt;
+    }
+
+    .button1 {
+        display: inline-block;
+        margin-top: 1px;
+        background-color: rgba(193, 171, 147, 0.19);
+        font-weight: 400;
+        border-radius: 5px;
+        width: 130px;
+        height: 30px;
+    }
+
+    nav {
+        display: block;
+        width: 100%;
+        max-width: 981px;
+        margin: auto;
+    }
+
+    nav ul a {
+        display: inline-block;
+    }
+
+    nav ul a:hover {
+        background-color: rgba(90, 160, 190, 0.7);
+    }
+
+    nav ul li {
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16pt;
+        font-family: Roboto;
+        text-transform: uppercase;
+        height: 100%;
+        padding: 10px;
+    }
+
+    a:link, a:visited {
+        color: #fff;
+        text-decoration: none;
+    }
+
+    #nav {
+        float: left;
+        display: inline-block;
+        height: 100%;
+        margin: 0px;
+    }
+
+    #auth {
+        float: right;
+        display: inline-block;
+        height: 100%;
+        margin: 0px;
+    }
+
+    #nav a {
+        height: 100%;
+    }
+
+    #auth a {
+        height: 100%;
+    }
+table{
+    border-collapse: collapse;
+    color:#333;
+    width: 100%;
+}
+
+table tr{
+    border-bottom: 2px solid #EEEEEE;
+}
+
+    table tr:hover{
+        background-color: rgb(224,224,224);
+    }
+tr td{
+    padding: 3px;
+    overflow: hidden;
+}
+    tr th{
+        text-align: left;
+        padding: 10px 3px;
+        overflow: hidden;
+    }
+
+    /*POPUP*/
+    #signup{}
+    #add-user{
+        display: none;
+    }
+    .popup {
+        display: none;
+        position: fixed;
+        margin: auto;
+        left: 0;
+        top: 0;
+        background-color: rgba(76, 76, 76, 0.7);
+        width: 100vw;
+        height: 100vh;
+        z-index: 12;
+    }
+
+    .popup .card {
+        display: block;
+        background-color: white;
+        max-width: 600px;
+        margin: auto;
+        margin-top: 5rem;
+        text-align: center;
+        overflow: -webkit-paged-x;
+        height: fit-content;
+    }
+
+    .signup {
+        display: inline-block;
+        color: #333;
+        margin: auto;
+        max-width: 800px;
+        height: 3vh;
+    }
+
+    #form {
+        border: 0px;
+        border-radius: 0px;
+        margin: auto;
+        width: max-content;
+        font-family: 'Roboto', sans-serif
+    }
+
+    #form h2 {
+        padding-top: 10px;
+    }
+
+    #form input {
+        display: block;
+        width: 100%;
+        line-height: normal;
+        margin: 20px;
+        border: 1px solid #333
+    }
+
+    #form input[type=text] {
+        box-shadow: #737373;
+    }
+
+
+    #form input[placeholder] {
+        text-indent: 10px;
+        font-family: 'Roboto', sans-serif;
+        font-size: 10pt;
+    }
+    /* Tooltip container */
+    .tooltip {
+        display:block;
+    }
+
+    /* Tooltip text */
+    .tooltip .tooltiptext {
+        visibility: hidden;
+        width: 120px;
+        background-color: black;
+        color: #fff;
+        text-align: center;
+        padding: 5px 0;
+        border-radius: 6px;
+        top:20%;
+        left: 62%;
+        position: fixed;
+    }
+
+    /* Show the tooltip text when you mouse over the tooltip container */
+    .tooltip:hover .tooltiptext {
+        visibility: visible;
+    }
+    /* ICON */
+    #icon-nav{display:none;}
+    .icon{max-width:10vw;float:right;}
+    /* CARD */
+    /* Three columns side by side */
+    /* Three columns side by side */
+    .column {
+        float: left;
+        width: 310px;
+        margin-bottom: 16px;
+        padding: 0 8px;
+    }
+
+    .card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        background-color: white;
+        min-height:340px;
+        transition: 1s;
+        height:auto;
+    }
+    .card:hover {
+        box-shadow: 0 12px 14px 0 rgba(0, 0, 0, 0.4);
+        transition: 1s;
+    }
+    .card img{
+        max-height:165px;
+    }
+    .container {
+        padding: 0 16px;
+        height: 100px;
+    }
+    .container .bottom-button{}
+    .container h2{
+        display: block;
+        font-size: 1.5em;
+        -webkit-margin-before: 0.83em;
+        -webkit-margin-after: 0.83em;
+        -webkit-margin-start: 0px;
+        -webkit-margin-end: 0px;
+        font-weight: bold;
+        color:grey;
+        font-family:Segoe UI;
+    }
+    .container::after, .row::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+    .medicament h2{
+        display: block;
+        font-size: 1.5em;
+        -webkit-margin-before: 0.83em;
+        -webkit-margin-after: 0.83em;
+        -webkit-margin-start: 0px;
+        -webkit-margin-end: 0px;
+        font-weight: bold;
+        color:grey;
+        font-family:Segoe UI;
+        padding: 10px;
+    }
+    .medicament .container{
+        float:left !important;
+    }
+    .medicament .container form{
+         margin-top: 40px;
+     }
+    .medicament .container form input[type=number]{
+        width: 49.5%;;
+    }
+    .medImg{
+        max-height: 200px;
+        max-width: 200px;
+    }
+    .good{
+        max-height: 400px;
+        max-width: 400px;
+        float: left;
+    }
+    .title {
+        color: #333;
+        font-family:Segoe UI;
+        text-align: justify;
+        font-size: 2.5vh;
+        text-shadow: black 0 0 0px;
+    }
+
+    .price {
+        font-family:Segoe UI;
+        font-size: 2.5vh;
+        color: #333;
+    }
+
+    .button {
+        border: none;
+        outline: 0;
+        display: inline-block;
+        padding: 8px;
+        color: white;
+        background-color: rgba(98, 162, 183, 1);
+        text-align: center;
+        cursor: pointer;
+        width: 100%;
+        margin:10px 0px;
+    }
+
+    .button:hover {
+        background-color: #555;
+    }
+}
+@media only screen and (max-width: 981px) {
+
+    body{
+        display: block;
+        width: 100%;
+        background-color: rgba(173,173,173,0.4);
+    }
+    header{
+        display: block;
+    }
+    nav{
+        display: block;
+        position: fixed;
+        width: 100vw;
+        top:0;
+    }
+    nav ul #search{
+        display: none;
+    }
+    nav ul li{
+        text-decoration: none;
+        display: none;
+        padding: 20px;
+        font-family: 'Roboto', sans-serif;
+        font-size: 15pt;
+        background-color: rgba(42, 112, 139, 0.88);
+    }
+    nav ul a{
+        font-family: 'Roboto', sans-serif;
+        font-size: 17pt;
+        color:white;
+        text-decoration: none;
+    }
+    .page{
+        margin-top:65px;
+        width:100%;
+        display: block;
+    }
+    .column {
+        width: 100%;
+        display: block;
+    }
+    /* ICON */
+    #icon-nav{
+        display:block !important;
+    }
+    .icon{
+        max-height:17pt;
+        display:block;
+    }
+    /*POPUP*/
+    .popup {
+        display: none;
+        position: fixed;
+        margin: auto;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(76, 76, 76, 0.7);
+        width: 100vw;
+        height: 100vh;
+        z-index: 12;
+    }
+
+    #add-user{
+        position: fixed;
+        left: 5vw;
+        right: 5vw;
+        display: block;
+        background-color: white;
+        text-align: center;
+        overflow: auto;
+        height: inherit;
+    }
+
+    #login .card {
+        position: fixed;
+        left: 5vw;
+        right: 5vw;
+        display: block;
+        background-color: white;
+        text-align: center;
+        overflow: auto;
+    }
+    #signup {}
+
+    #signup .card {
+        position: fixed;
+        left: 5vw;
+        right: 5vw;
+        display: block;
+        background-color: white;
+        text-align: center;
+        overflow: auto;
+        height: inherit;
+    }
+
+    .signup {
+        display: block;
+        color: #333;
+        margin: auto;
+        max-width: 800px;
+        height: 3vh;
+    }
+
+    #form {
+        border: 0px;
+        border-radius: 0px;
+        margin: auto;
+        width: 70%;
+        font-family: 'Roboto', sans-serif;
+    }
+
+    #form h2 {
+        padding-top: 10px;
+    }
+
+    #form input {
+        display: block;
+        width: 100%;
+        margin: 20px;
+        border: 1px solid #333
+    }
+
+    #form input[type=text] {
+        box-shadow: #737373;
+        line-height: 2;
+    }
+
+    .button1 {
+        display: inline-block;
+    }
+
+    #form input[placeholder] {
+        text-indent: 10px;
+        font-family: 'Roboto', sans-serif;
+        font-size: 10pt;
+    }
+    .column {
+        width: 100%;
+        display: block;
+    }
+    /* CARD */
+    /* Three columns side by side */
+    /* Three columns side by side */
+    .column {
+        width: 100%;
+    }
+
+    .card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        background-color: white;
+        min-height:340px;
+        transition: 1s;
+        margin-top: 20px;
+        height:auto;
+    }
+    .card:hover {
+        box-shadow: 0 12px 14px 0 rgba(0, 0, 0, 0.4);
+        transition: 1s;
+    }
+    .card img{
+        max-height:165px;
+    }
+    .container {
+        padding: 0 16px;
+        height: 100px;
+    }
+    .container .bottom-button{}
+    .container h2{
+        display: block;
+        font-size: 1.5em;
+        -webkit-margin-before: 0.83em;
+        -webkit-margin-after: 0.83em;
+        -webkit-margin-start: 0px;
+        -webkit-margin-end: 0px;
+        font-weight: bold;
+        color:grey;
+        font-family:Segoe UI;
+    }
+    .container::after, .row::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+
+    .title {
+        color: #333;
+        font-family:Segoe UI;
+        text-align: justify;
+        font-size: 2.5vh;
+        text-shadow: black 0 0 0px;
+    }
+
+    .price {
+        font-family:Segoe UI;
+        font-size: 2.5vh;
+        color: #333;
+    }
+
+    .button {
+        border: none;
+        outline: 0;
+        display: inline-block;
+        padding: 8px;
+        color: white;
+        background-color: rgba(98, 162, 183, 1);
+        text-align: center;
+        cursor: pointer;
+        width: 100%;
+        margin:10px 0px;
+    }
+
+    .button:hover {
+        background-color: #555;
+    }
+}
