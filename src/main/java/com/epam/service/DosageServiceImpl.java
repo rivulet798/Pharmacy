@@ -9,6 +9,7 @@ import com.epam.service.utils.Validator;
 import com.epam.service.utils.exception.ValidatorException;
 import org.apache.log4j.Logger;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DosageServiceImpl implements DosageService {
@@ -34,4 +35,34 @@ public class DosageServiceImpl implements DosageService {
         logger.debug("DosageServiceImpl.getDosagesByMedicamentId() - success.");
         return dosages;
     }
+
+    @Override
+    public void addDosage(int idMedicament, String... dosages) throws ServiceException {
+        logger.debug("DosageServiceImpl.addDosage()");
+        IDosageDao dosageDao = daoFactory.getIDosageDao();
+        try{
+            List<Integer> validatedDosages = checkAndConvertDosages(dosages);
+            if(validatedDosages.size()!=0){
+                for(Integer dosage : validatedDosages) {
+                    dosageDao.addDosage(idMedicament, dosage);
+                }
+            }
+            else throw new ServiceException("Enter the dosage to add the med");
+        } catch (DaoException e){
+            throw new ServiceException(e);
+        }
+    }
+
+    private List<Integer> checkAndConvertDosages(String... dosages){
+        List<Integer> validatedDosages = new ArrayList<>();
+        for(String dosage : dosages){
+            try{
+                Validator.matchNumber(dosage);
+                int validDosage = Integer.parseInt(dosage);
+                validatedDosages.add(validDosage);
+            } catch (ValidatorException e){}
+        }
+        return validatedDosages;
+    }
+
 }

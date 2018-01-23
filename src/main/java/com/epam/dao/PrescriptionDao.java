@@ -158,7 +158,6 @@ public class PrescriptionDao implements IPrescriptionDao {
             statement = null;
             statement = connection.prepareStatement(GET_PRESCRIPTIONS_DTO_BY_USER_ID);
             statement.setInt(1,userId);
-            logger.info("//////////statement//////"+statement);
             resultSet = null;
             resultSet = statement.executeQuery();
             while (resultSet.next()) {

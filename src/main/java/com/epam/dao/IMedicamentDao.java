@@ -6,7 +6,7 @@ import com.epam.entity.Medicament;
 import java.util.List;
 
 public interface IMedicamentDao {
-    boolean addMedicament(Medicament medicament) throws DaoException;
+    int addMedicament(Medicament medicament) throws DaoException;
     boolean deleteMedicament();
 
     Medicament getMedicamentById(int id) throws DaoException;

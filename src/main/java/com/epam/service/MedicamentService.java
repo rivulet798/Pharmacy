@@ -14,7 +14,7 @@ public interface MedicamentService {
     List<Medicament> getDescSortedByPriceMedicaments() throws ServiceException;
     Medicament getMedicamentById(String id) throws ServiceException;
     List<Medicament> getMedicamentsByProducer(String producer) throws ServiceException;
-    void addMedicament(String name, String producer, String price,
+    int addMedicament(String name, String producer, String price,
                        String prescroption, Part part,
                        String image, String availability) throws ServiceException,ServiceLogicException;
     List<Medicament> getMedicamentByName(String name) throws ServiceException;

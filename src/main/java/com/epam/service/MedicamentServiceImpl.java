@@ -1,5 +1,6 @@
 package com.epam.service;
 
+import com.epam.dao.IDosageDao;
 import com.epam.dao.IMedicamentDao;
 import com.epam.dao.exception.DaoException;
 import com.epam.dao.factory.DaoFactory;
@@ -123,13 +124,14 @@ public class MedicamentServiceImpl implements MedicamentService {
     }
 
     @Override
-    public void addMedicament(String name, String producer,
+    public int addMedicament(String name, String producer,
                               String price, String prescription,
                               Part part, String webInfPath, String availability) throws ServiceException, ServiceLogicException {
 
         logger.debug("MedicamentServiceImpl.addMedicament");
         Medicament medicament = new Medicament();
         IMedicamentDao medicamentDao = daoFactory.getIMedicamentDao();
+        int idMedicament;
         try {
             Validator.isNull(name, producer, price, prescription, webInfPath, availability);
             Validator.isEmptyString(name, producer, price, prescription, webInfPath, availability);
@@ -143,7 +145,7 @@ public class MedicamentServiceImpl implements MedicamentService {
             if (!imageName.isEmpty()) {
                 medicament.setImage(imageName);
             }
-            medicamentDao.addMedicament(medicament);
+            idMedicament = medicamentDao.addMedicament(medicament);
             String fileName = Paths.get(part.getSubmittedFileName()).getFileName().toString();
             if (!fileName.isEmpty()) {
                 uploadImage(part, fileName, webInfPath);
@@ -154,6 +156,7 @@ public class MedicamentServiceImpl implements MedicamentService {
             throw new ServiceException("number format exception", e);
         }
         logger.debug("MedicamentServiceImpl.addMedicament - success");
+        return idMedicament;
     }
 
     @Override
@@ -163,7 +166,7 @@ public class MedicamentServiceImpl implements MedicamentService {
         IMedicamentDao iMedicamentDao = daoFactory.getIMedicamentDao();
         try {
             Validator.isNull(name);
-            Validator.isEmptyString(name);
+            Validator.matchLength(name);
             medicaments = iMedicamentDao.getMedicamentsByName(name);
         } catch (DaoException | ValidatorException e) {
             throw new ServiceException(e);

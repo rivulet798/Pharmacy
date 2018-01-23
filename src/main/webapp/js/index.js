@@ -1,7 +1,4 @@
-﻿var s='';
-var cook=-1;
-var today = new Date();
-var expiration = new Date(today.getTime() + 31 * 24 * 60 * 60 * 1000);  // 31 день
+﻿var today = new Date();
 function valid(form)
 {
     var fail;
@@ -121,6 +118,19 @@ function showSignIn() {
 }
 function hideSignIn() {
     $("#login").hide();
+}
+function checkSearch(){
+    if($("#searchInput").val().length<3){
+        $("#searchInput").css('border-bottom','2px solid #e40202');
+        return false;
+    }
+    else{
+        $("#searchInput").css('border-bottom','2px solid #0fde58');
+        return true;
+    }
+}
+function addDosage(){
+    $("#dosages").append('<input type="number" name="dosage" id="dosage" placeholder="Дозировка" required>');
 }
 
 

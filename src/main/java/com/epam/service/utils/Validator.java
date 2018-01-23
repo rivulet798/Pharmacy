@@ -98,4 +98,13 @@ public class Validator {
         }
 
     }
+
+    public final static void matchLength(String... strings) throws ValidatorException{
+        for (String s :strings){
+            if(s.length() < 3){
+                throw new ValidatorException("The string must contain at least three letters");
+            }
+        }
+    }
+
 }

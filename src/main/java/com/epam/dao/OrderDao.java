@@ -45,8 +45,11 @@ public class OrderDao implements IOrderDao {
             statement.setInt(5, order.getIdDosage());
             statement.executeUpdate();
             resultSet = statement.getGeneratedKeys();
-            resultSet.next();
-            return (int)resultSet.getLong(1);
+            if(resultSet.next()) {
+               int idOrder =(int)resultSet.getLong(1);
+               return idOrder;
+            }
+            return 0;
         } catch (SQLException e) {
             try {
                 connection.rollback();

@@ -25,6 +25,7 @@ public class Pay implements Command {
             if(idRole.equals(Constants.USER)) {
                 OrderService orderService = serviceFactory.getOrderServiceImpl();
                 String idOrder = request.getParameter(RequestEnum.ID_ORDER.getValue());
+                logger.info("/////////////"+idOrder);
                 if(orderService.changeOrderStatus(idOrder, Constants.STATUS_PAID)){
                     request.setAttribute(RequestEnum.INFORMATION.getValue(), "Заказ успешно оплачен");
                 }

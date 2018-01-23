@@ -19,7 +19,7 @@
 
     <div class="card">
         <a class="button" href="/get_my_cart.do">Корзина</a>
-        <a class="button" href="/get_my_orders.do">Мои заказы</a>
+        <a class="button" href="/get_my_orders.do?">Мои заказы</a>
         <table>
         <tr>
             <th>Лекарство</th>
@@ -38,7 +38,7 @@
                         <td>${orderDto.number}</td>
                         <td>${orderDto.dosage}</td>
                         <td>${orderDto.price}</td>
-                        <td><a onclick="showPopUp()${orderDto.idOrder};" class="button">Оформить заказ</a></td>
+                        <td><a onclick="showPopUp();" class="button">Оформить заказ</a></td>
                     </tr>
                 </c:forEach>
             </c:when>

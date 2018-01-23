@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface IDosageDao {
     List<Dosage> getDosagesByMedicamentId(int idMedicament) throws DaoException;
+    boolean addDosage(int idMedicament, int dosage) throws DaoException;
 }

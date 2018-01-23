@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface DosageService {
     List<Dosage> getDosagesByMedicamentId(String idMedicament) throws ServiceException;
+    void addDosage(int idMedicament, String... dosages) throws ServiceException;
 
 }

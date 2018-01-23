@@ -37,13 +37,14 @@ public class MedicamentDao implements IMedicamentDao {
     }
 
     @Override
-    public boolean addMedicament(Medicament medicament) throws DaoException{
+    public int addMedicament(Medicament medicament) throws DaoException{
         logger.debug("MedicamentDao.addMedicament()");
         try{
             connectionPool = ConnectionPool.getInstance();
             connection = connectionPool.retrieve();
             statement = null;
-            statement = connection.prepareStatement(ADD_MEDICAMENT);
+            String generatedColumns[] = { "idMedicament" };
+            statement = connection.prepareStatement(ADD_MEDICAMENT, generatedColumns);
             statement.setString(1,medicament.getName());
             statement.setString(2,medicament.getProducer());
             statement.setFloat(3,medicament.getPrice());
@@ -52,10 +53,13 @@ public class MedicamentDao implements IMedicamentDao {
             statement.setBoolean(6,medicament.isAvailability());
             if(statement.executeUpdate()!=0){
                 logger.debug("MedicamentDao.addMedicament()-success");
-                return true;
+                resultSet = statement.getGeneratedKeys();
+                resultSet.next();
+                int idMedicament = resultSet.getInt(1);
+                return idMedicament;
             }else{
                 logger.debug("MedicamentDao.addMedicament()-failed");
-                return false;
+                return 0;
             }
         }catch (SQLException e) {
             try {
@@ -77,7 +81,6 @@ public class MedicamentDao implements IMedicamentDao {
     public boolean deleteMedicament() {
         return false;
     }
-
 
 
     @Override
@@ -297,8 +300,6 @@ public class MedicamentDao implements IMedicamentDao {
             connection = connectionPool.retrieve();
             statement = null;
             statement = connection.prepareStatement(EDIT_MEDICAMENT);
-            logger.info("inDao//////////////"+medicament.getName()+"  "+medicament.getProducer()+"  "+medicament.getPrice()+
-            "  "+medicament.isPrescription()+"  "+medicament.getImage()+"   "+medicament.isAvailability()+"   "+ medicament.getId());
             statement.setString(1,medicament.getName());
             statement.setString(2,medicament.getProducer());
             statement.setFloat(3,medicament.getPrice());

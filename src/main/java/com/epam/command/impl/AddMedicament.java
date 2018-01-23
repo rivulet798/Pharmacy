@@ -2,6 +2,7 @@ package com.epam.command.impl;
 
 import com.epam.command.Command;
 
+import com.epam.service.DosageService;
 import com.epam.service.MedicamentService;
 import com.epam.service.factory.ServiceFactory;
 import com.epam.service.exception.ServiceException;
@@ -34,6 +35,7 @@ public class AddMedicament implements Command {
                 String csrfTokenFromRequest = request.getParameter(RequestEnum.CSRF_TOKEN.getValue());
                 if(csrfToken.equals(csrfTokenFromRequest)) {
                     MedicamentService medicamentService = serviceFactory.getMedicamentServiceImpl();
+                    DosageService dosageService = serviceFactory.getDosageServiceImpl();
                     String name = request.getParameter(RequestEnum.NAME.getValue());
                     String producer = request.getParameter(RequestEnum.PRODUCER.getValue());
                     String price = request.getParameter(RequestEnum.PRICE.getValue());
@@ -41,8 +43,9 @@ public class AddMedicament implements Command {
                     Part part = request.getPart(RequestEnum.IMAGE.getValue());
                     String webInfPath = request.getServletContext().getRealPath("/");
                     String availability = request.getParameter(RequestEnum.AVAILABILITY.getValue());
-                    medicamentService.addMedicament(name, producer, price, prescription, part, webInfPath, availability);
-
+                    String[] dosages = request.getParameterValues("dosage");
+                    int idMedicament = medicamentService.addMedicament(name, producer, price, prescription, part, webInfPath, availability);
+                    dosageService.addDosage(idMedicament, dosages);
                     request.setAttribute(RequestEnum.INFORMATION.getValue(), "Medicament is added");
                     logger.debug("\"" + name + "\" added medicament");
                 } else{

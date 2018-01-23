@@ -290,7 +290,15 @@ tr td{
         width: 100%;
         line-height: normal;
         margin: 20px;
-        border: 1px solid #333
+        border: 1px solid #333;
+    }
+
+    #form textarea{
+        display: block;
+        width: 100%;
+        line-height: normal;
+        margin: 20px;
+        border: 1px solid #333;
     }
 
     #form input[type=text] {
@@ -345,6 +353,7 @@ tr td{
         min-height:340px;
         transition: 1s;
         height:auto;
+        overflow: auto;
     }
     .card:hover {
         box-shadow: 0 12px 14px 0 rgba(0, 0, 0, 0.4);

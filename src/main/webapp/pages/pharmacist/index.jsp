@@ -69,10 +69,18 @@
                     <option value="false">Нет в наличии</option>
                     <option value="true">Есть в наличии</option>
                 </select>
-                <input type="hidden" name="csrfToken" value="${csrfToken}">
-                <input type="submit" name="Добавить" value="Добавить" class="button1">
-                <input type="button" name="Закрыть" value="Закрыть" onclick="hidePopUp();" class="button1">
+                <textarea name="modeOfApplication" id="modeOfApplication" rows="3" placeholder="Способ применения"></textarea>
+                <textarea name="contraindications" id="contraindications" rows="3" placeholder="Противопоказания"></textarea>
+                <textarea name="sideEffects" id="sideEffects" rows="2" placeholder="Побочные эффекты"></textarea>
+                <div id="dosages">
+                    <input type="number" name="dosage" id="dosage" placeholder="Дозировка">
+                    <button onclick="addDosage()">Добавить дозировку</button>
+                </div>
+                <input type="hidden" name="csrfToken" value="${csrfToken}"/>
+                <input type="submit" name="Добавить" value="Добавить" class="button1"/>
+                <input type="button" name="Закрыть" value="Закрыть" onclick="hidePopUp();" class="button1"/>
             </form>
         </div>
+    </div>
     </body>
 </html>
