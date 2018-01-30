@@ -8,8 +8,11 @@ import com.epam.service.exception.ServiceLogicException;
 import java.util.List;
 
 public interface OrderService {
-    int addToCart(String idUser, String idMedicament,
-                   String number, String dosage) throws ServiceException,ServiceLogicException;
+    int addToCartMedWithPrescription(String idUser, String idMedicament,
+                   String number, String dosage, String idPrescription) throws ServiceException,ServiceLogicException;
+
+    int addToCartMedWithoutPrescription(String idUser, String idMedicament,
+                                     String number, String dosage) throws ServiceException,ServiceLogicException;
 
     boolean changeOrderStatus(String idOrder, int idStatus) throws ServiceException;
 

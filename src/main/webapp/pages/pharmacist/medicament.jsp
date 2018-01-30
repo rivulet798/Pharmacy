@@ -7,55 +7,71 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
-    <style><%@include file="/css/index.css"%></style>
-    <script><%@include file="/js/index.js"%></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <link href="/css/index.css" rel="stylesheet">
+    <fmt:setLocale scope="session" value="${sessionScope.locale}"/>
+    <fmt:setBundle basename="localization.locale" scope="session" var="loc"/>
+    <fmt:message bundle="${loc}" key="local.word.name" var="name"/>
+    <fmt:message bundle="${loc}" key="local.word.image" var="image"/>
+    <fmt:message bundle="${loc}" key="local.word.producer" var="producer"/>
+    <fmt:message bundle="${loc}" key="local.word.price" var="price"/>
+    <fmt:message bundle="${loc}" key="local.word.unit_of_price" var="unit_of_price"/>
+    <fmt:message bundle="${loc}" key="local.sentence.leave_form" var="leave_form"/>
+    <fmt:message bundle="${loc}" key="local.sentence.released_without_prescription" var="released_without_prescription"/>
+    <fmt:message bundle="${loc}" key="local.sentence.released_by_prescription" var="released_by_prescription"/>
+    <fmt:message bundle="${loc}" key="local.word.availability" var="availability"/>
+    <fmt:message bundle="${loc}" key="local.sentence.is_available" var="is_available"/>
+    <fmt:message bundle="${loc}" key="local.sentence.not_available" var="not_available"/>
+    <fmt:message bundle="${loc}" key="local.button.ready" var="ready"/>
+
+
+
     <title>PHARMACY</title>
 </head>
 <body>
-<%@include file="../header.html"%>
+<%@include file="../header.jsp"%>
 <div class="page">
         <div class="card medicament">
             <form action="edit_medicament.do?idMedicament=${medicament.id}" method="post" enctype="multipart/form-data">
-                <h2>Название: <input type="text" name="name" value="${medicament.name}"/></h2>
+                <h2>${name}: <input type="text" name="name" value="${medicament.name}"/></h2>
                 <img src="images/medicaments/${medicament.image}" class="good">
                 <div class="container" >
-                <p class="title">Изображение: <input type="file" name="image"/></p>
-                <p class="title"> Производитель:<input type="text" name="producer" value="${medicament.producer}"/></p>
-                    <p class="title"> Цена: <input type="text" name="price" value="${medicament.price}"/> бел. руб.</p>
+                <p class="title">${image}: <input type="file" name="image"/></p>
+                <p class="title"> ${producer}:<input type="text" name="producer" value="${medicament.producer}"/></p>
+                    <p class="title"> ${price}: <input type="text" name="price" value="${medicament.price}"/> ${unit_of_price}</p>
                     <p><select name="prescription">
-                        <option value="" disabled selected>Форма отпуска</option>
+                        <option value="" disabled selected>${leave_form}</option>
                     <c:choose>
                         <c:when test="${medicament.prescription}">
-                            <option value="false">Без рецепта</option>
-                            <option selected value="true">По рецепту</option>
+                            <option value="false">${released_without_prescription}</option>
+                            <option selected value="true">${released_by_prescription}</option>
                         </c:when>
                         <c:when test="${!medicament.prescription}">
-                            <option selected value="false">Без рецепта</option>
-                            <option value="true">По рецепту</option>
+                            <option selected value="false">${released_without_prescription}</option>
+                            <option value="true">${released_by_prescription}</option>
                         </c:when>
                     </c:choose>
                     </select>
                     <select name="availability">
-                        <option value="" disabled selected>Наличие</option>
+                        <option value="" disabled selected>${availability}</option>
                     <c:choose>
                         <c:when test="${medicament.availability}">
-                            <option value="false">Нет в наличии</option>
-                            <option selected value="true">Есть в наличии</option>
+                            <option value="false">${not_available}</option>
+                            <option selected value="true">${is_available}</option>
                         </c:when>
                         <c:when test="${!medicament.availability}">
-                            <option selected value="false">Нет в наличии</option>
-                            <option value="true">Есть в наличии</option>
+                            <option selected value="false">${not_available}</option>
+                            <option value="true">${is_available}</option>
                         </c:when>
                     </c:choose>
                     </select>
-                    <input type="submit" class="button" value="Готово"/>
+                    <input type="submit" class="button" value="${ready}"/>
                 </div>
             </form>
         </div>
 
 </div>
-<%@include file="../forms.html"%>
+<%@include file="../forms.jsp"%>
 <%@include file="../footer.html"%>
 </body>
+<%@include file="../scripts.jsp"%>
 </html>

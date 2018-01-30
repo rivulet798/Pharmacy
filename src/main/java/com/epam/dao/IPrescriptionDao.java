@@ -11,8 +11,7 @@ public interface IPrescriptionDao {
     boolean createPrescription();
     Prescription getPrescriptionById(int id) throws DaoException;
     List<Prescription> getPrescriptionsByUserId(int userId) throws DaoException;
-    boolean changeStatus(Prescription prescription);
     List<PrescriptionDto> getPrescriptionsDtoByUserId(int userId) throws DaoException;
     List<PrescriptionDto> getPrescriptionsDtoByUserIdAndMedId(int userId, int idMedicament) throws  DaoException;
-    boolean setPrescriptionInvalid(int idPrescription)throws DaoException;
+    boolean setPrescriptionInvalidByOrderId(int idOrder)throws DaoException;
 }

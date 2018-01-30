@@ -118,15 +118,20 @@ public class UserDao implements IUserDao {
     public User signIn(String login, String password) throws DaoException{
         logger.debug("UserDao.signIn()");
         try {
+            statement = null;
+            resultSet = null;
+            user = null;
+
             connectionPool = ConnectionPool.getInstance();
             connection = connectionPool.retrieve();
-            statement = null;
+
             statement = connection.prepareStatement(GET_USER_BY_LOGIN_AND_PASSWORD);
             statement.setString(1,login);
             statement.setString(2,password);
-            resultSet = null;
+            logger.info("//////////////////////statement/////"+statement);
             resultSet = statement.executeQuery();
             if (resultSet.first()) {
+                logger.info("/////////resset////"+resultSet.toString());
                 user = load(resultSet);
             }
         } catch (SQLException e) {

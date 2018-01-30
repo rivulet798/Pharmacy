@@ -17,12 +17,12 @@ import java.util.List;
 public class PrescriptionDao implements IPrescriptionDao {
     private static Logger logger = Logger.getLogger(PrescriptionDao.class);
 
-    private static final String SET_PRESCRIPTION_INVALID = "UPDATE pharmacy.prescription SET valid=0 WHERE idPrescription=?;";
+    private static final String SET_PRESCRIPTION_INVALID = "UPDATE pharmacy.prescription p  JOIN pharmacy.order o ON p.idPrescription = o.idPrescription SET p.valid=0 WHERE o.idOrder=?;";
     private static String GET_PRESCRIPTION_BY_ID = "SELECT * FROM pharmacy.prescription WHERE idPrescription=?;";
     private static String ADD_PRESCRIPTION = "INSERT INTO prescription (idDoctor,idUser,idMedicament,dateOfIssue,dateOfCompletion,idDosage,number) VALUES(?,?,?,?,?,?,?);";
     private static String GET_PRESCRIPTIONS_BY_USER_ID = "SELECT * FROM pharmacy.prescription WHERE prescription.valid=1 AND prescription.idUser=?;";
     private static String GET_PRESCRIPTIONS_DTO_BY_USER_ID = "SELECT idPrescription, dateOfIssue, dateOfCompletion, number, dosage, a.name, a.surname, m.name AS medicamentName FROM prescription p JOIN medicament m ON p.idMedicament = m.idMedicament JOIN account a ON p.idDoctor = a.idUser JOIN dosage d ON p.idDosage = d.id WHERE p.idUser=? AND p.valid=1;";
-    private  static String GET_PRESCRIPTIONS_BY_USER_ID_AND_MED_ID = "SELECT d.id as idDosage, dosage, number, valid, p.idPrescription FROM prescription p JOIN dosage d ON p.idDosage = d.id WHERE p.idUser=? AND p.idMedicament=? AND p.valid=1;";
+    private  static String GET_PRESCRIPTIONS_BY_USER_ID_AND_MED_ID = "SELECT d.id as idDosage, dosage, number, valid, p.idPrescription FROM prescription p JOIN dosage d ON p.idDosage = d.id WHERE p.idUser=? AND p.idMedicament=? AND p.valid=1 AND DATEDIFF(p.dateOfCompletion, curdate())>=0;";
 
     private ConnectionPool connectionPool;
     private Connection connection;
@@ -144,11 +144,6 @@ public class PrescriptionDao implements IPrescriptionDao {
     }
 
     @Override
-    public boolean changeStatus(Prescription prescription) {
-        return false;
-    }
-
-    @Override
     public List<PrescriptionDto> getPrescriptionsDtoByUserId(int userId) throws DaoException {
         logger.debug("PrescriptionDao.getPrescriptionsDtoByUserId()");
         try {
@@ -224,13 +219,13 @@ public class PrescriptionDao implements IPrescriptionDao {
     }
 
     @Override
-    public boolean setPrescriptionInvalid(int idPrescription) throws DaoException {
+    public boolean setPrescriptionInvalidByOrderId(int idOrder) throws DaoException {
         try{
             connectionPool = ConnectionPool.getInstance();
             connection = connectionPool.retrieve();
             statement = null;
             statement = connection.prepareStatement(SET_PRESCRIPTION_INVALID);
-            statement.setInt(1,idPrescription);
+            statement.setInt(1,idOrder);
             resultSet = null;
             if(statement.executeUpdate()!=0) {
                 return true;

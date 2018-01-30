@@ -10,13 +10,36 @@
     <style><%@include file="/css/index.css"%></style>
     <script><%@include file="/js/index.js"%></script>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <fmt:setLocale scope="session" value="${sessionScope.locale}"/>
+    <fmt:setBundle basename="localization.locale" scope="session" var="loc"/>
+    <fmt:message bundle="${loc}" key="local.button.add_an_employee" var="add_an_employee"/>
+    <fmt:message bundle="${loc}" key="local.word.employee" var="employee"/>
+    <fmt:message bundle="${loc}" key="local.word.email" var="email"/>
+    <fmt:message bundle="${loc}" key="local.word.address" var="address"/>
+    <fmt:message bundle="${loc}" key="local.button.add" var="add"/>
+    <fmt:message bundle="${loc}" key="local.button.cancel" var="cancel"/>
+    <fmt:message bundle="${loc}" key="local.sentence.nothing_found" var="nothing_found"/>
+    <fmt:message bundle="${loc}" key="local.sentence.adding_of_an_employee" var="adding_of_an_employee"/>
+    <fmt:message bundle="${loc}" key="local.sentence.enter_name" var="enter_name"/>
+    <fmt:message bundle="${loc}" key="local.sentence.enter_surname" var="enter_surname"/>
+    <fmt:message bundle="${loc}" key="local.sentence.enter_address" var="enter_address"/>
+    <fmt:message bundle="${loc}" key="local.sentence.enter_e-mail" var="enter_e-mail"/>
+    <fmt:message bundle="${loc}" key="local.sentence.enter_login" var="enter_login"/>
+    <fmt:message bundle="${loc}" key="local.sentence.enter_password" var="enter_password"/>
+    <fmt:message bundle="${loc}" key="local.sentence.confirm_password" var="confirm_password"/>
+    <fmt:message bundle="${loc}" key="local.sentence.hint_email" var="hint_email"/>
+    <fmt:message bundle="${loc}" key="local.sentence.hint_login" var="hint_login"/>
+    <fmt:message bundle="${loc}" key="local.sentence.hint_password" var="hint_password"/>
+
+
+
     <title>PHARMACY</title>
 </head>
 
 <body>
-<%@include file="../header.html"%>
+<%@include file="../header.jsp"%>
 <div class="page">
-    <button class="button" onclick="showPopUp();">Дoбавить работника</button>
+    <button class="button" onclick="showPopUp();">${add_an_employee}</button>
 
     <div class="row">
         <c:choose>
@@ -24,9 +47,9 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>Работник</th>
-                            <th>Электронная почта</th>
-                            <th>Адрес</th>
+                            <th>${employee}</th>
+                            <th>${email}</th>
+                            <th>${address}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -41,42 +64,37 @@
                 </table>
             </c:when>
             <c:otherwise>
-                <h2>Ничего не найдено</h2>
+                <h2>${nothing_found}</h2>
             </c:otherwise>
         </c:choose>
     </div>
 </div>
-<%@include file="../forms.html"%>
+<%@include file="../forms.jsp"%>
 <%@include file="../footer.html"%>
 <div id="add-user" class="popup">
     <div class="card">
         <form name="Reviews" method="POST" id="form" action="/add_user.do" onsubmit="return valid(this)">
-            <h2>Добавление работника</h2>
-            <input class="signup" type="text" name="name" placeholder="Введите имя" id="name" />
-            <input class="signup" type="text" name="surname" placeholder="Введите фамилию" id="surname" />
-            <input class="signup" type="text" name="address" placeholder="Введите адрес" id="address" >
+            <h2>${adding_of_an_employee}</h2>
+            <input class="signup" type="text" name="name" placeholder="${enter_name}" id="name" />
+            <input class="signup" type="text" name="surname" placeholder="${enter_surname}" id="surname" />
+            <input class="signup" type="text" name="address" placeholder="${enter_address}" id="address" >
             <div class="tooltip">
-                <input class="signup" type="text" name="email" placeholder="Введите e-mail" id="email" />
-                <span class="tooltiptext">Введите e-mail в виде name@mail.ru.</span>
+                <input class="signup" type="text" name="email" placeholder="${enter_e-mail}" id="email" />
+                <span class="tooltiptext">${hint_email}.</span>
             </div>
             <div class="tooltip">
-                <input class="signup" type="text" name="login" placeholder="Введите логин">
-                <span class="tooltiptext">Разрешено использовать латинские
-                            буквы, цифры и знак "_".
-                            Первый символ латинская буква.
-                            Длина логина не менее 5 символов.</span>
+                <input class="signup" type="text" name="login" placeholder="${enter_login}">
+                <span class="tooltiptext">${hint_login}.</span>
             </div>
             <div class="tooltip">
-                <input class="signup" type="password" name="password" placeholder="Введите пароль" id="password" >
-                <span class="tooltiptext">Пароль должен содержать не менее
-                            6 символов.Не менее одной буквы в каждом
-                            регистре и не менее одной цифры.</span>
+                <input class="signup" type="password" name="password" placeholder="${enter_password}" id="password" >
+                <span class="tooltiptext">${hint_password}.</span>
             </div>
-            <input class="signup" type="password" name="rePassword" placeholder="Подтвердите пароль" id="repassword">
+            <input class="signup" type="password" name="rePassword" placeholder="${confirm_password}" id="repassword">
             <input class="signup" type="hidden" name="roleUser" id="roleUser" value="${newUserRole}">
 
-            <input type="submit" name="Добавить" value="Добавить" class="button1">
-            <input type="button" name="Закрыть" value="Закрыть" onclick="hidePopUp();" class="button1">
+            <input type="submit" name="Добавить" value="${add}" class="button1">
+            <input type="button" name="Закрыть" value="${cancel}" onclick="hidePopUp();" class="button1">
         </form>
     </div>
 </div>

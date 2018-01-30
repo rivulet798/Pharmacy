@@ -35,7 +35,9 @@ public enum RequestEnum {
     ID_ORDER("idOrder"),
     ID_MEDICAMENT("idMedicament"),
 
-    CSRF_TOKEN("csrfToken");
+    CSRF_TOKEN("csrfToken"),
+    LOCALE("locale");
+
     private String value;
 
     RequestEnum(String value) {

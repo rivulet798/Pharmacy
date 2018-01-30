@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
+import java.util.Locale;
 
 @WebServlet(name = "Controller",
         urlPatterns = {"*.do"},
@@ -58,6 +59,8 @@ public class ServletController extends HttpServlet {
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getSession().isNew()) {
             request.getSession().setAttribute(RequestEnum.USER_ROLE.getValue(), Constants.GUEST);
+            Locale locale = request.getLocale();
+            request.getSession().setAttribute(RequestEnum.LOCALE.getValue(), locale );
         }
         Command command = commandProvider.getCommand(request);
         String page = command.execute(request, response);

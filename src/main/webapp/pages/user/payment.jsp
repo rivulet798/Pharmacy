@@ -10,26 +10,37 @@
     <style><%@include file="/css/index.css"%></style>
     <script><%@include file="/js/index.js"%></script>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <fmt:setLocale scope="session" value="${sessionScope.locale}"/>
+    <fmt:setBundle basename="localization.locale" scope="session" var="loc"/>
+    <fmt:message bundle="${loc}" key="local.sentence.continue_browsing" var="continue_browsing"/>
+    <fmt:message bundle="${loc}" key="local.sentence.pay_an_order" var="pay_an_order"/>
+    <fmt:message bundle="${loc}" key="local.sentence.card_number" var="card_number"/>
+    <fmt:message bundle="${loc}" key="local.sentence.firstname_lastname" var="firstname_lastname"/>
+    <fmt:message bundle="${loc}" key="local.word.payment" var="payment"/>
+    <fmt:message bundle="${loc}" key="local.button.pay" var="pay"/>
+    <fmt:message bundle="${loc}" key="local.button.cancel" var="cancel"/>
+
+
     <title>PHARMACY</title>
 </head>
 <body>
-<%@include file="../header.html"%>
+<%@include file="../header.jsp"%>
 <div class="page">
 ${information}
-    <a href="/index.do" class="button">Продолжить просмотр</a>
-    <a onclick="showPopUp();" class="button">Оплатить заказ</a>
+    <a href="/index.do" class="button">${continue_browsing}</a>
+    <a onclick="showPopUp();" class="button">${pay_an_order}</a>
 </div>
 <%@include file="../footer.html"%>
 <div id="payment" class="popup">
     <div class="card">
         <div class="signup">
             <form method="POST" id="form" action="/pay.do?idOrder=${idOrder}">
-                <h2>Оплата</h2>
-                <input class="signup" type="number" name="cardnumber" placeholder="Номер карты" />
+                <h2>${payment}</h2>
+                <input class="signup" type="number" name="cardnumber" placeholder="${card_number}" />
                 <input class="signup" type="number" name="cvv" placeholder="CVV">
-                <input class="signup" type="text" name="name" placeholder="Имя Фамилия">
-                <input type="submit" name="Войти" value="Оплатить" class="button1">
-                <input type="button" name="Закрыть" value="Закрыть" onclick="hidePopUp();" class="button1">
+                <input class="signup" type="text" name="name" placeholder="${firstname_lastname}">
+                <input type="submit" name="Оплатить" value="${pay}" class="button1">
+                <input type="button" name="Закрыть" value="${cancel}" onclick="hidePopUp();" class="button1">
             </form>
         </div>
     </div>

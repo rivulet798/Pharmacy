@@ -22,9 +22,37 @@ public class OrderServiceImpl implements OrderService {
 
 
     @Override
-    public int addToCart(String idUser, String idMedicament,
-                            String number, String idDosage) throws ServiceException, ServiceLogicException {
-        logger.debug("OrderServiceImpl.addToCart");
+    public int addToCartMedWithPrescription(String idUser, String idMedicament,
+                            String number, String idDosage, String idPrescription) throws ServiceException, ServiceLogicException {
+        logger.debug("OrderServiceImpl.addToCartMedWithPrescription");
+        IOrderDao orderDao = daoFactory.getIOrderDao();
+        Order order = new Order();
+        try {
+            Validator.isNull(idUser, idMedicament, number, idDosage, idPrescription);
+            Validator.isEmptyString(idUser, idMedicament, number, idDosage, idPrescription);
+            Validator.matchNumber(number, idDosage);
+
+            order.setIdUser(Integer.parseInt(idUser));
+            order.setIdMedicament(Integer.parseInt(idMedicament));
+            order.setIdOrderStatus(Constants.STATUS_IN_CART);
+            order.setNumber(Integer.parseInt(number));
+            order.setIdDosage(Integer.parseInt(idDosage));
+            order.setIdPrescription(Integer.parseInt(idPrescription));
+            int id = orderDao.addOrderWithPrescription(order);
+            if(id>0)
+                return id;
+        } catch (ValidatorException | DaoException e) {
+            throw new ServiceException(e);
+        } catch (NumberFormatException e) {
+            throw new ServiceException("number format exception", e);
+        }
+        return 0;
+    }
+
+    @Override
+    public int addToCartMedWithoutPrescription(String idUser, String idMedicament,
+                                            String number, String idDosage) throws ServiceException, ServiceLogicException {
+        logger.debug("OrderServiceImpl.addToCartMedWithoutPrescription");
         IOrderDao orderDao = daoFactory.getIOrderDao();
         Order order = new Order();
         try {
@@ -37,7 +65,7 @@ public class OrderServiceImpl implements OrderService {
             order.setIdOrderStatus(Constants.STATUS_IN_CART);
             order.setNumber(Integer.parseInt(number));
             order.setIdDosage(Integer.parseInt(idDosage));
-            int id = orderDao.addOrder(order);
+            int id = orderDao.addOrderWithoutPrescription(order);
             if(id>0)
                 return id;
         } catch (ValidatorException | DaoException e) {

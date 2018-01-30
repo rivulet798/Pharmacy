@@ -5,6 +5,9 @@
 <jsp:useBean class="com.epam.entity.User" scope="page" id="user" />
 <html>
     <head>
+        <fmt:setLocale scope="session" value="${sessionScope.locale}"/>
+        <fmt:setBundle basename="localization.locale" scope="session" var="loc"/>
+        <fmt:message bundle="${loc}" key="local.button.writing_the_recipe" var="writing_the_recipe"/>
         <title>Выписать рецепт</title>
     </head>
     <body>
@@ -23,7 +26,7 @@
             <input type="number" name="number">
             <input type="date" name="dateOfCompletion">
             <input type="hidden" name="csrfToken" value="${csrfToken}">
-            <input type="submit" value="Выписать рецепт">
+            <input type="submit" value="${writing_the_recipe}">
         </form>
     </body>
 </html>

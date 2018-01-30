@@ -2,6 +2,7 @@ package com.epam.command.impl;
 
 import com.epam.command.Command;
 import com.epam.service.OrderService;
+import com.epam.service.PrescriptionService;
 import com.epam.service.exception.ServiceException;
 import com.epam.service.factory.ServiceFactory;
 import com.epam.service.utils.Constants;
@@ -25,8 +26,9 @@ public class Pay implements Command {
             if(idRole.equals(Constants.USER)) {
                 OrderService orderService = serviceFactory.getOrderServiceImpl();
                 String idOrder = request.getParameter(RequestEnum.ID_ORDER.getValue());
-                logger.info("/////////////"+idOrder);
                 if(orderService.changeOrderStatus(idOrder, Constants.STATUS_PAID)){
+                    PrescriptionService prescriptionService = serviceFactory.getPrescriptionServiceImpl();
+                    prescriptionService.setPrescriptionInvalidByOrderId(idOrder);
                     request.setAttribute(RequestEnum.INFORMATION.getValue(), "Заказ успешно оплачен");
                 }
                 else {

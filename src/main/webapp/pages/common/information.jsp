@@ -17,11 +17,11 @@
 </head>
 
 <body>
-<%@include file="../header.html"%>
+<%@include file="../header.jsp"%>
 <div class="page">
 ${information}
 </div>
 <%@include file="../footer.html"%>
-<%@include file="../forms.html"%>
+<%@include file="../forms.jsp"%>
 </body>
 </html>

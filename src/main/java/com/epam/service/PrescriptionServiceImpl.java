@@ -138,14 +138,14 @@ public class PrescriptionServiceImpl implements PrescriptionService {
     }
 
     @Override
-    public boolean setPrescriptionInvalid(String idPrescription) throws ServiceException{
-        logger.debug("PrescriptionServiceImpl.setPrescriptionInvalid()");
+    public boolean setPrescriptionInvalidByOrderId(String idOrder) throws ServiceException{
+        logger.debug("PrescriptionServiceImpl.setPrescriptionInvalidByOrderId()");
         IPrescriptionDao prescriptionDao = daoFactory.getIPrescriptionDao();
         try {
-            Validator.isNull(idPrescription);
-            Validator.isEmptyString(idPrescription);
-            int prescriptionId = Integer.parseInt(idPrescription);
-            return prescriptionDao.setPrescriptionInvalid(prescriptionId);
+            Validator.isNull(idOrder);
+            Validator.isEmptyString(idOrder);
+            int orderId = Integer.parseInt(idOrder);
+            return prescriptionDao.setPrescriptionInvalidByOrderId(orderId);
         } catch (DaoException | ValidatorException e) {
             logger.error(e.getMessage());
             throw new ServiceException(e);

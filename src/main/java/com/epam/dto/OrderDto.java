@@ -8,6 +8,7 @@ public class OrderDto {
     private int orderStatus;
     private int number;
     private int dosage;
+    private int idPrescription;
 
     public OrderDto() {
     }
@@ -66,5 +67,13 @@ public class OrderDto {
 
     public void setDosage(int dosage) {
         this.dosage = dosage;
+    }
+
+    public int getIdPrescription() {
+        return idPrescription;
+    }
+
+    public void setIdPrescription(int idPrescription) {
+        this.idPrescription = idPrescription;
     }
 }

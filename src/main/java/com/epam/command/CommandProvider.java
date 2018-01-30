@@ -40,7 +40,7 @@ public final class CommandProvider {
         repository.put(CommandName.ADD_REQUEST, new AddRequest());
         repository.put(CommandName.GET_DOSAGES_BY_MEDICAMENT_ID, new GetDosagesByMedicamentId());
         repository.put(CommandName.GET_AND_EDIT_MEDICAMENT, new GetMedicamentByIdForPharmacist());
-
+        repository.put(CommandName.SET_LOCALE, new SetLocale());
     }
 
     public static CommandProvider getInstance() {

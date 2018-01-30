@@ -3,17 +3,21 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <jsp:useBean class="com.epam.entity.Medicament" scope="page" id="medicament" />
 <jsp:useBean class="com.epam.entity.User" scope="page" id="user" />
+
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
-    <style><%@include file="/css/index.css"%></style>
-    <script><%@include file="/js/index.js"%></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <title>PHARMACY</title>
+    <link href="/css/index.css" rel="stylesheet">
+    <fmt:setLocale scope="session" value="${sessionScope.locale}"/>
+    <fmt:setBundle basename="localization.locale" scope="session" var="loc"/>
+    <fmt:message bundle="${loc}" key="local.word.title" var="title1"/>
+    <fmt:message bundle="${loc}" key="local.sentence.nothing_found" var="nothing_found"/>
+    <fmt:message bundle="${loc}" key="local.button.view" var="view"/>
+    <title>${title1}</title>
 </head>
 <body>
-<%@include file="../header.html"%>
+<%@include file="../header.jsp"%>
 <div class="page">
     <div class="row">
         <c:choose>
@@ -25,20 +29,21 @@
                             <div class="container">
                                 <h2>${medicament.name}</h2>
                                 <p class="title">${medicament.producer}</p>
-                                <p>${medicament.price}</p>
-                                <p class="bottom-button"><a href="/medicament.do?idMedicament=${medicament.id}"><button class="button">Просмотреть</button></a></p>
+                                <p class="title">${medicament.price}</p>
+                                <p class="bottom-button"><a href="/medicament.do?idMedicament=${medicament.id}"><button class="button">${view}</button></a></p>
                             </div>
                         </div>
                     </div>
                 </c:forEach>
             </c:when>
             <c:otherwise>
-                <h2>Ничего не найдено</h2>
+                <h2>${nothing_found}</h2>
             </c:otherwise>
         </c:choose>
     </div>
 </div>
-<%@include file="../forms.html"%>
+<%@include file="../forms.jsp"%>
 <%@include file="../footer.html"%>
 </body>
+<%@include file="../scripts.jsp"%>
 </html>

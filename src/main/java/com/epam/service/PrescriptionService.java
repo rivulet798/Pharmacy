@@ -18,5 +18,5 @@ public interface PrescriptionService {
 
     List<PrescriptionDto> getPrescriptionsByUserIdAndMedId(String idUser, String idMedicament) throws  ServiceException;
 
-    boolean setPrescriptionInvalid(String idPrescription) throws ServiceException;
+    boolean setPrescriptionInvalidByOrderId(String idOrder) throws ServiceException;
 }

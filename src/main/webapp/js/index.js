@@ -133,7 +133,10 @@ function addDosage(){
     $("#dosages").append('<input type="number" name="dosage" id="dosage" placeholder="Дозировка" required>');
 }
 
-
+function showPaymentPopUp(idOrder){
+    showPopUp();
+    $("#payForm").attr('action', '/pay.do?idOrder='+idOrder);
+}
 
 
 

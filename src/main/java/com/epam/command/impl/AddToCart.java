@@ -29,6 +29,7 @@ public class AddToCart implements Command {
         try {
             HttpSession session = request.getSession();
             String idRole="";
+            int idOrder = 0;
             if(session.getAttribute(RequestEnum.USER_ROLE.getValue()).toString()!=null) {
                 idRole = session.getAttribute(RequestEnum.USER_ROLE.getValue()).toString();
             }
@@ -46,18 +47,16 @@ public class AddToCart implements Command {
                     List<PrescriptionDto> prescriptions = prescriptionService.getPrescriptionsByUserIdAndMedId(idUser,idMedicament);
                     for(PrescriptionDto p : prescriptions){
                         if((id==p.getIdPrescription()) && p.isValid()){
-                            orderService.addToCart(idUser,idMedicament,String.valueOf(p.getNumber()),String.valueOf(p.getIdDosage()));
-                            prescriptionService.setPrescriptionInvalid(idPrescription);
+                            idOrder = orderService.addToCartMedWithPrescription(idUser,idMedicament,String.valueOf(p.getNumber()),String.valueOf(p.getIdDosage()),idPrescription);
                         }
                     }
-                    jspPageName = JspPageName.PAYMENT;
                 } else if(!medicament.isPrescription()){
                     String number = request.getParameter(RequestEnum.NUMBER.getValue());
                     String idDosage = request.getParameter(RequestEnum.ID_DOSAGE.getValue());
-                    int idOrder = orderService.addToCart(idUser, idMedicament, number, idDosage);
-                    request.setAttribute("idOrder",idOrder);
-                    jspPageName = JspPageName.PAYMENT;
+                    idOrder = orderService.addToCartMedWithoutPrescription(idUser, idMedicament, number, idDosage);
                 }
+                request.setAttribute("idOrder",idOrder);
+                jspPageName = JspPageName.PAYMENT;
             }
             else{
                 request.setAttribute(RequestEnum.INFORMATION.getValue(), "Нет прав");

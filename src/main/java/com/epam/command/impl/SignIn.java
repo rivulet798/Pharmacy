@@ -33,7 +33,7 @@ public class SignIn implements Command {
             UserService userService = serviceFactory.getUserServiceImpl();
             User user = userService.signIn(login, password);
             logger.info(user);
-            if (user.getIdRole()>0 && user.getIdRole()<5) {
+            if (user!=null && user.getIdRole()>0 && user.getIdRole()<5) {
                 //Cookie cookieLogin = new Cookie(RequestEnum.LOGIN.getValue(), user.getLogin());
                 //response.addCookie(cookieLogin);
                 HttpSession session = request.getSession();
@@ -44,6 +44,7 @@ public class SignIn implements Command {
                 response.sendRedirect("/index.do");
             } else {
                 logger.info(request.getHeader("User-Agent") + " unsuccessfully sign in account.");
+                jspPageName = JspPageName.INFORMATION;
                 request.setAttribute(RequestEnum.INFORMATION.getValue(), "such user is not exist");
             }
         }catch (ServiceException | IOException e){

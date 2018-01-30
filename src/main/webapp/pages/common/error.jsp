@@ -10,19 +10,21 @@
     <style><%@include file="/css/index.css"%></style>
     <script><%@include file="/js/index.js"%></script>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <!-- <script type="text/javascript">
-         window.location.href = "index.do"
-     </script> -->
-    <title>Ошибка</title>
+    <fmt:setLocale scope="session" value="${sessionScope.locale}"/>
+    <fmt:setBundle basename="localization.locale" scope="session" var="loc"/>
+    <fmt:message bundle="${loc}" key="local.word.error_title" var="error_title"/>
+    <fmt:message bundle="${loc}" key="local.sentence.error_message" var="error_message"/>
+
+    <title>${error_title}</title>
 </head>
 
 <body>
-<%@include file="../header.html"%>
+<%@include file="../header.jsp"%>
 <div class="page">
-    Ошибка. Обратитесь к администратору.
+    ${error_message}
 </div>
 </body>
 <footer>Mariya Horuzhenko © 2018.</footer>
 <%@include file="../footer.html"%>
-<%@include file="../forms.html"%></body>
+<%@include file="../forms.jsp"%></body>
 </html>

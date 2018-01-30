@@ -4,7 +4,6 @@ import com.epam.command.Command;
 import com.epam.servlet.RequestEnum;
 import org.apache.log4j.Logger;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

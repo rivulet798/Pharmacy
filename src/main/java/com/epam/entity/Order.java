@@ -9,17 +9,19 @@ public class Order implements Id<Integer> {
     private int number;
     private int idDosage;
     private int idOrderStatus;
+    private int idPrescription;
 
     public Order() {
     }
 
-    public Order(int id, int idUser, int idMedicament, int number, int idDosage, int idOrderStatus) {
+    public Order(int id, int idUser, int idMedicament, int number, int idDosage, int idOrderStatus, int idPrescription) {
         this.id = id;
         this.idUser = idUser;
         this.idMedicament = idMedicament;
         this.number = number;
         this.idDosage = idDosage;
         this.idOrderStatus = idOrderStatus;
+        this.idPrescription = idPrescription;
     }
 
     public Integer getId() {
@@ -70,6 +72,14 @@ public class Order implements Id<Integer> {
         this.idOrderStatus = idOrderStatus;
     }
 
+    public int getIdPrescription() {
+        return idPrescription;
+    }
+
+    public void setIdPrescription(int idPrescription) {
+        this.idPrescription = idPrescription;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -80,13 +90,14 @@ public class Order implements Id<Integer> {
                 (number == order.number) &&
                 (idDosage == order.idDosage) &&
                 (idOrderStatus == order.idOrderStatus) &&
-                (idUser == order.idUser);
+                (idUser == order.idUser) &&
+                (idPrescription == order.idPrescription);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, idUser, idMedicament, number, idDosage, idOrderStatus);
+        return Objects.hash(id, idUser, idMedicament, number, idDosage, idOrderStatus, idPrescription);
     }
 
     @Override
@@ -98,6 +109,7 @@ public class Order implements Id<Integer> {
                 ", number=" + number +
                 ", idDosage=" + idDosage +
                 ", idOrderStatus=" + idOrderStatus +
+                ", idPrescription=" + idPrescription +
                 '}';
     }
 }

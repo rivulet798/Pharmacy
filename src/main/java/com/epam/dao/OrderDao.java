@@ -15,10 +15,11 @@ public class OrderDao implements IOrderDao {
     private static Logger logger = Logger.getLogger(OrderDao.class);
 
     private static String GET_ORDER_BY_ID = "SELECT * FROM pharmacy.order WHERE idOrder=?;";
-    private static String ADD_ORDER = "INSERT INTO pharmacy.order (idUser,idMedicament,idOrderStatus,number,idDosage) VALUES(?,?,?,?,?);";
+    private static String ADD_ORDER_WITH_PRESCRIPTION = "INSERT INTO pharmacy.order (idUser,idMedicament,idOrderStatus,number,idDosage,idPrescription) VALUES(?,?,?,?,?,?);";
+    private static String ADD_ORDER_WITHOUT_PRESCRIPTION = "INSERT INTO pharmacy.order (idUser,idMedicament,idOrderStatus,number,idDosage) VALUES(?,?,?,?,?);";
     private static String CHANGE_ORDER_STATUS = "UPDATE pharmacy.order SET idOrderStatus=? WHERE idOrder=?;";
     private static String GET_ORDERS_BY_USER_ID = "SELECT * FROM pharmacy.order WHERE idUser=?;";
-    private static String GET_ORDERS_DTO_BY_USER_ID_AND_STATUS = "SELECT idOrder, m.name AS medicamentName, m.producer, m.price*number AS price, idOrderStatus, number,idDosage FROM pharmacy.order JOIN medicament m ON pharmacy.order.idMedicament = m.idMedicament WHERE idUser=? AND idOrderStatus=?;";
+    private static String GET_ORDERS_DTO_BY_USER_ID_AND_STATUS = "SELECT idOrder, m.name AS medicamentName, m.producer, m.price*number AS price, idOrderStatus, number,idDosage,idPrescription FROM pharmacy.order JOIN medicament m ON pharmacy.order.idMedicament = m.idMedicament WHERE idUser=? AND idOrderStatus=?;";
 
     private ConnectionPool connectionPool;
     private Connection connection;
@@ -30,14 +31,52 @@ public class OrderDao implements IOrderDao {
     private List<OrderDto> orderDtoList;
 
     @Override
-    public int addOrder(Order order) throws DaoException {
-        logger.debug("OrderDao.addOrder()");
+    public int addOrderWithPrescription(Order order) throws DaoException {
+        logger.debug("OrderDao.addOrderWithPrescription()");
         try {
             connectionPool = ConnectionPool.getInstance();
             connection = connectionPool.retrieve();
             statement = null;
             String generatedColumns[] = { "idOrder" };
-            statement = connection.prepareStatement(ADD_ORDER,  generatedColumns);
+            statement = connection.prepareStatement(ADD_ORDER_WITH_PRESCRIPTION,  generatedColumns);
+            statement.setInt(1, order.getIdUser());
+            statement.setInt(2, order.getIdMedicament());
+            statement.setInt(3, order.getIdOrderStatus());
+            statement.setInt(4, order.getNumber());
+            statement.setInt(5, order.getIdDosage());
+            statement.setInt(6, order.getIdPrescription());
+            statement.executeUpdate();
+            resultSet = statement.getGeneratedKeys();
+            if(resultSet.next()) {
+               int idOrder =(int)resultSet.getLong(1);
+               return idOrder;
+            }
+            return 0;
+        } catch (SQLException e) {
+            try {
+                connection.rollback();
+            } catch (SQLException e1) {
+                throw new DaoException(e);
+            }
+            throw new DaoException("Error of query to database(addOrder)", e);
+        } catch (ConnectionException e) {
+            throw new DaoException("Error with connection with database" + e);
+        } finally {
+            if (connectionPool != null) {
+                connectionPool.putBackConnection(connection, statement, resultSet);
+            }
+        }
+    }
+
+    @Override
+    public int addOrderWithoutPrescription(Order order) throws DaoException {
+        logger.debug("OrderDao.addOrderWithPrescription()");
+        try {
+            connectionPool = ConnectionPool.getInstance();
+            connection = connectionPool.retrieve();
+            statement = null;
+            String generatedColumns[] = { "idOrder" };
+            statement = connection.prepareStatement(ADD_ORDER_WITHOUT_PRESCRIPTION,  generatedColumns);
             statement.setInt(1, order.getIdUser());
             statement.setInt(2, order.getIdMedicament());
             statement.setInt(3, order.getIdOrderStatus());
@@ -46,8 +85,8 @@ public class OrderDao implements IOrderDao {
             statement.executeUpdate();
             resultSet = statement.getGeneratedKeys();
             if(resultSet.next()) {
-               int idOrder =(int)resultSet.getLong(1);
-               return idOrder;
+                int idOrder =(int)resultSet.getLong(1);
+                return idOrder;
             }
             return 0;
         } catch (SQLException e) {
@@ -206,7 +245,6 @@ public class OrderDao implements IOrderDao {
         }
     }
 
-
     private Order load(ResultSet resultSet) throws DaoException{
         Order order = new Order();
         try {
@@ -216,6 +254,7 @@ public class OrderDao implements IOrderDao {
             order.setIdOrderStatus(resultSet.getInt("idOrderStatus"));
             order.setNumber(resultSet.getInt("number"));
             order.setIdDosage(resultSet.getInt("idDosage"));
+            order.setIdPrescription(resultSet.getInt("idPrescription"));
         } catch (SQLException e) {
             logger.error(e.getMessage());
             throw new DaoException(e);
@@ -233,6 +272,7 @@ public class OrderDao implements IOrderDao {
             orderDto.setOrderStatus(resultSet.getInt("idOrderStatus"));
             orderDto.setNumber(resultSet.getInt("number"));
             orderDto.setDosage(resultSet.getInt("idDosage"));
+            orderDto.setIdPrescription(resultSet.getInt("idPrescription"));
         } catch (SQLException e) {
             logger.error(e.getMessage());
             throw new DaoException(e);
