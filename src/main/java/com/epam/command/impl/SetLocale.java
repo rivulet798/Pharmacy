@@ -14,13 +14,11 @@ public class SetLocale implements com.epam.command.Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        String jsp = request.getRequestURI().toString();
-        String jsp1= request.getHeader("Referer");
-        logger.info("/////////////////LOCALE//////"+jsp1);
+        String jsp= request.getHeader("Referer");
         String locale = request.getParameter("locale");
         request.getSession().setAttribute("locale",locale);
         try {
-            response.sendRedirect(jsp1);
+            response.sendRedirect(jsp);
         } catch (IOException e) {
             e.printStackTrace();
         }

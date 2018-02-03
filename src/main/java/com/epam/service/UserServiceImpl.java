@@ -32,10 +32,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean signUp(String idRole, String login, String password, String name, String surname, String address, String email) throws ServiceException, ServiceLogicException {
         logger.debug("UserServiceImpl.signUp()");
-        IUserDao iUserDao = daoFactory.getIUserDao();
+        IUserDao userDao = daoFactory.getIUserDao();
 
         User user = new User();
-        IUserDao userDao = daoFactory.getIUserDao();
         try {
             Validator.isNull(name, idRole, login, password, name, surname, address, email);
             Validator.isEmptyString(name, idRole, login, password, name, surname, address, email);
@@ -52,7 +51,12 @@ public class UserServiceImpl implements UserService {
             user.setSurname(surname);
             user.setAddress(address);
             user.setEmail(email);
-            return (iUserDao.signUp(user));
+            if(isLoginUnique(login) && isEmailUnique(email)) {
+                return (userDao.signUp(user));
+            }
+            else{
+                throw new ServiceLogicException("User with such login or email already exist");
+            }
         } catch (ValidatorException | DaoException e) {
             throw new ServiceException(e);
         } catch (NumberFormatException e) {
@@ -63,7 +67,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User signIn(String login, String password) throws ServiceException {
         logger.debug("UserServiceImpl.signIn()");
-        User user = null;
+        User user;
         IUserDao iUserDao = daoFactory.getIUserDao();
         try {
             Validator.isNull(login, password);
@@ -79,10 +83,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getAllUsersByRoleId(String roleId) throws ServiceException, ServiceLogicException {
-        List<User> users = null;
+        List<User> users;
         try {
             logger.debug("UserServiceImpl.getAllUsersByRoleId()");
-            logger.info("/////"+roleId);
             Validator.isNull(roleId);
             Validator.isEmptyString(roleId);
             int id = Integer.parseInt(roleId);
@@ -95,6 +98,16 @@ public class UserServiceImpl implements UserService {
         }
         logger.debug("UserServiceImpl.getAllUsersByRoleId() - success");
         return users;
+    }
+
+    private boolean isLoginUnique(String login) throws DaoException{
+        IUserDao userDao = daoFactory.getIUserDao();
+        return userDao.isLoginUnique(login);
+    }
+
+    private boolean isEmailUnique(String email) throws DaoException{
+        IUserDao userDao = daoFactory.getIUserDao();
+        return userDao.isEmailUnique(email);
     }
 
 

@@ -25,21 +25,21 @@
             <form name="Reviews" method="POST" id="form" action="/sign_up.do" onsubmit="return valid(this)">
                 <h2>${sign_up}</h2>
                 <div class="tooltip">
-                    <input class="signup" type="text" name="login" placeholder="${enter_login}">
+                    <input class="signup" type="text" name="login" placeholder="${enter_login}" autocomplete="off">
                     <span class="tooltiptext">${hint_login}</span>
                 </div>
                 <div class="tooltip">
-                    <input class="signup" type="password" name="password" placeholder="${enter_password}" id="password" >
+                    <input class="signup" type="password" name="password" placeholder="${enter_password}" autocomplete="off" >
                     <span class="tooltiptext">${hint_password}.</span>
                 </div>
-                <input class="signup" type="password" name="rePassword" placeholder="${confirm_password}" id="repassword">
-                <input class="signup" type="text" name="name" placeholder="${enter_name}" id="name" />
-                <input class="signup" type="text" name="surname" placeholder="${enter_surname}" id="surname" />
+                <input class="signup" type="password" name="rePassword" placeholder="${confirm_password}" autocomplete="off">
+                <input class="signup" type="text" name="name" placeholder="${enter_name}" />
+                <input class="signup" type="text" name="surname" placeholder="${enter_surname}" />
                 <div class="tooltip">
-                    <input class="signup" type="text" name="email" placeholder="${enter_email}" id="email" />
+                    <input class="signup" type="text" name="email" placeholder="${enter_email}" autocomplete="off" />
                     <span class="tooltiptext">${hint_email}.</span>
                 </div>
-                <input class="signup" type="text" name="address" placeholder="${enter_address}" id="address" >
+                <input class="signup" type="text" name="address" placeholder="${enter_address}" >
                 <input type="submit" value="${button_sign_up}" class="button1">
                 <input type="button" value="${cancel}" onclick="hideSignUp();" class="button1">
             </form>
@@ -51,8 +51,8 @@
         <div class="signup">
             <form name="Reviews" method="POST" id="form" action="/sign_in.do" onsubmit="return valid(this)">
                 <h2>${sign_in}</h2>
-                <input class="signup" type="text" name="loglogin" placeholder="${login}" id="loglogin" />
-                <input class="signup" type="password" name="logpassword" placeholder="${password}" id="logpassword">
+                <input class="signup" type="text" name="loglogin" placeholder="${login}" autocomplete="off" />
+                <input class="signup" type="password" name="logpassword" placeholder="${password}" autocomplete="off">
                 <input type="submit" value="${button_sign_in}" class="button1">
                 <input type="button" value="${cancel}" onclick="hideSignIn();" class="button1">
             </form>

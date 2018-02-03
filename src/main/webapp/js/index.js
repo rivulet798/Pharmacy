@@ -1,5 +1,4 @@
-﻿var today = new Date();
-function valid(form)
+﻿function valid(form)
 {
     var fail;
     var n=1;
@@ -54,7 +53,6 @@ function valid(form)
     }
     else
     {
-        setCookie();
         return true;
     }
 }
@@ -88,7 +86,6 @@ function validMedicament(form)
     }
     else
     {
-        setCookie();
         return true;
     }
 }

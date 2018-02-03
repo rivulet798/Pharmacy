@@ -13,6 +13,6 @@ public interface IUserDao {
     User signIn(String login, String password) throws DaoException;
     User getUserById(int id) throws DaoException;
     List<User> getAllUsersByIdRole(int idRole) throws DaoException;
-
-
+    boolean isLoginUnique(String login) throws DaoException;
+    boolean isEmailUnique(String email) throws DaoException;
 }

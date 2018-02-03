@@ -20,6 +20,9 @@ public class UserDao implements IUserDao {
     public static String GET_USER_BY_ID = "SELECT * FROM pharmacy.account WHERE id=?;";
     public static String SIGN_UP_USER = "INSERT INTO account (idRole,login,password,name,surname,address,email) VALUES(?,?,?,?,?,?,?);";
     public static String GET_ALL_USERS_BY_ID_ROLE = "SELECT * FROM pharmacy.account WHERE idRole=?;";
+    public static String GET_USER_BY_LOGIN = "SELECT * FROM pharmacy.account WHERE login=?;";
+    public static String GET_USER_BY_EMAIL = "SELECT * FROM pharmacy.account WHERE email=?;";
+
 
 
     private ConnectionPool connectionPool;
@@ -128,10 +131,8 @@ public class UserDao implements IUserDao {
             statement = connection.prepareStatement(GET_USER_BY_LOGIN_AND_PASSWORD);
             statement.setString(1,login);
             statement.setString(2,password);
-            logger.info("//////////////////////statement/////"+statement);
             resultSet = statement.executeQuery();
             if (resultSet.first()) {
-                logger.info("/////////resset////"+resultSet.toString());
                 user = load(resultSet);
             }
         } catch (SQLException e) {
@@ -191,6 +192,7 @@ public class UserDao implements IUserDao {
             statement = null;
             resultSet = null;
             user = null;
+            users = new ArrayList<>();
 
             connectionPool = ConnectionPool.getInstance();
             connection = connectionPool.retrieve();
@@ -200,7 +202,6 @@ public class UserDao implements IUserDao {
 
             resultSet = statement.executeQuery();
 
-            users = new ArrayList<User>();
             while (resultSet.next()) {
                 user = load(resultSet);
                 users.add(user);
@@ -221,6 +222,62 @@ public class UserDao implements IUserDao {
         }
         logger.debug("UserDao.getAllUsers() - success");
         return users;
+    }
+
+    public boolean isLoginUnique(String login) throws DaoException{
+        logger.debug("UserDao.isLoginUnique(login)");
+        try {
+            statement = null;
+            resultSet = null;
+            connectionPool = ConnectionPool.getInstance();
+            connection = connectionPool.retrieve();
+            statement = connection.prepareStatement(GET_USER_BY_LOGIN);
+            statement.setString(1,login);
+            resultSet = statement.executeQuery();
+            return !(resultSet.next());
+
+        } catch (SQLException e) {
+            try {
+                connection.rollback();
+            } catch (SQLException e1) {
+                throw new DaoException(e);
+            }
+            throw new DaoException("Error of query to database(isLoginUnique)", e);
+        } catch (ConnectionException e){
+            throw new DaoException("Error with connection with database"+e);
+        } finally {
+            if (connectionPool != null) {
+                connectionPool.putBackConnection(connection, statement, resultSet);
+            }
+        }
+    }
+
+    public boolean isEmailUnique(String email) throws DaoException{
+        logger.debug("UserDao.isEmailUnique(email)");
+        try {
+            statement = null;
+            resultSet = null;
+            connectionPool = ConnectionPool.getInstance();
+            connection = connectionPool.retrieve();
+            statement = connection.prepareStatement(GET_USER_BY_EMAIL);
+            statement.setString(1,email);
+            resultSet = statement.executeQuery();
+            return !(resultSet.next());
+
+        } catch (SQLException e) {
+            try {
+                connection.rollback();
+            } catch (SQLException e1) {
+                throw new DaoException(e);
+            }
+            throw new DaoException("Error of query to database(isEmailUnique)", e);
+        } catch (ConnectionException e){
+            throw new DaoException("Error with connection with database"+e);
+        } finally {
+            if (connectionPool != null) {
+                connectionPool.putBackConnection(connection, statement, resultSet);
+            }
+        }
     }
 
     private User load(ResultSet resultSet) throws DaoException{

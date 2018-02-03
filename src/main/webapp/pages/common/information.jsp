@@ -7,12 +7,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
-    <style><%@include file="/css/index.css"%></style>
-    <script><%@include file="/js/index.js"%></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-   <!-- <script type="text/javascript">
-        window.location.href = "index.do"
-    </script> -->
+    <link href="/css/index.css" rel="stylesheet">
     <title>PHARMACY</title>
 </head>
 
@@ -23,5 +18,7 @@ ${information}
 </div>
 <%@include file="../footer.html"%>
 <%@include file="../forms.jsp"%>
+<script src="/js/index.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 </body>
 </html>

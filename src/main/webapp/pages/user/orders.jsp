@@ -33,10 +33,9 @@
 <body>
 <%@include file="../header.jsp"%>
 <div class="page">
-
+    <a class="button" href="/get_my_cart.do">${cart}</a>
+    <a class="button" href="/get_my_orders.do?">${my_orders}</a>
     <div class="card">
-        <a class="button" href="/get_my_cart.do">${cart}</a>
-        <a class="button" href="/get_my_orders.do?">${my_orders}</a>
         <table>
         <tr>
             <th>${medicine}</th>

@@ -2,27 +2,23 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <jsp:useBean class="com.epam.dto.RequestForRenewalDto" scope="page" id="requestForRenewalDto" />
+<fmt:setLocale scope="session" value="${sessionScope.locale}"/>
+<fmt:setBundle basename="localization.locale" scope="session" var="loc"/>
+<fmt:message bundle="${loc}" key="local.word.patient" var="patient"/>
+<fmt:message bundle="${loc}" key="local.word.medicine" var="medicine"/>
+<fmt:message bundle="${loc}" key="local.word.number" var="number"/>
+<fmt:message bundle="${loc}" key="local.word.dosage" var="dosa"/>
+<fmt:message bundle="${loc}" key="local.word.date_of_issue" var="date_of_issue"/>
+<fmt:message bundle="${loc}" key="local.word.date_of_completion" var="date_of_completion"/>
+<fmt:message bundle="${loc}" key="local.word.extend" var="extend"/>
+<fmt:message bundle="${loc}" key="local.word.reject" var="reject"/>
+<fmt:message bundle="${loc}" key="local.word.unit_of_dosage" var="unit_of_dosage"/>
+<fmt:message bundle="${loc}" key="local.sentence.nothing_found" var="nothing_found"/>
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
-    <style><%@include file="/css/index.css"%></style>
-    <script><%@include file="/js/index.js"%></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <fmt:setLocale scope="session" value="${sessionScope.locale}"/>
-    <fmt:setBundle basename="localization.locale" scope="session" var="loc"/>
-    <fmt:message bundle="${loc}" key="local.word.patient" var="patient"/>
-    <fmt:message bundle="${loc}" key="local.word.medicine" var="medicine"/>
-    <fmt:message bundle="${loc}" key="local.word.number" var="number"/>
-    <fmt:message bundle="${loc}" key="local.word.dosage" var="dosa"/>
-    <fmt:message bundle="${loc}" key="local.word.date_of_issue" var="date_of_issue"/>
-    <fmt:message bundle="${loc}" key="local.word.date_of_completion" var="date_of_completion"/>
-    <fmt:message bundle="${loc}" key="local.word.extend" var="extend"/>
-    <fmt:message bundle="${loc}" key="local.word.reject" var="reject"/>
-    <fmt:message bundle="${loc}" key="local.word.unit_of_dosage" var="unit_of_dosage"/>
-    <fmt:message bundle="${loc}" key="local.sentence.nothing_found" var="nothing_found"/>
-
-
+    <link href="/css/index.css" rel="stylesheet">
     <title>PHARMACY</title>
 </head>
 
@@ -66,4 +62,6 @@
 <%@include file="../forms.jsp"%>
 <%@include file="../footer.html"%>
 </body>
+<script src="/js/index.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 </html>

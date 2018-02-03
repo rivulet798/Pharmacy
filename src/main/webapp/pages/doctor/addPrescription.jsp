@@ -3,11 +3,11 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <jsp:useBean class="com.epam.entity.Medicament" scope="page" id="medicament" />
 <jsp:useBean class="com.epam.entity.User" scope="page" id="user" />
+<fmt:setLocale scope="session" value="${sessionScope.locale}"/>
+<fmt:setBundle basename="localization.locale" scope="session" var="loc"/>
+<fmt:message bundle="${loc}" key="local.button.writing_the_recipe" var="writing_the_recipe"/>
 <html>
     <head>
-        <fmt:setLocale scope="session" value="${sessionScope.locale}"/>
-        <fmt:setBundle basename="localization.locale" scope="session" var="loc"/>
-        <fmt:message bundle="${loc}" key="local.button.writing_the_recipe" var="writing_the_recipe"/>
         <title>Выписать рецепт</title>
     </head>
     <body>

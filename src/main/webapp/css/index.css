@@ -283,6 +283,7 @@ tr td{
 
     #form h2 {
         padding-top: 10px;
+        color: #333;
     }
 
     #form input {
@@ -366,6 +367,9 @@ tr td{
         padding: 0 16px;
         height: 100px;
     }
+    .container .medicament{
+        height: auto;
+    }
     .container .bottom-button{}
     .container h2{
         display: block;
@@ -395,9 +399,7 @@ tr td{
         font-family:Segoe UI;
         padding: 10px;
     }
-    .medicament .container{
-        float:left !important;
-    }
+
     .medicament .container form{
          margin-top: 40px;
      }

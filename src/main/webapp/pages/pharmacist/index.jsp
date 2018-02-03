@@ -3,39 +3,35 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <jsp:useBean class="com.epam.entity.Medicament" scope="page" id="medicament" />
 <jsp:useBean class="com.epam.entity.User" scope="page" id="user" />
+<fmt:setLocale scope="session" value="${sessionScope.locale}"/>
+<fmt:setBundle basename="localization.locale" scope="session" var="loc"/>
+<fmt:message bundle="${loc}" key="local.button.add_medication" var="add_medication"/>
+<fmt:message bundle="${loc}" key="local.word.picture" var="picture"/>
+<fmt:message bundle="${loc}" key="local.word.name" var="name"/>
+<fmt:message bundle="${loc}" key="local.word.producer" var="producer"/>
+<fmt:message bundle="${loc}" key="local.word.price" var="price"/>
+<fmt:message bundle="${loc}" key="local.word.unit_of_price" var="unit_of_price"/>
+<fmt:message bundle="${loc}" key="local.button.edit" var="edit"/>
+<fmt:message bundle="${loc}" key="local.sentence.nothing_found" var="nothing_found"/>
+<fmt:message bundle="${loc}" key="local.sentence.adding_of_medicine" var="adding_of_medicine"/>
+<fmt:message bundle="${loc}" key="local.sentence.leave_form" var="leave_form"/>
+<fmt:message bundle="${loc}" key="local.sentence.released_by_prescription" var="released_by_prescription"/>
+<fmt:message bundle="${loc}" key="local.sentence.released_without_prescription" var="released_without_prescription"/>
+<fmt:message bundle="${loc}" key="local.word.availability" var="availability"/>
+<fmt:message bundle="${loc}" key="local.sentence.is_available" var="is_available"/>
+<fmt:message bundle="${loc}" key="local.sentence.not_available" var="not_available"/>
+<fmt:message bundle="${loc}" key="local.word.mode_of_application" var="mode_of_application"/>
+<fmt:message bundle="${loc}" key="local.word.contraindications" var="contraindications"/>
+<fmt:message bundle="${loc}" key="local.word.side_effects" var="side_effects"/>
+<fmt:message bundle="${loc}" key="local.word.dosage" var="dosa"/>
+<fmt:message bundle="${loc}" key="local.button.add_dosage" var="add_dosage"/>
+<fmt:message bundle="${loc}" key="local.button.add" var="add"/>
+<fmt:message bundle="${loc}" key="local.button.cancel" var="cancel"/>
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
-        <style><%@include file="/css/index.css"%></style>
-        <script><%@include file="/js/index.js"%></script>
-        <script><%@include file="/js/sort.js"%></script>
-        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-        <fmt:setLocale scope="session" value="${sessionScope.locale}"/>
-        <fmt:setBundle basename="localization.locale" scope="session" var="loc"/>
-        <fmt:message bundle="${loc}" key="local.button.add_medication" var="add_medication"/>
-        <fmt:message bundle="${loc}" key="local.word.name" var="name"/>
-        <fmt:message bundle="${loc}" key="local.word.producer" var="producer"/>
-        <fmt:message bundle="${loc}" key="local.word.price" var="price"/>
-        <fmt:message bundle="${loc}" key="local.word.unit_of_price" var="unit_of_price"/>
-        <fmt:message bundle="${loc}" key="local.button.edit" var="edit"/>
-        <fmt:message bundle="${loc}" key="local.sentence.nothing_found" var="nothing_found"/>
-        <fmt:message bundle="${loc}" key="local.sentence.adding_of_medicine" var="adding_of_medicine"/>
-        <fmt:message bundle="${loc}" key="local.sentence.leave_form" var="leave_form"/>
-        <fmt:message bundle="${loc}" key="local.sentence.released_by_prescription" var="released_by_prescription"/>
-        <fmt:message bundle="${loc}" key="local.sentence.released_without_prescription" var="released_without_prescription"/>
-        <fmt:message bundle="${loc}" key="local.word.availability" var="availability"/>
-        <fmt:message bundle="${loc}" key="local.sentence.is_available" var="is_available"/>
-        <fmt:message bundle="${loc}" key="local.sentence.not_available" var="not_available"/>
-        <fmt:message bundle="${loc}" key="local.word.mode_of_application" var="mode_of_application"/>
-        <fmt:message bundle="${loc}" key="local.word.contraindications" var="contraindications"/>
-        <fmt:message bundle="${loc}" key="local.word.side_effects" var="side_effects"/>
-        <fmt:message bundle="${loc}" key="local.word.dosage" var="dosa"/>
-        <fmt:message bundle="${loc}" key="local.button.add_dosage" var="add_dosage"/>
-        <fmt:message bundle="${loc}" key="local.button.add" var="add"/>
-        <fmt:message bundle="${loc}" key="local.button.cancel" var="cancel"/>
-
-
+        <link href="/css/index.css" rel="stylesheet">
         <title>PHARMACY</title>
     </head>
     <body>
@@ -46,11 +42,11 @@
 
         <table id="dataTable">
         <tr>
-        <th>Изображение</th>
-        <th onclick="sortTable(2);">${name}</th>
-        <th onclick="sortTable(3);">${producer}</th>
-        <th onclick="sortTable(4);">${price}</th>
-        <th onclick="sortTable(5);"></th>
+            <th>${picture}</th>
+            <th onclick="sortTable(1);">${name}</th>
+            <th onclick="sortTable(2);">${producer}</th>
+            <th onclick="sortTableByPrice(3);">${price}</th>
+            <th></th>
         </tr>
             <c:choose>
                 <c:when test="${medicaments!=null}">
@@ -59,7 +55,7 @@
                             <td><img src="images/medicaments/${medicament.image}" alt="${medicament.name}" class="medImg"></td>
                             <td>${medicament.name}</td>
                             <td>${medicament.producer}</td>
-                            <td>${medicament.price} ${unit_of_price}</td>
+                            <td price=${medicament.price}>${medicament.price} ${unit_of_price}</td>
                             <td><a href="/get_and_edit_medicament.do?idMedicament=${medicament.id}" class="button">${edit}</a></td>
                             </td>
                         </tr>
@@ -108,4 +104,7 @@
         </div>
     </div>
     </body>
+    <script src="/js/index.js"></script>
+    <script src="/js/sort.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 </html>

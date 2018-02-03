@@ -4,32 +4,29 @@
 <jsp:useBean class="com.epam.entity.Medicament" scope="page" id="medicament" />
 <jsp:useBean class="com.epam.entity.User" scope="page" id="user" />
 <jsp:useBean class="com.epam.dto.PrescriptionDto" scope="page" id="prescription" />
+<fmt:setLocale scope="session" value="${sessionScope.locale}"/>
+<fmt:setBundle basename="localization.locale" scope="session" var="loc"/>
+<fmt:message bundle="${loc}" key="local.word.producer" var="producer"/>
+<fmt:message bundle="${loc}" key="local.word.price" var="price"/>
+<fmt:message bundle="${loc}" key="local.word.unit_of_price" var="unit_of_price"/>
+<fmt:message bundle="${loc}" key="local.sentence.released_by_prescription" var="released_by_prescription"/>
+<fmt:message bundle="${loc}" key="local.sentence.released_without_prescription" var="released_without_prescription"/>
+<fmt:message bundle="${loc}" key="local.sentence.is_available" var="is_available"/>
+<fmt:message bundle="${loc}" key="local.sentence.not_available" var="not_available"/>
+<fmt:message bundle="${loc}" key="local.word.mode_of_application" var="mode_of_application"/>
+<fmt:message bundle="${loc}" key="local.word.contraindications" var="contraindications"/>
+<fmt:message bundle="${loc}" key="local.word.side_effects" var="side_effects"/>
+<fmt:message bundle="${loc}" key="local.word.dosage" var="dosa"/>
+<fmt:message bundle="${loc}" key="local.sentence.number_of_packages" var="number_of_packages"/>
+<fmt:message bundle="${loc}" key="local.word.order" var="order"/>
+<fmt:message bundle="${loc}" key="local.sentence.select_a_recipe" var="select_a_recipe"/>
+<fmt:message bundle="${loc}" key="local.sentence.you_must_be_logged_in_to_purchase" var="you_must_be_logged_in_to_purchase"/>
 
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
-    <style><%@include file="/css/index.css"%></style>
-    <script><%@include file="/js/index.js"%></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <fmt:setLocale scope="session" value="${sessionScope.locale}"/>
-    <fmt:setBundle basename="localization.locale" scope="session" var="loc"/>
-    <fmt:message bundle="${loc}" key="local.word.producer" var="producer"/>
-    <fmt:message bundle="${loc}" key="local.word.price" var="price"/>
-    <fmt:message bundle="${loc}" key="local.word.unit_of_price" var="unit_of_price"/>
-    <fmt:message bundle="${loc}" key="local.sentence.released_by_prescription" var="released_by_prescription"/>
-    <fmt:message bundle="${loc}" key="local.sentence.released_without_prescription" var="released_without_prescription"/>
-    <fmt:message bundle="${loc}" key="local.sentence.is_available" var="is_available"/>
-    <fmt:message bundle="${loc}" key="local.sentence.not_available" var="not_available"/>
-    <fmt:message bundle="${loc}" key="local.word.mode_of_application" var="mode_of_application"/>
-    <fmt:message bundle="${loc}" key="local.word.contraindications" var="contraindications"/>
-    <fmt:message bundle="${loc}" key="local.word.side_effects" var="side_effects"/>
-    <fmt:message bundle="${loc}" key="local.word.dosage" var="dosa"/>
-    <fmt:message bundle="${loc}" key="local.sentence.number_of_packages" var="number_of_packages"/>
-    <fmt:message bundle="${loc}" key="local.word.order" var="order"/>
-    <fmt:message bundle="${loc}" key="local.sentence.select_a_recipe" var="select_a_recipe"/>
-    <fmt:message bundle="${loc}" key="local.sentence.you_must_be_logged_in_to_purchase" var="you_must_be_logged_in_to_purchase"/>
-
+    <link href="/css/index.css" rel="stylesheet">
     <title>PHARMACY</title>
 </head>
 <body>
@@ -37,8 +34,8 @@
 <div class="page">
         <div class="card medicament">
             <h2>${med.name}</h2>
-            <img src="images/medicaments/${med.image}" class="good">
-            <div class="container" >
+            <div><img src="images/medicaments/${med.image}" class="good"></div>
+            <div class="container medicament" >
             <p class="title"> ${producer}: ${med.producer}</p>
                 <p class="title"> ${price}: ${med.price} ${unit_of_price}</p>
                 <c:choose>
@@ -101,4 +98,6 @@
 <%@include file="../forms.jsp"%>
 <%@include file="../footer.html"%>
 </body>
+<script src="/js/index.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 </html>
