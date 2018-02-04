@@ -34,6 +34,7 @@ public enum RequestEnum {
     ID_PRESCRIPTION("idPrescription"),
     ID_ORDER("idOrder"),
     ID_MEDICAMENT("idMedicament"),
+    ID_REQUEST("idRequest"),
 
     CSRF_TOKEN("csrfToken"),
     LOCALE("locale");

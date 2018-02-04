@@ -4,31 +4,30 @@
 <jsp:useBean class="com.epam.entity.Medicament" scope="page" id="medicament" />
 <jsp:useBean class="com.epam.entity.User" scope="page" id="user" />
 <jsp:useBean class="com.epam.dto.OrderDto" scope="page" id="orderDto" />
+<fmt:setLocale scope="session" value="${sessionScope.locale}"/>
+<fmt:setBundle basename="localization.locale" scope="session" var="loc"/>
+<fmt:message bundle="${loc}" key="local.word.main_title" var="main_title"/>
+<fmt:message bundle="${loc}" key="local.word.cart" var="cart"/>
+<fmt:message bundle="${loc}" key="local.sentence.my_orders" var="my_orders"/>
+<fmt:message bundle="${loc}" key="local.word.medicine" var="medicine"/>
+<fmt:message bundle="${loc}" key="local.word.producer" var="producer"/>
+<fmt:message bundle="${loc}" key="local.word.number" var="number"/>
+<fmt:message bundle="${loc}" key="local.word.dosage" var="dosa"/>
+<fmt:message bundle="${loc}" key="local.sentence.to_pay" var="to_pay"/>
+<fmt:message bundle="${loc}" key="local.word.checkout" var="checkout"/>
+<fmt:message bundle="${loc}" key="local.sentence.nothing_found" var="nothing_found"/>
+<fmt:message bundle="${loc}" key="local.word.payment" var="payment"/>
+<fmt:message bundle="${loc}" key="local.sentence.card_number" var="card_number"/>
+<fmt:message bundle="${loc}" key="local.sentence.firstname_lastname" var="firstname_lastname"/>
+<fmt:message bundle="${loc}" key="local.button.pay" var="pay"/>
+<fmt:message bundle="${loc}" key="local.button.cancel" var="cancel"/>
 
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">    <style><%@include file="/css/index.css"%></style>
-    <script><%@include file="/js/index.js"%></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <fmt:setLocale scope="session" value="${sessionScope.locale}"/>
-    <fmt:setBundle basename="localization.locale" scope="session" var="loc"/>
-    <fmt:message bundle="${loc}" key="local.word.cart" var="cart"/>
-    <fmt:message bundle="${loc}" key="local.sentence.my_orders" var="my_orders"/>
-    <fmt:message bundle="${loc}" key="local.word.medicine" var="medicine"/>
-    <fmt:message bundle="${loc}" key="local.word.producer" var="producer"/>
-    <fmt:message bundle="${loc}" key="local.word.number" var="number"/>
-    <fmt:message bundle="${loc}" key="local.word.dosage" var="dosa"/>
-    <fmt:message bundle="${loc}" key="local.sentence.to_pay" var="to_pay"/>
-    <fmt:message bundle="${loc}" key="local.word.checkout" var="checkout"/>
-    <fmt:message bundle="${loc}" key="local.sentence.nothing_found" var="nothing_found"/>
-    <fmt:message bundle="${loc}" key="local.word.payment" var="payment"/>
-    <fmt:message bundle="${loc}" key="local.sentence.card_number" var="card_number"/>
-    <fmt:message bundle="${loc}" key="local.sentence.firstname_lastname" var="firstname_lastname"/>
-    <fmt:message bundle="${loc}" key="local.button.pay" var="pay"/>
-    <fmt:message bundle="${loc}" key="local.button.cancel" var="cancel"/>
-
-    <title>PHARMACY</title>
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <link href="/css/index.css" rel="stylesheet">
+    <title>${main_title}</title>
 </head>
 <body>
 <%@include file="../header.jsp"%>
@@ -85,4 +84,6 @@
     </div>
 </div>
 </body>
+<script src="/js/index.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 </html>

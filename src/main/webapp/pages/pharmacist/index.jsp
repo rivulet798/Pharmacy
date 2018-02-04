@@ -84,7 +84,7 @@
                     <option value="false">${released_without_prescription}</option>
                     <option value="true">${released_by_prescription}</option>
                 </select>
-                <input type="file" name="image" id="image">
+                <input type="file" accept=".png, .jpg, .jpeg" name="image" id="image">
                 <select name="availability">
                     <option value="" disabled selected>${availability}</option>
                     <option value="false">${not_available}</option>

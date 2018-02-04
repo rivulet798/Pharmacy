@@ -3,12 +3,16 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <jsp:useBean class="com.epam.entity.Medicament" scope="page" id="medicament" />
 <jsp:useBean class="com.epam.entity.User" scope="page" id="user" />
+<fmt:setLocale scope="session" value="${sessionScope.locale}"/>
+<fmt:setBundle basename="localization.locale" scope="session" var="loc"/>
+<fmt:message bundle="${loc}" key="local.word.main_title" var="main_title"/>
+
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
     <link href="/css/index.css" rel="stylesheet">
-    <title>PHARMACY</title>
+    <title>${main_title}</title>
 </head>
 
 <body>

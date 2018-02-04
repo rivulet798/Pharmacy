@@ -367,7 +367,11 @@ tr td{
         padding: 0 16px;
         height: 100px;
     }
-    .container .medicament{
+    .medicament {
+        overflow: visible;
+    }
+
+    .medicament .container {
         height: auto;
     }
     .container .bottom-button{}
@@ -444,6 +448,10 @@ tr td{
 
     .button:hover {
         background-color: #555;
+    }
+
+    .container p textarea {
+        width: 300px;
     }
 }
 @media only screen and (max-width: 981px) {
@@ -663,4 +671,5 @@ tr td{
     .button:hover {
         background-color: #555;
     }
+
 }

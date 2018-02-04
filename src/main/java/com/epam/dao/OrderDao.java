@@ -14,12 +14,12 @@ import java.util.List;
 public class OrderDao implements IOrderDao {
     private static Logger logger = Logger.getLogger(OrderDao.class);
 
-    private static String GET_ORDER_BY_ID = "SELECT * FROM pharmacy.order WHERE idOrder=?;";
-    private static String ADD_ORDER_WITH_PRESCRIPTION = "INSERT INTO pharmacy.order (idUser,idMedicament,idOrderStatus,number,idDosage,idPrescription) VALUES(?,?,?,?,?,?);";
-    private static String ADD_ORDER_WITHOUT_PRESCRIPTION = "INSERT INTO pharmacy.order (idUser,idMedicament,idOrderStatus,number,idDosage) VALUES(?,?,?,?,?);";
-    private static String CHANGE_ORDER_STATUS = "UPDATE pharmacy.order SET idOrderStatus=? WHERE idOrder=?;";
-    private static String GET_ORDERS_BY_USER_ID = "SELECT * FROM pharmacy.order WHERE idUser=?;";
-    private static String GET_ORDERS_DTO_BY_USER_ID_AND_STATUS = "SELECT idOrder, m.name AS medicamentName, m.producer, m.price*number AS price, idOrderStatus, number,idDosage,idPrescription FROM pharmacy.order JOIN medicament m ON pharmacy.order.idMedicament = m.idMedicament WHERE idUser=? AND idOrderStatus=?;";
+    private static final String GET_ORDER_BY_ID = "SELECT * FROM pharmacy.order WHERE idOrder=?;";
+    private static final String ADD_ORDER_WITH_PRESCRIPTION = "INSERT INTO pharmacy.order (idUser,idMedicament,idOrderStatus,number,idDosage,idPrescription) VALUES(?,?,?,?,?,?);";
+    private static final String ADD_ORDER_WITHOUT_PRESCRIPTION = "INSERT INTO pharmacy.order (idUser,idMedicament,idOrderStatus,number,idDosage) VALUES(?,?,?,?,?);";
+    private static final String CHANGE_ORDER_STATUS = "UPDATE pharmacy.order SET idOrderStatus=? WHERE idOrder=?;";
+    private static final String GET_ORDERS_BY_USER_ID = "SELECT * FROM pharmacy.order WHERE idUser=?;";
+    private static final String GET_ORDERS_DTO_BY_USER_ID_AND_STATUS = "SELECT idOrder, m.name AS medicamentName, m.producer, m.price*number AS price, idOrderStatus, number,idDosage,idPrescription FROM pharmacy.order JOIN medicament m ON pharmacy.order.idMedicament = m.idMedicament WHERE idUser=? AND idOrderStatus=?;";
 
     private ConnectionPool connectionPool;
     private Connection connection;

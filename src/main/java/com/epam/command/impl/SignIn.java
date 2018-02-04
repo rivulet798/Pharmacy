@@ -45,7 +45,7 @@ public class SignIn implements Command {
             } else {
                 logger.info(request.getHeader("User-Agent") + " unsuccessfully sign in account.");
                 jspPageName = JspPageName.INFORMATION;
-                request.setAttribute(RequestEnum.INFORMATION.getValue(), "such user is not exist");
+                request.setAttribute(RequestEnum.INFORMATION.getValue(), "Uncorrect login or password");
             }
         }catch (ServiceException | IOException e){
             logger.error(e.getMessage());

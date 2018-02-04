@@ -16,15 +16,15 @@ import java.util.List;
 public class MedicamentDao implements IMedicamentDao {
     private static Logger logger = Logger.getLogger(MedicamentDao.class);
 
-    public static final String GET_ALL_MEDICAMENTS = "SELECT * FROM pharmacy.medicament;";
-    public static final String GET_SORTED_BY_PRICE_MEDICAMENTS_ASC = "SELECT * FROM pharmacy.medicament ORDER BY price ASC;";
-    public static final String GET_SORTED_BY_PRICE_MEDICAMENTS_DESC = "SELECT * FROM pharmacy.medicament ORDER BY price DESC;";
-    public static final String GET_MEDICAMENT_BY_ID = "SELECT * FROM pharmacy.medicament WHERE idMedicament=?;";
-    public static final String ADD_MEDICAMENT = "INSERT INTO medicament (name,producer,price,prescription,image,availability) VALUES(?,?,?,?,?,?);";
-    public static final String GET_MEDICAMENTS_BY_PRODUCER = "SELECT * FROM pharmacy.medicament WHERE producer=?;";
-    public static final String GET_MEDICAMENT_BY_NAME = "SELECT * FROM pharmacy.medicament WHERE name LIKE ?;";
-    public static final String EDIT_MEDICAMENT = "UPDATE pharmacy.medicament m SET m.name=?, m.producer=?, m.price=?, m.prescription=?, m.image=?, m.availability=? WHERE m.idMedicament=?;";
-    public static final String GET_MEDICAMENTS_BY_PRESCRIPTION = "SELECT * FROM pharmacy.medicament WHERE prescription=?;";
+    private static final String GET_ALL_MEDICAMENTS = "SELECT * FROM pharmacy.medicament;";
+    private static final String GET_SORTED_BY_PRICE_MEDICAMENTS_ASC = "SELECT * FROM pharmacy.medicament ORDER BY price ASC;";
+    private static final String GET_SORTED_BY_PRICE_MEDICAMENTS_DESC = "SELECT * FROM pharmacy.medicament ORDER BY price DESC;";
+    private static final String GET_MEDICAMENT_BY_ID = "SELECT * FROM pharmacy.medicament WHERE idMedicament=?;";
+    private static final String ADD_MEDICAMENT = "INSERT INTO medicament (name,producer,price,prescription,image,availability) VALUES(?,?,?,?,?,?);";
+    private static final String GET_MEDICAMENTS_BY_PRODUCER = "SELECT * FROM pharmacy.medicament WHERE producer=?;";
+    private static final String GET_MEDICAMENT_BY_NAME = "SELECT * FROM pharmacy.medicament WHERE name LIKE ?;";
+    private static final String EDIT_MEDICAMENT = "UPDATE pharmacy.medicament m SET m.name=?, m.producer=?, m.price=?, m.prescription=?, m.image=?, m.availability=? WHERE m.idMedicament=?;";
+    private static final String GET_MEDICAMENTS_BY_PRESCRIPTION = "SELECT * FROM pharmacy.medicament WHERE prescription=?;";
 
     private ConnectionPool connectionPool;
     private Connection connection;

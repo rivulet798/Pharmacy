@@ -18,11 +18,14 @@ public class PrescriptionDao implements IPrescriptionDao {
     private static Logger logger = Logger.getLogger(PrescriptionDao.class);
 
     private static final String SET_PRESCRIPTION_INVALID = "UPDATE pharmacy.prescription p  JOIN pharmacy.order o ON p.idPrescription = o.idPrescription SET p.valid=0 WHERE o.idOrder=?;";
-    private static String GET_PRESCRIPTION_BY_ID = "SELECT * FROM pharmacy.prescription WHERE idPrescription=?;";
-    private static String ADD_PRESCRIPTION = "INSERT INTO prescription (idDoctor,idUser,idMedicament,dateOfIssue,dateOfCompletion,idDosage,number) VALUES(?,?,?,?,?,?,?);";
-    private static String GET_PRESCRIPTIONS_BY_USER_ID = "SELECT * FROM pharmacy.prescription WHERE prescription.valid=1 AND prescription.idUser=?;";
-    private static String GET_PRESCRIPTIONS_DTO_BY_USER_ID = "SELECT idPrescription, dateOfIssue, dateOfCompletion, number, dosage, a.name, a.surname, m.name AS medicamentName FROM prescription p JOIN medicament m ON p.idMedicament = m.idMedicament JOIN account a ON p.idDoctor = a.idUser JOIN dosage d ON p.idDosage = d.id WHERE p.idUser=? AND p.valid=1;";
-    private  static String GET_PRESCRIPTIONS_BY_USER_ID_AND_MED_ID = "SELECT d.id as idDosage, dosage, number, valid, p.idPrescription FROM prescription p JOIN dosage d ON p.idDosage = d.id WHERE p.idUser=? AND p.idMedicament=? AND p.valid=1 AND DATEDIFF(p.dateOfCompletion, curdate())>=0;";
+    private static final String GET_PRESCRIPTION_BY_ID = "SELECT * FROM pharmacy.prescription WHERE idPrescription=?;";
+    private static final String ADD_PRESCRIPTION = "INSERT INTO prescription (idDoctor,idUser,idMedicament,dateOfIssue,dateOfCompletion,idDosage,number) VALUES(?,?,?,?,?,?,?);";
+    private static final String GET_PRESCRIPTIONS_BY_USER_ID = "SELECT * FROM pharmacy.prescription WHERE prescription.valid=1 AND prescription.idUser=?;";
+    private static final String GET_PRESCRIPTIONS_DTO_BY_USER_ID = "SELECT idPrescription, dateOfIssue, dateOfCompletion, number, dosage, a.name, a.surname, m.name AS medicamentName FROM prescription p JOIN medicament m ON p.idMedicament = m.idMedicament JOIN account a ON p.idDoctor = a.idUser JOIN dosage d ON p.idDosage = d.id WHERE p.idUser=? AND p.valid=1;";
+    private static final String GET_PRESCRIPTIONS_BY_USER_ID_AND_MED_ID = "SELECT d.id as idDosage, dosage, number, valid, p.idPrescription FROM prescription p JOIN dosage d ON p.idDosage = d.id WHERE p.idUser=? AND p.idMedicament=? AND p.valid=1 AND DATEDIFF(p.dateOfCompletion, curdate())>=0;";
+    private static final String GET_EXPIRED_PRESCRIPTION_BY_ID = "SELECT * FROM pharmacy.prescription p WHERE p.idPrescription=? AND DATEDIFF(p.dateOfCompletion, curdate())<0;";
+    private static final String GET_DOCTOR_ID_BY_REQUEST_ID = "SELECT idDoctor FROM pharmacy.prescription p JOIN pharmacy.request_for_renewal req ON p.idPrescription = req.idPrescription WHERE req.id=?;";
+    private static final String EXTEND_PRESCRIPTION_BY_ID_REQUEST = "UPDATE pharmacy.prescription p  JOIN pharmacy.request_for_renewal req ON p.idPrescription = req.idPrescription SET p.dateOfCompletion=adddate(p.dateOfCompletion, INTERVAL 2 MONTH ) WHERE req.id=?;";
 
     private ConnectionPool connectionPool;
     private Connection connection;
@@ -71,11 +74,6 @@ public class PrescriptionDao implements IPrescriptionDao {
                 connectionPool.putBackConnection(connection, statement, resultSet);
             }
         }
-    }
-
-    @Override
-    public boolean createPrescription() {
-        return false;
     }
 
     @Override
@@ -233,6 +231,108 @@ public class PrescriptionDao implements IPrescriptionDao {
         } catch (ConnectionException | SQLException e) {
             logger.error(e.getMessage());
             throw new DaoException(e);
+        }
+        return false;
+    }
+
+    @Override
+    public boolean isExpiredPrescription(int prescriptionId) throws DaoException {
+        logger.debug("PrescriptionDao.isExpiredPrescription()");
+        try {
+            statement = null;
+            resultSet = null;
+
+            connectionPool = ConnectionPool.getInstance();
+            connection = connectionPool.retrieve();
+
+            statement = connection.prepareStatement(GET_EXPIRED_PRESCRIPTION_BY_ID);
+            statement.setInt(1,prescriptionId);
+
+            resultSet = statement.executeQuery();
+            return resultSet.next();
+
+        } catch (SQLException e) {
+            try {
+                connection.rollback();
+            } catch (SQLException e1) {
+                throw new DaoException(e);
+            }
+            throw new DaoException("Error of query to database(isExpiredPrescription)", e);
+        } catch (ConnectionException e){
+            throw new DaoException("Error with connection with database"+e);
+        } finally {
+            if (connectionPool != null) {
+                connectionPool.putBackConnection(connection, statement, resultSet);
+            }
+        }
+    }
+
+    @Override
+    public int getDoctorIdByRequestId(int requestId) throws DaoException {
+        logger.debug("PrescriptionDao.GetDoctorByRequestId()");
+        try {
+            statement = null;
+            resultSet = null;
+
+            connectionPool = ConnectionPool.getInstance();
+            connection = connectionPool.retrieve();
+
+            statement = connection.prepareStatement(GET_DOCTOR_ID_BY_REQUEST_ID);
+            statement.setInt(1,requestId);
+
+            resultSet = statement.executeQuery();
+            if(resultSet.next()){
+                return resultSet.getInt("idDoctor");
+            } else{
+                throw new DaoException("У вас нет прав на выполнение данной операции");
+            }
+
+        } catch (SQLException e) {
+            try {
+                connection.rollback();
+            } catch (SQLException e1) {
+                throw new DaoException(e);
+            }
+            throw new DaoException("Error of query to database(GetDoctorByRequestId)", e);
+        } catch (ConnectionException e){
+            throw new DaoException("Error with connection with database"+e);
+        } finally {
+            if (connectionPool != null) {
+                connectionPool.putBackConnection(connection, statement, resultSet);
+            }
+        }
+    }
+
+    @Override
+    public boolean extendPrescriptionFromRequest(int requestId) throws DaoException {
+        logger.debug("PrescriptionDao.extendPrescriptionFromRequest()");
+        try {
+            statement = null;
+            resultSet = null;
+
+            connectionPool = ConnectionPool.getInstance();
+            connection = connectionPool.retrieve();
+
+            statement = connection.prepareStatement(EXTEND_PRESCRIPTION_BY_ID_REQUEST );
+            statement.setInt(1,requestId);
+
+            if(statement.executeUpdate()!=0) {
+                return true;
+            }
+
+        } catch (SQLException e) {
+            try {
+                connection.rollback();
+            } catch (SQLException e1) {
+                throw new DaoException(e);
+            }
+            throw new DaoException("Error of query to database(extendPrescriptionFromRequest)", e);
+        } catch (ConnectionException e){
+            throw new DaoException("Error with connection with database"+e);
+        } finally {
+            if (connectionPool != null) {
+                connectionPool.putBackConnection(connection, statement, resultSet);
+            }
         }
         return false;
     }

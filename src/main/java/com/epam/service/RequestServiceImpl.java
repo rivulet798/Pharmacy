@@ -1,5 +1,6 @@
 package com.epam.service;
 
+import com.epam.dao.IPrescriptionDao;
 import com.epam.dao.IRequestDao;
 import com.epam.dao.exception.DaoException;
 import com.epam.dao.factory.DaoFactory;
@@ -42,7 +43,6 @@ public class RequestServiceImpl implements RequestService {
         logger.debug("RequestServiceImpl.addRequest()");
         IRequestDao requestDao = daoFactory.getIRequestDao();
         try {
-            logger.info("/////////"+idPrescription);
             int prescriptionId = Integer.parseInt(idPrescription);
             requestDao.addRequest(prescriptionId, newRequest);
         } catch (DaoException e) {
@@ -71,4 +71,33 @@ public class RequestServiceImpl implements RequestService {
         logger.debug("RequestServiceImpl.getRequestsDtoByDoctorId() - success.");
         return requestForRenewalList;
     }
+
+    @Override
+    public boolean checkExistOfRequest(String idPrescription) throws ServiceException {
+        logger.debug("RequestServiceImpl.checkExistOfRequest()");
+        IRequestDao requestDao = daoFactory.getIRequestDao();
+        try {
+            int prescriptionId = Integer.parseInt(idPrescription);
+            return requestDao.checkExistOfRequest(prescriptionId);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        } catch (NumberFormatException e){
+            throw new ServiceException("number format exception"+e);
+        }
+    }
+
+    @Override
+    public void changeRequestStatus(String idRequest, int status) throws ServiceException {
+        logger.debug("RequestServiceImpl.changeRequestStatus()");
+        IRequestDao requestDao = daoFactory.getIRequestDao();
+        try {
+            int requestId = Integer.parseInt(idRequest);
+            requestDao.changeRequestStatus(requestId, status);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        } catch (NumberFormatException e){
+            throw new ServiceException("number format exception"+e);
+        }
+    }
+
 }

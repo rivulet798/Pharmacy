@@ -5,6 +5,7 @@
 <jsp:useBean class="com.epam.entity.User" scope="page" id="user" />
 <fmt:setLocale scope="session" value="${sessionScope.locale}"/>
 <fmt:setBundle basename="localization.locale" scope="session" var="loc"/>
+<fmt:message bundle="${loc}" key="local.word.main_title" var="main_title"/>
 <fmt:message bundle="${loc}" key="local.button.add_a_doctor" var="add_a_doctor"/>
 <fmt:message bundle="${loc}" key="local.button.add_a_pharmacist" var="add_a_pharmacist"/>
 <fmt:message bundle="${loc}" key="local.word.employee" var="employee"/>
@@ -31,7 +32,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
     <link href="/css/index.css" rel="stylesheet">
-    <title>PHARMACY</title>
+    <title>${main_title}</title>
 </head>
 
 <body>

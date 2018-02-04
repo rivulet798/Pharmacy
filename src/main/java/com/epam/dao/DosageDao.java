@@ -16,8 +16,8 @@ import java.util.List;
 public class DosageDao implements IDosageDao {
     private static Logger logger = Logger.getLogger(DosageDao.class);
 
-    public static String GET_DOSAGES_BY_MEDICAMENT_ID = "SELECT * FROM pharmacy.dosage WHERE idMedicament=?;";
-    public static String ADD_DOSAGE = "INSERT INTO pharmacy.dosage (idMedicament, dosage) VALUES(?,?);";
+    private static final String GET_DOSAGES_BY_MEDICAMENT_ID = "SELECT * FROM pharmacy.dosage WHERE idMedicament=?;";
+    private static final String ADD_DOSAGE = "INSERT INTO pharmacy.dosage (idMedicament, dosage) VALUES(?,?);";
 
     private ConnectionPool connectionPool;
     private Connection connection;

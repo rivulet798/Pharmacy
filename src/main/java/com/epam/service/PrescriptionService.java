@@ -13,10 +13,10 @@ public interface PrescriptionService {
     List<Prescription> getPrescriptionsByUserId(String idUser) throws ServiceException;
     void addPrescription(String idDoctor, String idUser,
                             String idMedicament, String dateOfCompletion, int dosage, int number) throws ServiceException, ServiceLogicException;
-
     List<PrescriptionDto> getPrescriptionsDtoByUserId(String idUser) throws ServiceException;
-
     List<PrescriptionDto> getPrescriptionsByUserIdAndMedId(String idUser, String idMedicament) throws  ServiceException;
-
     boolean setPrescriptionInvalidByOrderId(String idOrder) throws ServiceException;
+    boolean isExpiredPrescription(String idPrescription) throws ServiceException;
+    void extendPrescription(String idRequest, String idDoctor) throws ServiceException;
+
 }

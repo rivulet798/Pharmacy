@@ -8,8 +8,8 @@ import java.util.List;
 
 public interface RequestService {
     List<RequestForRenewal> getRequestsByDoctorId(String idUser) throws ServiceException;
-
     void addRequest(String idPrescription, int newRequest) throws ServiceException;
-
     List<RequestForRenewalDto> getRequestsDtoByDoctorId(String idDoctor) throws ServiceException;
+    boolean checkExistOfRequest(String idPrescription) throws ServiceException;
+    void changeRequestStatus(String idRequest, int status) throws ServiceException;
 }

@@ -22,7 +22,6 @@
     ${error_message}
 </div>
 </body>
-<footer>Mariya Horuzhenko © 2018.</footer>
 <%@include file="../footer.html"%>
 <%@include file="../forms.jsp"%>
 <script src="/js/index.js"></script>

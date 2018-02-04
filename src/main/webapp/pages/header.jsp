@@ -1,7 +1,5 @@
 ﻿<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<header>
-
-    <fmt:setLocale scope="session" value="${sessionScope.locale}"/>
+<fmt:setLocale scope="session" value="${sessionScope.locale}"/>
 <fmt:setBundle basename="localization.locale" scope="session" var="loc"/>
 <fmt:message bundle="${loc}" key="local.word.main_page" var="main_page"/>
 <fmt:message bundle="${loc}" key="local.word.sign_in" var="sign_in"/>
@@ -15,6 +13,7 @@
 <fmt:message bundle="${loc}" key="local.word.doctors" var="doctors"/>
 <fmt:message bundle="${loc}" key="local.word.search" var="search"/>
 
+<header>
     <nav>
         <ul id="nav">
             <a><li id="icon-nav" onclick="openMenu();"><img src="images/menu.png" class="icon"></li></a>

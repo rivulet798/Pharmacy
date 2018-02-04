@@ -4,6 +4,7 @@
 <jsp:useBean class="com.epam.dto.RequestForRenewalDto" scope="page" id="requestForRenewalDto" />
 <fmt:setLocale scope="session" value="${sessionScope.locale}"/>
 <fmt:setBundle basename="localization.locale" scope="session" var="loc"/>
+<fmt:message bundle="${loc}" key="local.word.main_title" var="main_title"/>
 <fmt:message bundle="${loc}" key="local.word.patient" var="patient"/>
 <fmt:message bundle="${loc}" key="local.word.medicine" var="medicine"/>
 <fmt:message bundle="${loc}" key="local.word.number" var="number"/>
@@ -19,7 +20,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
     <link href="/css/index.css" rel="stylesheet">
-    <title>PHARMACY</title>
+    <title>${main_title}</title>
 </head>
 
 <body>
@@ -47,8 +48,8 @@
                         <td>${requestDto.dosage} ${unit_of_dosage}</td>
                         <td>${requestDto.dateOfIssue}</td>
                         <td>${requestDto.dateOfCompletion}</td>
-                        <a href="?${requestDto.idRequest}"><td>${extend}</td></a>
-                        <a href=""><td>${reject}</td></a>
+                        <td><a href="/extend_request.do?idRequest=${requestDto.idRequest}" class="button">${extend}</a></td>
+                        <td><a href="/reject_request.do?idRequest=${requestDto.idRequest}" class="button">${reject}</a></td>
                     </tr>
                 </c:forEach>
             </c:when>

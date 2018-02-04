@@ -151,4 +151,36 @@ public class PrescriptionServiceImpl implements PrescriptionService {
             throw new ServiceException(e);
         }
     }
+
+    @Override
+    public boolean isExpiredPrescription(String idPrescription) throws ServiceException {
+        logger.debug("PrescriptionServiceImpl.isExpiredPrescription()");
+        IPrescriptionDao prescriptionDao = daoFactory.getIPrescriptionDao();
+        try {
+            int prescriptionId = Integer.parseInt(idPrescription);
+            return prescriptionDao.isExpiredPrescription(prescriptionId);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        } catch (NumberFormatException e){
+            throw new ServiceException("number format exception"+e);
+        }
+    }
+
+    @Override
+    public void extendPrescription(String idRequest, String idDoctor) throws ServiceException {
+        logger.debug("PrescriptionServiceImpl.extendPrescription()");
+        IPrescriptionDao prescriptionDao = daoFactory.getIPrescriptionDao();
+        try {
+            int requestId = Integer.parseInt(idRequest);
+            int doctorId = Integer.parseInt(idDoctor);
+            if(prescriptionDao.getDoctorIdByRequestId(requestId) == doctorId) {
+                prescriptionDao.extendPrescriptionFromRequest(requestId);
+            }
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        } catch (NumberFormatException e){
+            throw new ServiceException("number format exception"+e);
+        }
+
+    }
 }

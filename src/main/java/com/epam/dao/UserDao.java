@@ -16,14 +16,12 @@ import java.util.List;
 public class UserDao implements IUserDao {
     private static Logger logger = Logger.getLogger(UserDao.class);
 
-    public static String GET_USER_BY_LOGIN_AND_PASSWORD = "SELECT * FROM pharmacy.account WHERE login=? AND password=?;";
-    public static String GET_USER_BY_ID = "SELECT * FROM pharmacy.account WHERE id=?;";
-    public static String SIGN_UP_USER = "INSERT INTO account (idRole,login,password,name,surname,address,email) VALUES(?,?,?,?,?,?,?);";
-    public static String GET_ALL_USERS_BY_ID_ROLE = "SELECT * FROM pharmacy.account WHERE idRole=?;";
-    public static String GET_USER_BY_LOGIN = "SELECT * FROM pharmacy.account WHERE login=?;";
-    public static String GET_USER_BY_EMAIL = "SELECT * FROM pharmacy.account WHERE email=?;";
-
-
+    private static final String GET_USER_BY_LOGIN_AND_PASSWORD = "SELECT * FROM pharmacy.account WHERE login=? AND password=?;";
+    private static final String GET_USER_BY_ID = "SELECT * FROM pharmacy.account WHERE id=?;";
+    private static final String SIGN_UP_USER = "INSERT INTO account (idRole,login,password,name,surname,address,email) VALUES(?,?,?,?,?,?,?);";
+    private static final String GET_ALL_USERS_BY_ID_ROLE = "SELECT * FROM pharmacy.account WHERE idRole=?;";
+    private static final String GET_USER_BY_LOGIN = "SELECT * FROM pharmacy.account WHERE login=?;";
+    private static final String GET_USER_BY_EMAIL = "SELECT * FROM pharmacy.account WHERE email=?;";
 
     private ConnectionPool connectionPool;
     private Connection connection;

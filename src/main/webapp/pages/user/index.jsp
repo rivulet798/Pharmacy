@@ -3,7 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <fmt:setLocale scope="session" value="${sessionScope.locale}"/>
 <fmt:setBundle basename="localization.locale" scope="session" var="loc"/>
-<fmt:message bundle="${loc}" key="local.word.title" var="title"/>
+<fmt:message bundle="${loc}" key="local.word.main_title" var="main_title"/>
 <fmt:message bundle="${loc}" key="local.sentence.nothing_found" var="nothing_found"/>
 <fmt:message bundle="${loc}" key="local.button.view" var="view"/>
 <fmt:message bundle="${loc}" key="local.word.unit_of_price" var="unit_of_price"/>
@@ -15,7 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
     <link href="/css/index.css" rel="stylesheet">
-    <title>${title}</title>
+    <title>${main_title}</title>
 </head>
 <body>
 <%@include file="../header.jsp"%>
@@ -45,6 +45,7 @@
 </div>
 <%@include file="../forms.jsp"%>
 <%@include file="../footer.html"%>
-</body>
 <%@include file="../scripts.jsp"%>
+</body>
 </html>
+
