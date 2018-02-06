@@ -1,6 +1,7 @@
 package com.epam.command.impl;
 
-import com.epam.service.RequestService;
+import com.epam.entity.Medicament;
+import com.epam.service.MedicamentService;
 import com.epam.service.exception.ServiceException;
 import com.epam.service.factory.ServiceFactory;
 import com.epam.service.utils.Constants;
@@ -10,28 +11,30 @@ import org.apache.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
-public class RejectRequest implements com.epam.command.Command {
-    private static Logger logger = Logger.getLogger(RejectRequest.class);
+public class GetMedicamentsWithPrescription implements com.epam.command.Command {
     private ServiceFactory serviceFactory = ServiceFactory.getInstance();
+    private static Logger logger = Logger.getLogger(GetMedicamentsByProducer.class);
     private JspPageName jspPageName;
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        jspPageName = JspPageName.INFORMATION;
+        jspPageName = JspPageName.MEDICAMENTS;
         try {
             HttpSession session = request.getSession();
             String idRole = session.getAttribute(RequestEnum.USER_ROLE.getValue()).toString();
             if(Constants.DOCTOR.equals(idRole)) {
-                RequestService requestService = serviceFactory.getRequestServiceImpl();
-                String idRequest = request.getParameter(RequestEnum.ID_REQUEST.getValue());
-                requestService.changeRequestStatus(idRequest, Constants.REJECTED_REQUEST);
-                request.setAttribute(RequestEnum.INFORMATION.getValue(), "Запрос на продление электронного рецепта отклонен");
+                MedicamentService medicamentService = serviceFactory.getMedicamentServiceImpl();
+                List<Medicament> medicaments = medicamentService.getMedicamentsWithPrescription();
+                request.setAttribute("medicaments", medicaments);
             }else{
+                jspPageName = JspPageName.INFORMATION;
                 request.setAttribute(RequestEnum.INFORMATION.getValue(), "Нет прав");
             }
         }catch (ServiceException e){
             logger.error(e.getMessage());
+            jspPageName = JspPageName.INFORMATION;
             request.setAttribute(RequestEnum.INFORMATION.getValue(), e.getMessage());
         }
         return jspPageName.getPath();

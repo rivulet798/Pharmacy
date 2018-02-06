@@ -16,10 +16,11 @@ import java.io.IOException;
 public class SignUp implements Command {
     private static Logger logger = Logger.getLogger(SignUp.class);
     private ServiceFactory serviceFactory = ServiceFactory.getInstance();
-    private JspPageName jspPageName = JspPageName.INDEX;
+    private JspPageName jspPageName;
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
+        jspPageName = JspPageName.INDEX;
         try {
             UserService userService = serviceFactory.getUserServiceImpl();
             String login = request.getParameter(RequestEnum.LOGIN.getValue());

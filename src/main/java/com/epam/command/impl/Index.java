@@ -16,10 +16,11 @@ public class Index implements Command {
 
     private static Logger logger = Logger.getLogger(Index.class);
     private ServiceFactory serviceFactory = ServiceFactory.getInstance();
-    private JspPageName jspPageName = JspPageName.INDEX;
+    private JspPageName jspPageName;
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
+        jspPageName = JspPageName.INDEX;
         try {
         MedicamentService medicamentService = serviceFactory.getMedicamentServiceImpl();
         List<Medicament> medicaments = medicamentService.getAllMedicaments();

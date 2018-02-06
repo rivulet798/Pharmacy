@@ -16,10 +16,11 @@ import java.io.IOException;
 public class SignIn implements Command {
     private static Logger logger = Logger.getLogger(SignIn.class);
     private ServiceFactory serviceFactory = ServiceFactory.getInstance();
-    private JspPageName jspPageName = JspPageName.INDEX;
+    private JspPageName jspPageName;
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
+        jspPageName = JspPageName.INDEX;
         logger.debug(request.getHeader("User-Agent") + " try to sign in account");
         String login = request.getParameter(RequestEnum.LOGLOGIN.getValue());
         String password = request.getParameter(RequestEnum.LOGPASSWORD.getValue());
@@ -34,8 +35,6 @@ public class SignIn implements Command {
             User user = userService.signIn(login, password);
             logger.info(user);
             if (user!=null && user.getIdRole()>0 && user.getIdRole()<5) {
-                //Cookie cookieLogin = new Cookie(RequestEnum.LOGIN.getValue(), user.getLogin());
-                //response.addCookie(cookieLogin);
                 HttpSession session = request.getSession();
                 session.setAttribute(RequestEnum.ID_USER.getValue(), user.getId());
                 session.setAttribute(RequestEnum.USER_LOGIN.getValue(), user.getLogin());

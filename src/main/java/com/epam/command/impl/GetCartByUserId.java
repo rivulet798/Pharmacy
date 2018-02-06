@@ -16,10 +16,11 @@ import java.util.List;
 public class GetCartByUserId implements com.epam.command.Command {
     private static Logger logger = Logger.getLogger(GetCartByUserId.class);
     private ServiceFactory serviceFactory = ServiceFactory.getInstance();
-    private JspPageName jspPageName = JspPageName.ORDERS;
+    private JspPageName jspPageName;
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
+        jspPageName = JspPageName.ORDERS;
         try {
             HttpSession session = request.getSession();
             String idUser = session.getAttribute(RequestEnum.ID_USER.getValue()).toString();

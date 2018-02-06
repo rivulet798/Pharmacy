@@ -17,10 +17,11 @@ import java.util.List;
 public class GetPrescriptionsByUserId implements Command {
     private ServiceFactory serviceFactory = ServiceFactory.getInstance();
     private static Logger logger = Logger.getLogger(GetPrescriptionsByUserId.class);
-    private JspPageName jspPageName = JspPageName.PRESCRIPTIONS;
+    private JspPageName jspPageName;
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
+        jspPageName = JspPageName.PRESCRIPTIONS;
         try {
             HttpSession session = request.getSession();
             String idUser = session.getAttribute(RequestEnum.ID_USER.getValue()).toString();

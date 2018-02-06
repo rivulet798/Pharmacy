@@ -12,10 +12,11 @@ import java.io.IOException;
 public class SignOut implements Command {
 
     private static Logger logger = Logger.getLogger(SignOut.class);
-    private JspPageName jspPageName = JspPageName.INFORMATION;
+    private JspPageName jspPageName;
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
+        jspPageName = JspPageName.INFORMATION;
         try {
             Cookie[] cookies = request.getCookies();
             String login = request.getSession().getAttribute(RequestEnum.USER_LOGIN.getValue()).toString();
@@ -33,7 +34,6 @@ public class SignOut implements Command {
             response.sendRedirect("/index.do");
         }catch (IOException e){
             logger.error(e.getMessage());
-            jspPageName = JspPageName.INFORMATION;
             request.setAttribute(RequestEnum.INFORMATION.getValue(), e.getMessage());
         }
         return jspPageName.getPath();

@@ -7,14 +7,21 @@ import java.sql.*;
 import java.util.MissingResourceException;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class ConnectionPool implements ICloseConnectionPool {
     private static Logger logger = Logger.getLogger(ConnectionPool.class);
 
     private static ConnectionPool instance;
+    private static AtomicBoolean isInitialized = new AtomicBoolean(false);
+    private final static ReentrantLock singletonLocker = new ReentrantLock();
 
     private BlockingQueue<Connection> connectionQueue;
     private BlockingQueue<Connection> givenAwayConQueue;
+
+    private ReentrantLock retrieveLocker = new ReentrantLock();
+    private ReentrantLock putBackLocker = new ReentrantLock();
 
     private String driverName;
     private String url;
@@ -65,40 +72,53 @@ public class ConnectionPool implements ICloseConnectionPool {
 
     public Connection retrieve() throws ConnectionException {//извлечь
         Connection connection = null;
-        if (connectionQueue.size() == 0) {
-            connection = getConnection();
-        } else {
-            try {
-                connection = connectionQueue.take();
-            } catch (InterruptedException e) {
-                throw new ConnectionException("не возможно выдать соединение к БД", e);
-            }
+        retrieveLocker.lock();
+        try {
+            if (connectionQueue.size() == 0) {
+                connection = getConnection();
+            } else {
+                try {
+                    connection = connectionQueue.take();
+                } catch (InterruptedException e) {
+                    throw new ConnectionException("не возможно выдать соединение к БД", e);
+                }
 
+            }
+            givenAwayConQueue.add(connection);
+            return connection;
+        }finally {
+            retrieveLocker.unlock();
         }
-        givenAwayConQueue.add(connection);
-        return connection;
     }
 
     private void putBack(Connection connection) throws NullPointerException {//вернуть
         if (connection != null) {
-            givenAwayConQueue.remove(connection);
-            connectionQueue.add(connection);
+            putBackLocker.lock();
+            try{
+                givenAwayConQueue.remove(connection);
+                connectionQueue.add(connection);
+            } finally {
+                putBackLocker.unlock();
+            }
+
         } else {
             throw new NullPointerException("Connection is null");
         }
     }
 
     public static ConnectionPool getInstance() throws ConnectionException {//Высокая производительность
-        ConnectionPool localInstance = instance;
-        if (instance == null) {
-            synchronized (ConnectionPool.class) {
-                localInstance = instance;
-                if (localInstance == null) {
-                    instance = localInstance = new ConnectionPool();
+        if (!isInitialized.get()) {
+            singletonLocker.lock();
+            try {
+                if (instance == null) {
+                    instance = new ConnectionPool();
+                    isInitialized.set(true);
                 }
+            } finally {
+                singletonLocker.unlock();
             }
         }
-        return localInstance;
+        return instance;
     }
 
     public void putBackConnection(Connection con, Statement st, ResultSet resultSet) {

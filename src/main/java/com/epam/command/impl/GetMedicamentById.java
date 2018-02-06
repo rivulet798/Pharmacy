@@ -23,11 +23,12 @@ public class GetMedicamentById implements Command {
 
     private ServiceFactory serviceFactory = ServiceFactory.getInstance();
     private static Logger logger = Logger.getLogger(GetMedicamentById.class);
-    private JspPageName jspPageName = JspPageName.MEDICAMENT;
+    private JspPageName jspPageName;
 
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
+        jspPageName = JspPageName.MEDICAMENT;
         String idMedicament = request.getParameter(RequestEnum.ID_MEDICAMENT.getValue());
             try {
                 HttpSession session = request.getSession();

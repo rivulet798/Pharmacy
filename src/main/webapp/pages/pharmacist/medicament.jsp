@@ -35,9 +35,9 @@
                 <h2>${name}: <input type="text" name="name" value="${medicament.name}"/></h2>
                 <img src="images/medicaments/${medicament.image}" class="good">
                 <div class="container" >
-                    <p class="title">${image}: <input type="file" accept=".png, .jpg, .jpeg" name="image"/></p>
-                    <p class="title"> ${producer}:<input type="text" name="producer" value="${medicament.producer}"/></p>
-                    <p class="title"> ${price}: <input type="text" name="price" value="${medicament.price}"/> ${unit_of_price}</p>
+                    <p class="title">${image}: <input type="file" accept=".png, .jpg, .jpeg" name="image" autocomplete="off"/></p>
+                    <p class="title"> ${producer}:<input type="text" name="producer" value="${medicament.producer}" autocomplete="off"/></p>
+                    <p class="title"> ${price}: <input type="text" name="price"  autocomplete="off" value="${medicament.price} "/> ${unit_of_price}</p>
                     <p><select name="prescription">
                         <option value="" disabled selected>${leave_form}</option>
                     <c:choose>
@@ -64,9 +64,9 @@
                         </c:when>
                     </c:choose>
                     </select>
-                    <p class="title"> ${mode_of_application}: <textarea name="modeOfApplication" id="modeOfApplication" rows="3" placeholder="${medicament.modeOfApplication}"></textarea></p>>
-                    <p class="title"> ${contraindications}: <textarea name="contraindications" id="contraindications" rows="3" placeholder="${medicament.contraindications}"></textarea></p>
-                    <p class="title"> ${side_effects}: <textarea name="sideEffects" id="sideEffects" rows="2" placeholder="${medicament.sideEffects}"></textarea></p>
+                    <p class="title"> ${mode_of_application}: <textarea name="modeOfApplication" id="modeOfApplication" rows="3" placeholder="${medicament.modeOfApplication}" autocomplete="off"></textarea></p>>
+                    <p class="title"> ${contraindications}: <textarea name="contraindications" id="contraindications" rows="3" placeholder="${medicament.contraindications}" autocomplete="off"></textarea></p>
+                    <p class="title"> ${side_effects}: <textarea name="sideEffects" id="sideEffects" rows="2" placeholder="${medicament.sideEffects}" autocomplete="off"></textarea></p>
                     <input type="submit" class="button" value="${ready}"/>
                 </div>
             </form>

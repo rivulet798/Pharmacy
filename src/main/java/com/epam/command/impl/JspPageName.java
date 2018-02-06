@@ -2,7 +2,7 @@ package com.epam.command.impl;
 
 public enum JspPageName {
     INDEX("pages/user/index.jsp"),
-    MEDICAMENTS("/pages/pharmacist/index.jsp"),
+    MEDICAMENTS("/pages/pharmacist/medicines.jsp"),
     MEDICAMENT("/pages/common/medicament.jsp"),
     INFORMATION("/pages/common/information.jsp"),
     ADD_PRESCRIPTION("/pages/doctor/addPrescription.jsp"),

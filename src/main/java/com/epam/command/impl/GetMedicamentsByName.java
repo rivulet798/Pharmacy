@@ -15,10 +15,11 @@ import java.util.List;
 public class GetMedicamentsByName implements Command {
     private ServiceFactory serviceFactory = ServiceFactory.getInstance();
     private static Logger logger = Logger.getLogger(GetMedicamentsByProducer.class);
-    private JspPageName jspPageName = JspPageName.INDEX;
+    private JspPageName jspPageName;
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
+        jspPageName = JspPageName.INDEX;
         String name = request.getParameter(RequestEnum.NAME.getValue());
         try {
             MedicamentService medicamentService = serviceFactory.getMedicamentServiceImpl();

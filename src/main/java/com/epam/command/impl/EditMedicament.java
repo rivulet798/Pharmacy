@@ -19,10 +19,11 @@ import java.io.IOException;
 public class EditMedicament implements Command {
     private static Logger logger = Logger.getLogger(EditMedicament.class);
     private ServiceFactory serviceFactory = ServiceFactory.getInstance();
-    private JspPageName jspPageName = JspPageName.INDEX;
+    private JspPageName jspPageName;
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
+        jspPageName = JspPageName.INDEX;
         MedicamentService medicamentService = serviceFactory.getMedicamentServiceImpl();
         logger.debug("\"" + ((String) request.getSession().getAttribute(RequestEnum.USER_LOGIN.getValue())) + "\" try to edit medicament");
         try {
@@ -42,7 +43,6 @@ public class EditMedicament implements Command {
                             prescription, part, webInfPath, availability);
 
                     request.setAttribute(RequestEnum.INFORMATION.getValue(), "Medicament is changed");
-                    logger.debug(((String) request.getSession().getAttribute(RequestEnum.LOGIN.getValue())) + " edited medicament");
                 }else{
                     jspPageName = JspPageName.INFORMATION;
                     request.setAttribute(RequestEnum.INFORMATION.getValue(), "Нет прав");

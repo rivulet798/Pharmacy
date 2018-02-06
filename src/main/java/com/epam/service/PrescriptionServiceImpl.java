@@ -1,9 +1,11 @@
 package com.epam.service;
 
+import com.epam.dao.IOrderDao;
 import com.epam.dao.IPrescriptionDao;
 import com.epam.dao.exception.DaoException;
 import com.epam.dao.factory.DaoFactory;
 import com.epam.dto.PrescriptionDto;
+import com.epam.entity.Order;
 import com.epam.entity.Prescription;
 import com.epam.service.exception.ServiceException;
 import com.epam.service.exception.ServiceLogicException;
@@ -86,7 +88,7 @@ public class PrescriptionServiceImpl implements PrescriptionService {
                 prescriptionDao.addPrescription(prescription);
             }
             else{
-                throw new ServiceLogicException();
+                throw new ServiceLogicException("Wrong date of completion");
             }
         } catch (ValidatorException | DaoException e) {
             logger.debug(e.getMessage());
@@ -181,6 +183,27 @@ public class PrescriptionServiceImpl implements PrescriptionService {
         } catch (NumberFormatException e){
             throw new ServiceException("number format exception"+e);
         }
+    }
 
+    @Override
+    public boolean isPrescriptionValid(String idOrder) throws ServiceException {
+        logger.debug("PrescriptionServiceImpl.isPrescriptionValid()");
+        IPrescriptionDao prescriptionDao = daoFactory.getIPrescriptionDao();
+        IOrderDao orderDao = daoFactory.getIOrderDao();
+        try {
+            int orderId = Integer.parseInt(idOrder);
+            Order order = orderDao.getOrderById(orderId);
+            int idPrescription = order.getIdPrescription();
+            if(idPrescription != 0) {
+                Prescription prescription = prescriptionDao.getPrescriptionById(idPrescription);
+                return prescription.isValid();
+            } else{
+                return true;
+            }
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        } catch (NumberFormatException e){
+            throw new ServiceException("number format exception"+e);
+        }
     }
 }

@@ -19,17 +19,17 @@ import java.util.List;
 public class GetMedicaments implements Command {
     private ServiceFactory serviceFactory = ServiceFactory.getInstance();
     private static Logger logger = Logger.getLogger(GetMedicamentsByProducer.class);
-    private JspPageName jspPageName = JspPageName.MEDICAMENTS;
+    private JspPageName jspPageName;
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
+        jspPageName = JspPageName.MEDICAMENTS;
         try {
             HttpSession session = request.getSession();
             String idRole = session.getAttribute(RequestEnum.USER_ROLE.getValue()).toString();
             if(Constants.PHARMACIST.equals(idRole)) {
                 MedicamentService medicamentService = serviceFactory.getMedicamentServiceImpl();
                 List<Medicament> medicaments = medicamentService.getAllMedicaments();
-                logger.info(request.getHeader("Successfully getting medicaments by name"));
                 SecureRandom secureRandom = new SecureRandom();
                 String csrfToken = String.valueOf(secureRandom.nextLong());
                 csrfToken = Hasher.hashBySha1(csrfToken);

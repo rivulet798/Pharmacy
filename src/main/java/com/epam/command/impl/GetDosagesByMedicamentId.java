@@ -14,10 +14,11 @@ import java.util.List;
 public class GetDosagesByMedicamentId implements com.epam.command.Command {
     private static Logger logger = Logger.getLogger(GetDosagesByMedicamentId.class);
     private ServiceFactory serviceFactory = ServiceFactory.getInstance();
-    private JspPageName jspPageName = JspPageName.ADD_PRESCRIPTION;
+    private JspPageName jspPageName;
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
+        jspPageName = JspPageName.ADD_PRESCRIPTION;
         String idMedicament = request.getParameter(RequestEnum.ID_MEDICAMENT.getValue());
         try {
             DosageService dosageService = serviceFactory.getDosageServiceImpl();

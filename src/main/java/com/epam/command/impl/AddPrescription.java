@@ -16,10 +16,11 @@ import javax.servlet.http.HttpSession;
 public class AddPrescription implements Command {
     private static Logger logger = Logger.getLogger(AddPrescription.class);
     private ServiceFactory serviceFactory = ServiceFactory.getInstance();
-    private JspPageName jspPageName = JspPageName.INFORMATION;
+    private JspPageName jspPageName;
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
+        jspPageName = JspPageName.INFORMATION;
         try {
             HttpSession session = request.getSession();
             String idRole = session.getAttribute(RequestEnum.USER_ROLE.getValue()).toString();
@@ -31,7 +32,7 @@ public class AddPrescription implements Command {
                     PrescriptionService prescriptionService = serviceFactory.getPrescriptionServiceImpl();
                     String idDoctor = session.getAttribute(RequestEnum.ID_USER.getValue()).toString();
                     String idUser = request.getParameter(RequestEnum.USER.getValue());
-                    String idMedicament = request.getParameter(RequestEnum.MEDICAMENT.getValue());
+                    String idMedicament = request.getParameter(RequestEnum.ID_MEDICAMENT.getValue());
                     String dateOfCompletion = request.getParameter(RequestEnum.DATE_OF_COMPLETION.getValue());
                     int idDosage = Integer.parseInt(request.getParameter(RequestEnum.ID_DOSAGE.getValue()));
                     int number = Integer.parseInt(request.getParameter(RequestEnum.NUMBER.getValue()));
@@ -39,16 +40,13 @@ public class AddPrescription implements Command {
 
                     request.setAttribute(RequestEnum.INFORMATION.getValue(), "Prescription is added");
                 } else{
-                    jspPageName = JspPageName.INFORMATION;
                     request.setAttribute(RequestEnum.INFORMATION.getValue(),"Возможно ваш запрос является поддельным. Заполните форму заново или обратитесь к администратору.");
                 }
             } else{
-                jspPageName = JspPageName.INFORMATION;
                 request.setAttribute(RequestEnum.INFORMATION.getValue(), "Нет прав");
             }
         }catch (ServiceException | ServiceLogicException e){
             logger.error(e.getMessage());
-            jspPageName = JspPageName.INFORMATION;
             request.setAttribute(RequestEnum.INFORMATION.getValue(), e.getMessage());
     }
         return jspPageName.getPath();

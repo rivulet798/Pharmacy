@@ -43,6 +43,7 @@ public final class CommandProvider {
         repository.put(CommandName.SET_LOCALE, new SetLocale());
         repository.put(CommandName.REJECT_REQUEST, new RejectRequest());
         repository.put(CommandName.EXTEND_REQUEST, new ExtendRequest());
+        repository.put(CommandName.GET_MEDICAMENTS_WITH_PRESCRIPTION, new GetMedicamentsWithPrescription());
     }
 
     public static CommandProvider getInstance() {

@@ -16,34 +16,41 @@ import javax.servlet.http.HttpSession;
 public class Pay implements Command {
     private static Logger logger = Logger.getLogger(Pay.class);
     private ServiceFactory serviceFactory = ServiceFactory.getInstance();
-    private JspPageName jspPageName = JspPageName.INFORMATION;
+    private JspPageName jspPageName;
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
+        jspPageName = JspPageName.INFORMATION;
         try {
-            HttpSession session = request.getSession();
-            String idRole = session.getAttribute(RequestEnum.USER_ROLE.getValue()).toString();
-            if(idRole.equals(Constants.USER)) {
+            if(checkRole(request)) {
                 OrderService orderService = serviceFactory.getOrderServiceImpl();
+                PrescriptionService prescriptionService = serviceFactory.getPrescriptionServiceImpl();
                 String idOrder = request.getParameter(RequestEnum.ID_ORDER.getValue());
-                if(orderService.changeOrderStatus(idOrder, Constants.STATUS_PAID)){
-                    PrescriptionService prescriptionService = serviceFactory.getPrescriptionServiceImpl();
+                if(prescriptionService.isPrescriptionValid(idOrder)){
+                    orderService.changeOrderStatus(idOrder, Constants.STATUS_PAID);
                     prescriptionService.setPrescriptionInvalidByOrderId(idOrder);
                     request.setAttribute(RequestEnum.INFORMATION.getValue(), "Заказ успешно оплачен");
                 }
                 else {
-                    request.setAttribute(RequestEnum.INFORMATION.getValue(), "Не удалось произвести оплату");
+                    orderService.changeOrderStatus(idOrder, Constants.STATUS_DELETED);
+                    request.setAttribute(RequestEnum.INFORMATION.getValue(), "Вы уже использовали электронный рецепт на данный препарат. Товар будет удален из вашей корзины.");
                 }
-            }
-            else{
-                jspPageName = JspPageName.INFORMATION;
-                request.setAttribute(RequestEnum.INFORMATION.getValue(), "Нет прав");
             }
         }catch (ServiceException e){
             logger.error(e.getMessage());
-            jspPageName = JspPageName.INFORMATION;
             request.setAttribute(RequestEnum.INFORMATION.getValue(), e.getMessage());
         }
         return jspPageName.getPath();
+    }
+
+    private boolean checkRole(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        String idRole = session.getAttribute(RequestEnum.USER_ROLE.getValue()).toString();
+        if(idRole.equals(Constants.USER)){
+            return true;
+        } else{
+            request.setAttribute(RequestEnum.INFORMATION.getValue(), "Нет прав");
+            return false;
+        }
     }
 }

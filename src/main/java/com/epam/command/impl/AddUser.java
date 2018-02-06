@@ -16,10 +16,11 @@ import javax.servlet.http.HttpSession;
 public class AddUser implements Command {
     private static Logger logger = Logger.getLogger(AddUser.class);
     private ServiceFactory serviceFactory = ServiceFactory.getInstance();
-    private JspPageName jspPageName = JspPageName.INFORMATION;
+    private JspPageName jspPageName;
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
+        jspPageName = JspPageName.INFORMATION;
         try {
             HttpSession session = request.getSession();
             String idRole = session.getAttribute(RequestEnum.USER_ROLE.getValue()).toString();
@@ -29,7 +30,6 @@ public class AddUser implements Command {
 
                 if (login == null || password == null || login.isEmpty() || password.isEmpty()) {
                     request.setAttribute("errorData", "введите логин или пароль");
-                    jspPageName = JspPageName.INFORMATION;
                     return jspPageName.getPath();
                 }
 
@@ -51,12 +51,10 @@ public class AddUser implements Command {
                 }
             }
             else {
-                jspPageName = JspPageName.INFORMATION;
                 request.setAttribute(RequestEnum.INFORMATION.getValue(), "Нет прав");
             }
         }catch (ServiceException | ServiceLogicException e){
             logger.error(e.getMessage());
-            jspPageName = JspPageName.INFORMATION;
             request.setAttribute(RequestEnum.INFORMATION.getValue(), e.getMessage());
         }
         return jspPageName.getPath();

@@ -18,10 +18,11 @@ import java.util.List;
 public class GetUsers implements Command {
     private ServiceFactory serviceFactory = ServiceFactory.getInstance();
     private static Logger logger = Logger.getLogger(GetUsers.class);
-    private JspPageName jspPageName = JspPageName.USERS;
+    private JspPageName jspPageName;
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
+        jspPageName = JspPageName.USERS;
         try {
             HttpSession session = request.getSession();
             String idRole = session.getAttribute(RequestEnum.USER_ROLE.getValue()).toString();

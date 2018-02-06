@@ -5,6 +5,7 @@ import com.epam.dao.exception.DaoException;
 import com.epam.dao.pool.ConnectionPool;
 import com.epam.dto.PrescriptionDto;
 import com.epam.entity.Prescription;
+import com.epam.service.utils.Constants;
 import org.apache.log4j.Logger;
 
 import java.sql.Connection;
@@ -19,7 +20,7 @@ public class PrescriptionDao implements IPrescriptionDao {
 
     private static final String SET_PRESCRIPTION_INVALID = "UPDATE pharmacy.prescription p  JOIN pharmacy.order o ON p.idPrescription = o.idPrescription SET p.valid=0 WHERE o.idOrder=?;";
     private static final String GET_PRESCRIPTION_BY_ID = "SELECT * FROM pharmacy.prescription WHERE idPrescription=?;";
-    private static final String ADD_PRESCRIPTION = "INSERT INTO prescription (idDoctor,idUser,idMedicament,dateOfIssue,dateOfCompletion,idDosage,number) VALUES(?,?,?,?,?,?,?);";
+    private static final String ADD_PRESCRIPTION = "INSERT INTO prescription (idDoctor,idUser,idMedicament,dateOfIssue,dateOfCompletion,idDosage,number,valid) VALUES(?,?,?,?,?,?,?,?);";
     private static final String GET_PRESCRIPTIONS_BY_USER_ID = "SELECT * FROM pharmacy.prescription WHERE prescription.valid=1 AND prescription.idUser=?;";
     private static final String GET_PRESCRIPTIONS_DTO_BY_USER_ID = "SELECT idPrescription, dateOfIssue, dateOfCompletion, number, dosage, a.name, a.surname, m.name AS medicamentName FROM prescription p JOIN medicament m ON p.idMedicament = m.idMedicament JOIN account a ON p.idDoctor = a.idUser JOIN dosage d ON p.idDosage = d.id WHERE p.idUser=? AND p.valid=1;";
     private static final String GET_PRESCRIPTIONS_BY_USER_ID_AND_MED_ID = "SELECT d.id as idDosage, dosage, number, valid, p.idPrescription FROM prescription p JOIN dosage d ON p.idDosage = d.id WHERE p.idUser=? AND p.idMedicament=? AND p.valid=1 AND DATEDIFF(p.dateOfCompletion, curdate())>=0;";
@@ -52,6 +53,7 @@ public class PrescriptionDao implements IPrescriptionDao {
             statement.setDate(5,prescription.getDateOfCompletion());
             statement.setInt(6, prescription.getIdDosage());
             statement.setInt(7, prescription.getNumber());
+            statement.setInt(8, Constants.IS_VALID);
 
             if(statement.executeUpdate()!=0){
                 logger.debug("PrescriptionDao.addPrescription()-success");

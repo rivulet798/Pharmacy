@@ -15,10 +15,11 @@ import javax.servlet.http.HttpSession;
 public class ExtendRequest implements com.epam.command.Command {
     private static Logger logger = Logger.getLogger(ExtendRequest.class);
     private ServiceFactory serviceFactory = ServiceFactory.getInstance();
-    private JspPageName jspPageName = JspPageName.INFORMATION;
+    private JspPageName jspPageName;
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
+        jspPageName = JspPageName.INFORMATION;
         try {
             HttpSession session = request.getSession();
             String idRole = session.getAttribute(RequestEnum.USER_ROLE.getValue()).toString();

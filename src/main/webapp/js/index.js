@@ -68,10 +68,9 @@ function validMedicament(form)
         n++;
     }
     if(name_regex.test(form.producer.value)==false)
-    {fail="Производитель введен неверно.\n";
+    {fail=fail+"Производитель введен неверно.\n";
         n++;
     }
-
 
     if(form.image.value=="")
     {fail=fail+"Картинка не выбрана.\n";
@@ -83,6 +82,43 @@ function validMedicament(form)
         alert(fail);
         return false;
         form.submit1.style.display='none';
+    }
+    else
+    {
+        return true;
+    }
+}
+
+function validPrescription(form)
+{
+    var fail;
+    var n=1;
+    fail="";
+
+    if(form.user.selectedIndex == 0){
+        fail="Пациент не выбран.\n";
+        n++;
+    }
+
+    if(form.idDosage.selectedIndex == 0){
+        fail=fail+"Дозировка не выбрана.\n";
+        n++;
+    }
+    var number = /([0-9]+)/;
+    if(number.test(form.number.value)==false || form.number.value=="" || form.number.value<=0)
+    {fail=fail+"Количество упаковок введено неверно.\n";
+        n++;
+    }
+
+    if(form.dateOfCompletion.value == ""){
+        fail=fail+"Дата завершения рецепта не выбрана.\n";
+        n++;
+    }
+
+    if(n!=1)
+    {
+        alert(fail);
+        return false;
     }
     else
     {

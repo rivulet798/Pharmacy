@@ -16,10 +16,11 @@ import javax.servlet.http.HttpSession;
 public class AddRequest implements Command {
     private static Logger logger = Logger.getLogger(AddRequest.class);
     private ServiceFactory serviceFactory = ServiceFactory.getInstance();
-    private JspPageName jspPageName = JspPageName.INFORMATION;
+    private JspPageName jspPageName;
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
+        jspPageName = JspPageName.INFORMATION;
         try {
             RequestService requestService = serviceFactory.getRequestServiceImpl();
             String idPrescription = request.getParameter(RequestEnum.ID_PRESCRIPTION.getValue());

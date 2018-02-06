@@ -5,6 +5,7 @@
 <jsp:useBean class="com.epam.entity.User" scope="page" id="user" />
 <fmt:setLocale scope="session" value="${sessionScope.locale}"/>
 <fmt:setBundle basename="localization.locale" scope="session" var="loc"/>
+<fmt:message bundle="${loc}" key="local.word.main_title" var="main_title"/>
 <fmt:message bundle="${loc}" key="local.button.add_medication" var="add_medication"/>
 <fmt:message bundle="${loc}" key="local.word.picture" var="picture"/>
 <fmt:message bundle="${loc}" key="local.word.name" var="name"/>
@@ -12,6 +13,7 @@
 <fmt:message bundle="${loc}" key="local.word.price" var="price"/>
 <fmt:message bundle="${loc}" key="local.word.unit_of_price" var="unit_of_price"/>
 <fmt:message bundle="${loc}" key="local.button.edit" var="edit"/>
+<fmt:message bundle="${loc}" key="local.button.writing_the_recipe" var="writing_the_recipe"/>
 <fmt:message bundle="${loc}" key="local.sentence.nothing_found" var="nothing_found"/>
 <fmt:message bundle="${loc}" key="local.sentence.adding_of_medicine" var="adding_of_medicine"/>
 <fmt:message bundle="${loc}" key="local.sentence.leave_form" var="leave_form"/>
@@ -32,14 +34,17 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
         <link href="/css/index.css" rel="stylesheet">
-        <title>PHARMACY</title>
+        <title>${main_title}</title>
     </head>
     <body>
     <%@include file="../header.jsp"%>
     <div class="page">
     <div class="card">
-        <button class="button" onclick="showPopUp()">${add_medication}</button>
-
+        <c:choose>
+            <c:when test="${roleUser==2}">
+                <button class="button" onclick="showPopUp()">${add_medication}</button>
+            </c:when>
+        </c:choose>
         <table id="dataTable">
         <tr>
             <th>${picture}</th>
@@ -56,7 +61,14 @@
                             <td>${medicament.name}</td>
                             <td>${medicament.producer}</td>
                             <td price=${medicament.price}>${medicament.price} ${unit_of_price}</td>
-                            <td><a href="/get_and_edit_medicament.do?idMedicament=${medicament.id}" class="button">${edit}</a></td>
+                            <c:choose>
+                                <c:when test="${roleUser==2}">
+                                    <td><a href="/get_and_edit_medicament.do?idMedicament=${medicament.id}" class="button">${edit}</a></td>
+                                </c:when>
+                                <c:when test="${roleUser==3}">
+                                    <td><a href="/new_prescription.do?idMedicament=${medicament.id}" class="button">${writing_the_recipe}</a></td>
+                                </c:when>
+                            </c:choose>
                             </td>
                         </tr>
                     </c:forEach>
@@ -76,9 +88,9 @@
         <div class="card">
             <form name="Reviews" method="POST" id="form" action="/add_medicament.do" enctype="multipart/form-data" onsubmit="return validMedicament(this)">
                 <h2>${adding_of_medicine}</h2>
-                <input type="text" name="name" id="name" placeholder="${name}">
-                <input type="text" name="producer" id="producer" placeholder="${producer}">
-                <input type="text" name="price" id="price" placeholder="${price}">
+                <input type="text" name="name" id="name" placeholder="${name}" autocomplete="off">
+                <input type="text" name="producer" id="producer" placeholder="${producer}" autocomplete="off">
+                <input type="text" name="price" id="price" placeholder="${price}" autocomplete="off">
                 <select name="prescription">
                     <option value="" disabled selected>${leave_form}</option>
                     <option value="false">${released_without_prescription}</option>
@@ -90,11 +102,11 @@
                     <option value="false">${not_available}</option>
                     <option value="true">${is_available}</option>
                 </select>
-                <textarea name="modeOfApplication" id="modeOfApplication" rows="3" placeholder="${mode_of_application}"></textarea>
-                <textarea name="contraindications" id="contraindications" rows="3" placeholder="${contraindications}"></textarea>
-                <textarea name="sideEffects" id="sideEffects" rows="2" placeholder="${side_effects}"></textarea>
+                <textarea name="modeOfApplication" id="modeOfApplication" rows="3" placeholder="${mode_of_application}" autocomplete="off"></textarea>
+                <textarea name="contraindications" id="contraindications" rows="3" placeholder="${contraindications}" autocomplete="off"></textarea>
+                <textarea name="sideEffects" id="sideEffects" rows="2" placeholder="${side_effects}" autocomplete="off"></textarea>
                 <div id="dosages">
-                    <input type="number" name="dosage" id="dosage" placeholder="${dosa}">
+                    <input type="number" name="dosage" id="dosage" placeholder="${dosa}" autocomplete="off">
                     <button onclick="addDosage()">${add_dosage}</button>
                 </div>
                 <input type="hidden" name="csrfToken" value="${csrfToken}"/>

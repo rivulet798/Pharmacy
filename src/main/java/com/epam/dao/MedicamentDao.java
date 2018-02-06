@@ -96,6 +96,8 @@ public class MedicamentDao implements IMedicamentDao {
             resultSet = statement.executeQuery();
             if (resultSet.first()) {
                 medicament = load(resultSet);
+            } else{
+                throw new DaoException("Medicament with such id is not exist");
             }
         } catch (SQLException e) {
             try {

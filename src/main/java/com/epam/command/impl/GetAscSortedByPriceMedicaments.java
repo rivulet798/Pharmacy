@@ -15,10 +15,11 @@ import java.util.List;
 public class GetAscSortedByPriceMedicaments implements Command {
     private ServiceFactory serviceFactory = ServiceFactory.getInstance();
     private static Logger logger = Logger.getLogger(GetAscSortedByPriceMedicaments.class);
-    private JspPageName jspPageName = JspPageName.MEDICAMENTS;
+    private JspPageName jspPageName;
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
+        jspPageName = JspPageName.MEDICAMENTS;
         try {
             MedicamentService medicamentService = serviceFactory.getMedicamentServiceImpl();
             List<Medicament> medicaments = medicamentService.getAscSortedByPriceMedicaments();

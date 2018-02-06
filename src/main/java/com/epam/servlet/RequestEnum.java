@@ -7,6 +7,7 @@ public enum RequestEnum {
 
     INFORMATION("information"),
     MEDICAMENTS("medicaments"),
+    DOSAGES("dosages"),
 
     MEDICAMENT("medicament"),
     LOGLOGIN("loglogin"),

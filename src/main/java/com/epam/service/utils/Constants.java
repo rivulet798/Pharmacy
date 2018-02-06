@@ -10,7 +10,9 @@ public class Constants {
     public static final int REJECTED_REQUEST = 3;
     public static final int STATUS_IN_CART = 1;
     public static final int STATUS_PAID = 2;
+    public static final int STATUS_DELETED = 3;
     public static final int GUEST = 0;
     public static final String RU = "ru_RU";
     public static final String EN = "en_US";
+    public static final int IS_VALID = 1;
 }

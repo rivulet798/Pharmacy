@@ -27,7 +27,7 @@
                 </c:when>
                 <c:when test="${roleUser==3}">
                     <a href="/get_my_requests.do"><li>${queries}</li></a>
-                    <a href="/new_prescription.do"><li>${writing_the_recipe}</li></a>
+                    <a href="/get_medicaments_with_prescription.do"><li>${writing_the_recipe}</li></a>
                 </c:when>
                 <c:when test="${roleUser==4}">
                     <a href="/get_users.do?usersRole=2"><li>${pharmacists}</li></a>

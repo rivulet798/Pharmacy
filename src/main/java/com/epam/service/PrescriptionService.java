@@ -18,5 +18,5 @@ public interface PrescriptionService {
     boolean setPrescriptionInvalidByOrderId(String idOrder) throws ServiceException;
     boolean isExpiredPrescription(String idPrescription) throws ServiceException;
     void extendPrescription(String idRequest, String idDoctor) throws ServiceException;
-
+    boolean isPrescriptionValid(String idOrder) throws ServiceException;
 }

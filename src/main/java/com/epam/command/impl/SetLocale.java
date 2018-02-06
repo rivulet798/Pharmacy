@@ -10,10 +10,11 @@ import java.io.IOException;
 public class SetLocale implements com.epam.command.Command {
     private static Logger logger = Logger.getLogger(SetLocale.class);
     private ServiceFactory serviceFactory = ServiceFactory.getInstance();
-    private JspPageName jspPageName = JspPageName.INFORMATION;
+    private JspPageName jspPageName;
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
+        jspPageName = JspPageName.INFORMATION;
         String jsp= request.getHeader("Referer");
         String locale = request.getParameter("locale");
         request.getSession().setAttribute("locale",locale);
