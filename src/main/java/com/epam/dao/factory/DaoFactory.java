@@ -1,38 +1,39 @@
 package com.epam.dao.factory;
 
 import com.epam.dao.*;
+import com.epam.dao.impl.*;
 
 public class DaoFactory {
     private static final DaoFactory instance = new DaoFactory();
-    private final UserDao iUserDao = new UserDao();
-    private final MedicamentDao iMedicamentDao = new MedicamentDao();
-    private final PrescriptionDao iPrescriptionDao = new PrescriptionDao();
-    private final OrderDao iOrderDao = new OrderDao();
-    private final RequestDao iRequestDao = new RequestDao();
-    private final DosageDao iDosageDao = new DosageDao();
+    private final UserDaoImpl iUserDaoImpl = new UserDaoImpl();
+    private final MedicamentDaoImpl iMedicamentDaoImpl = new MedicamentDaoImpl();
+    private final PrescriptionDaoImpl iPrescriptionDaoImpl = new PrescriptionDaoImpl();
+    private final OrderDaoImpl iOrderDaoImpl = new OrderDaoImpl();
+    private final RequestDaoImpl iRequestDaoImpl = new RequestDaoImpl();
+    private final DosageDaoImpl iDosageDaoImpl = new DosageDaoImpl();
 
     private DaoFactory() {}
     public static DaoFactory getInstance() {
         return instance;
     }
 
-    public UserDao getIUserDao() {
-        return iUserDao;
+    public UserDaoImpl getIUserDao() {
+        return iUserDaoImpl;
     }
-    public IMedicamentDao getIMedicamentDao() {
-        return iMedicamentDao;
+    public MedicamentDao getIMedicamentDao() {
+        return iMedicamentDaoImpl;
     }
-    public IPrescriptionDao getIPrescriptionDao() {
-        return iPrescriptionDao;
+    public PrescriptionDao getIPrescriptionDao() {
+        return iPrescriptionDaoImpl;
     }
-    public IOrderDao getIOrderDao() {
-        return iOrderDao;
+    public OrderDao getIOrderDao() {
+        return iOrderDaoImpl;
     }
-    public IRequestDao getIRequestDao() {
-        return iRequestDao;
+    public RequestDao getIRequestDao() {
+        return iRequestDaoImpl;
     }
-    public IDosageDao getIDosageDao() {
-        return iDosageDao;
+    public DosageDao getIDosageDao() {
+        return iDosageDaoImpl;
     }
 
 }

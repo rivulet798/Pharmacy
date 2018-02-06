@@ -2,7 +2,6 @@ package com.epam.service;
 
 import com.epam.entity.Medicament;
 import com.epam.service.exception.ServiceException;
-import com.epam.service.exception.ServiceLogicException;
 
 import javax.servlet.http.Part;
 import java.util.List;
@@ -16,10 +15,10 @@ public interface MedicamentService {
     List<Medicament> getMedicamentsByProducer(String producer) throws ServiceException;
     int addMedicament(String name, String producer, String price,
                        String prescroption, Part part,
-                       String image, String availability) throws ServiceException,ServiceLogicException;
+                       String image, String availability) throws ServiceException;
     List<Medicament> getMedicamentByName(String name) throws ServiceException;
     void editMedicament(String idMedicament, String name, String producer, String price,
                        String prescroption, Part part,
-                       String image, String availability) throws ServiceException,ServiceLogicException;
+                       String image, String availability) throws ServiceException;
 
 }

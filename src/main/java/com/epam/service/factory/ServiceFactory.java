@@ -1,6 +1,6 @@
 package com.epam.service.factory;
 
-import com.epam.service.*;
+import com.epam.service.impl.*;
 
 public class ServiceFactory {
     private static final ServiceFactory instance = new ServiceFactory();

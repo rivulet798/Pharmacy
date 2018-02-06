@@ -1,6 +1,6 @@
 package com.epam.service.utils;
 
-import com.epam.service.utils.exception.ValidatorException;
+import com.epam.exception.ValidatorException;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -17,7 +17,7 @@ public class Validator {
     private static Pattern pattern;
     private static Matcher matcher;
 
-    public final static void isNull(Object... objects) throws ValidatorException {
+    public static void isNull(Object... objects) throws ValidatorException {
         for (Object ob : objects) {
             if (ob == null) {
                 throw new ValidatorException("Input error (string is null)");
@@ -25,7 +25,7 @@ public class Validator {
         }
     }
 
-    public final static void isEmptyString(String... strings) throws ValidatorException {
+    public static void isEmptyString(String... strings) throws ValidatorException {
         for (String s : strings) {
             if (s.isEmpty()) {
                 throw new ValidatorException("Input error (string is empty)");
@@ -34,7 +34,7 @@ public class Validator {
     }
 
 
-    public final static void matchDate(String... strings) throws ValidatorException {
+    public static void matchDate(String... strings) throws ValidatorException {
         pattern = Pattern.compile(REGEX_FOR_DATE);
         try {
             for (String s : strings) {
@@ -48,7 +48,7 @@ public class Validator {
         }
     }
 
-    public final static void matchProperName(String... strings) throws ValidatorException {
+    public static void matchProperName(String... strings) throws ValidatorException {
         pattern = Pattern.compile(REGEX_FOR_PROPER_NAME);
         for (String s : strings) {
             matcher = pattern.matcher(s);
@@ -58,7 +58,7 @@ public class Validator {
         }
     }
 
-    public final static void matchEmail(String... strings) throws ValidatorException {
+    public static void matchEmail(String... strings) throws ValidatorException {
         pattern = Pattern.compile(REGEX_FOR_EMAIL);
         for (String s : strings) {
             matcher = pattern.matcher(s);
@@ -68,7 +68,7 @@ public class Validator {
         }
     }
 
-    public final static void matchLogin(String... strings) throws ValidatorException {
+    public static void matchLogin(String... strings) throws ValidatorException {
         pattern = Pattern.compile(REGEX_FOR_LOGIN);
         for (String s : strings) {
             matcher = pattern.matcher(s);
@@ -78,7 +78,7 @@ public class Validator {
         }
     }
 
-    public final static void matchPassword(String... strings) throws ValidatorException {
+    public static void matchPassword(String... strings) throws ValidatorException {
         pattern = Pattern.compile(REGEX_FOR_PASSWORD);
         for (String s : strings) {
             matcher = pattern.matcher(s);
@@ -88,7 +88,7 @@ public class Validator {
         }
     }
 
-    public final static void matchNumber(String... strings) throws ValidatorException{
+    public static void matchNumber(String... strings) throws ValidatorException{
         pattern = Pattern.compile(REGEX_FOR_NUMBER);
         for (String s : strings) {
             matcher = pattern.matcher(s);
@@ -99,7 +99,7 @@ public class Validator {
 
     }
 
-    public final static void matchLength(String... strings) throws ValidatorException{
+    public static void matchLength(String... strings) throws ValidatorException{
         for (String s :strings){
             if(s.length() < 3){
                 throw new ValidatorException("The string must contain at least three letters");

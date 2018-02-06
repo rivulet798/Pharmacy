@@ -2,6 +2,14 @@ package com.epam.command;
 
 
 import com.epam.command.impl.*;
+import com.epam.command.impl.admin.AddUser;
+import com.epam.command.impl.admin.GetUsers;
+import com.epam.command.impl.common.*;
+import com.epam.command.impl.doctor.*;
+import com.epam.command.impl.pharmacist.AddMedicament;
+import com.epam.command.impl.pharmacist.EditMedicament;
+import com.epam.command.impl.pharmacist.GetMedicamentByIdForPharmacist;
+import com.epam.command.impl.user.*;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;

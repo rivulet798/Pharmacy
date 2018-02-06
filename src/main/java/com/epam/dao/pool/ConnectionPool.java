@@ -38,7 +38,7 @@ public class ConnectionPool implements ICloseConnectionPool {
             this.user = dbResourceManager.getValue(DBParametr.DB_USER);
             this.url = dbResourceManager.getValue(DBParametr.DB_URL);
             this.password = dbResourceManager.getValue(DBParametr.DB_PASSWORD);
-            this.poolSize = Integer.parseInt(dbResourceManager.getValue((DBParametr.DN_POOL_SIZE)));
+            this.poolSize = Integer.parseInt(dbResourceManager.getValue((DBParametr.DB_POOL_SIZE)));
             Class.forName(driverName);
             logger.info("Database driver was loaded");
         } catch (NumberFormatException e) {
@@ -59,7 +59,7 @@ public class ConnectionPool implements ICloseConnectionPool {
     }
 
     private Connection getConnection() throws ConnectionException {
-        Connection connection = null;
+        Connection connection;
         try {
             connection = DriverManager.getConnection(url, user, password);
             logger.info("Get connection from database");
@@ -71,7 +71,7 @@ public class ConnectionPool implements ICloseConnectionPool {
     }
 
     public Connection retrieve() throws ConnectionException {//извлечь
-        Connection connection = null;
+        Connection connection;
         retrieveLocker.lock();
         try {
             if (connectionQueue.size() == 0) {
