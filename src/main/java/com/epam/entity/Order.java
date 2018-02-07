@@ -2,8 +2,8 @@ package com.epam.entity;
 
 import java.util.Objects;
 
-public class Order implements Id<Integer> {
-    private Integer id;
+public class Order {
+    private int id;
     private int idUser;
     private int idMedicament;
     private int number;
@@ -24,7 +24,7 @@ public class Order implements Id<Integer> {
         this.idPrescription = idPrescription;
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 

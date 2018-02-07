@@ -44,8 +44,11 @@ public class AddMedicament implements Command {
                     Part part = request.getPart(RequestEnum.IMAGE.getValue());
                     String webInfPath = request.getServletContext().getRealPath("/");
                     String availability = request.getParameter(RequestEnum.AVAILABILITY.getValue());
+                    String modeOfApplication = request.getParameter(RequestEnum.MODE_OF_APPLICATION.getValue());
+                    String contraindications = request.getParameter(RequestEnum.CONTRAINDICATIONS.getValue());
+                    String sideEffects = request.getParameter(RequestEnum.SIDE_EFFECTS.getValue());
                     String[] dosages = request.getParameterValues("dosage");
-                    int idMedicament = medicamentService.addMedicament(name, producer, price, prescription, part, webInfPath, availability);
+                    int idMedicament = medicamentService.addMedicament(name, producer, price, prescription, part, webInfPath, availability, modeOfApplication, contraindications, sideEffects);
                     dosageService.addDosage(idMedicament, dosages);
                     request.setAttribute(RequestEnum.INFORMATION.getValue(), "Medicament is added");
                     logger.debug("\"" + name + "\" added medicament");

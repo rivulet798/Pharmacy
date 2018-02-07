@@ -1,12 +1,13 @@
 package com.epam.entity;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
-public class Medicament implements Id<Integer>{
-    private Integer id;
+public class Medicament{
+    private int id;
     private String name;
     private String producer;
-    private float price;
+    private BigDecimal price;
     private boolean prescription;
     private String image;
     private boolean availability;
@@ -17,7 +18,7 @@ public class Medicament implements Id<Integer>{
     public Medicament() {
     }
 
-    public Medicament(Integer id, String name, String producer, float price, boolean prescription, String image, boolean availability, String modeOfApplication, String contraindications, String sideEffects) {
+    public Medicament(int id, String name, String producer, BigDecimal price, boolean prescription, String image, boolean availability, String modeOfApplication, String contraindications, String sideEffects) {
         this.id = id;
         this.name = name;
         this.producer = producer;
@@ -30,7 +31,7 @@ public class Medicament implements Id<Integer>{
         this.sideEffects = sideEffects;
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
@@ -54,11 +55,11 @@ public class Medicament implements Id<Integer>{
         this.producer = producer;
     }
 
-    public float getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
@@ -115,7 +116,7 @@ public class Medicament implements Id<Integer>{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Medicament that = (Medicament) o;
-        return Float.compare(that.price, price) == 0 &&
+        return  price == that.price &&
                 prescription == that.prescription &&
                 availability == that.availability &&
                 Objects.equals(id, that.id) &&

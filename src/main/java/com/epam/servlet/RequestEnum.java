@@ -24,6 +24,9 @@ public enum RequestEnum {
     PRESCRIPTION("prescription"),
     IMAGE("image"),
     AVAILABILITY("availability"),
+    MODE_OF_APPLICATION("modeOfApplication"),
+    CONTRAINDICATIONS("contraindications"),
+    SIDE_EFFECTS("sideEffects"),
     J_SESSION_ID("jsessionid"),
 
     USER("user"),

@@ -3,29 +3,29 @@
     var fail;
     var n=1;
     fail="";
-    var login_regex = /^[a-zA-Z](.[a-zA-Z0-9_-]*)$/i;
+    var login_regex = /^[a-zA-Z](.[a-zA-Z0-9_-]*)/;
     if(login_regex.test(form.login.value)==false || form.login.value.length<5)
     {fail="Логин введен неверно.\n";
         if(form.login.value.length<5) fail=fail+"(длина логина должна быть более 5 символов)";
         fail=fail+"\n";
         n++;
     }
-    var name_regex = /([A-Z]{1}[a-z]+)|([А-Я]{1}[а-я]+)$/i;
+    var name_regex = /([A-Z]{1}[a-z]+)|([А-Я]{1}[а-я]+)/;
     if(name_regex.test(form.name.value)==false)
     {fail=fail+"Имя введено неверно.\n";
         n++;
     }
-    var surname_regex = /([A-Z]{1}[a-z]+)|([А-Я]{1}[а-я]+)$/i;
+    var surname_regex = /([A-Z]{1}[a-z]+)|([А-Я]{1}[а-я]+)/;
     if(surname_regex.test(form.surname.value)==false)
     {fail=fail+"Фамилия введена неверно.\n";
         n++;
     }
-    var mail = /[0-9a-z_-]+@[0-9a-z_-]+\.[a-z]{2,5}/i;
+    var mail = /[0-9a-z_-]+@[0-9a-z_-]+\.[a-z]{2,5}/;
     if (mail.test(form.email.value)==false) {
         fail=fail+"E-mail введен неверно.\n";
         n++;
     }
-    var password_regex = /(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,}/i;
+    var password_regex = /(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,}/;
     if(password_regex.test(form.password.value)==false)
     {fail=fail+"Пароль введен неверно";
         if(form.password.value.length<6) {fail=fail+"(длина пароля должна быть более 6 символов)"}
@@ -62,7 +62,7 @@ function validMedicament(form)
     var fail;
     var n=1;
     fail="";
-    var name_regex = /([A-Z]{1}[a-z]+)|([А-Я]{1}[а-я]+)$/i;
+    var name_regex = /([A-Z]{1}[a-z]+)|([А-Я]{1}[а-я]+)/;
     if(name_regex.test(form.name.value)==false)
     {fail="Название введено неверно.\n";
         n++;
@@ -71,12 +71,38 @@ function validMedicament(form)
     {fail=fail+"Производитель введен неверно.\n";
         n++;
     }
-
+    if(form.price.value=="")
+    {fail=fail+"Введите цену.\n";
+        n++;
+    }
     if(form.image.value=="")
     {fail=fail+"Картинка не выбрана.\n";
         n++;
     }
-
+    if(form.prescription.selectedIndex == 0){
+        fail=fail+"Форма отпуска не выбрана.\n";
+        n++;
+    }
+    if(form.availability.selectedIndex == 0){
+        fail=fail+"Укажите есть ли препарат в наличие.\n";
+        n++;
+    }
+    if(form.modeOfApplication.value == ""){
+        fail=fail+"Заполните поле способ применения.\n";
+        n++;
+    }
+    if(form.contraindications.value == ""){
+        fail=fail+"Заполните поле противопоказания.\n";
+        n++;
+    }
+    if(form.sideEffects.value == ""){
+        fail=fail+"Заполните поле побочные эффекты.\n";
+        n++;
+    }
+    if(form.dosage.value == ""){
+        fail=fail+"Введите дозировку активного вещества.\n";
+        n++;
+    }
     if(n!=1)
     {
         alert(fail);
@@ -128,9 +154,12 @@ function validPrescription(form)
 
 function showPopUp() {
     $(".popup").show();
+    $(".body").css("overflow","hidden");
+
 }
 function hidePopUp() {
     $(".popup").hide();
+    $(".body").css("overflow","auto");
 }
 function openMenu(){
     if($("#nav > a:nth-child(2) > li").css("display") == 'none')
@@ -163,7 +192,7 @@ function checkSearch(){
     }
 }
 function addDosage(){
-    $("#dosages").append('<input type="number" name="dosage" id="dosage" placeholder="Дозировка" required>');
+    $("#dosages").append('<input type="number" name="dosage" placeholder="Дозировка" required>');
 }
 
 function showPaymentPopUp(idOrder){

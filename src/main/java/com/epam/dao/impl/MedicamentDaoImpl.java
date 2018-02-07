@@ -21,10 +21,10 @@ public class MedicamentDaoImpl implements MedicamentDao {
     private static final String GET_SORTED_BY_PRICE_MEDICAMENTS_ASC = "SELECT * FROM pharmacy.medicament ORDER BY price ASC;";
     private static final String GET_SORTED_BY_PRICE_MEDICAMENTS_DESC = "SELECT * FROM pharmacy.medicament ORDER BY price DESC;";
     private static final String GET_MEDICAMENT_BY_ID = "SELECT * FROM pharmacy.medicament WHERE idMedicament=?;";
-    private static final String ADD_MEDICAMENT = "INSERT INTO medicament (name,producer,price,prescription,image,availability) VALUES(?,?,?,?,?,?);";
+    private static final String ADD_MEDICAMENT = "INSERT INTO medicament (name,producer,price,prescription,image,availability,modeOfApplication,contraindications,sideEffects) VALUES(?,?,?,?,?,?,?,?,?);";
     private static final String GET_MEDICAMENTS_BY_PRODUCER = "SELECT * FROM pharmacy.medicament WHERE producer=?;";
     private static final String GET_MEDICAMENT_BY_NAME = "SELECT * FROM pharmacy.medicament WHERE name LIKE ?;";
-    private static final String EDIT_MEDICAMENT = "UPDATE pharmacy.medicament m SET m.name=?, m.producer=?, m.price=?, m.prescription=?, m.image=?, m.availability=? WHERE m.idMedicament=?;";
+    private static final String EDIT_MEDICAMENT = "UPDATE pharmacy.medicament m SET m.name=?, m.producer=?, m.price=?, m.prescription=?, m.image=?, m.availability=?, m.modeOfApplication=?, m.contraindications=?, m.sideEffects=? WHERE m.idMedicament=?;";
     private static final String GET_MEDICAMENTS_BY_PRESCRIPTION = "SELECT * FROM pharmacy.medicament WHERE prescription=?;";
 
     private ConnectionPool connectionPool;
@@ -48,10 +48,13 @@ public class MedicamentDaoImpl implements MedicamentDao {
             statement = connection.prepareStatement(ADD_MEDICAMENT, generatedColumns);
             statement.setString(1,medicament.getName());
             statement.setString(2,medicament.getProducer());
-            statement.setFloat(3,medicament.getPrice());
+            statement.setBigDecimal(3,medicament.getPrice());
             statement.setBoolean(4,medicament.isPrescription());
             statement.setString(5,medicament.getImage());
             statement.setBoolean(6,medicament.isAvailability());
+            statement.setString(7, medicament.getModeOfApplication());
+            statement.setString(8, medicament.getContraindications());
+            statement.setString(9, medicament.getSideEffects());
             if(statement.executeUpdate()!=0){
                 logger.debug("MedicamentDaoImpl.addMedicament()-success");
                 resultSet = statement.getGeneratedKeys();
@@ -305,11 +308,15 @@ public class MedicamentDaoImpl implements MedicamentDao {
             statement = connection.prepareStatement(EDIT_MEDICAMENT);
             statement.setString(1,medicament.getName());
             statement.setString(2,medicament.getProducer());
-            statement.setFloat(3,medicament.getPrice());
+            statement.setBigDecimal(3,medicament.getPrice());
             statement.setBoolean(4,medicament.isPrescription());
             statement.setString(5,medicament.getImage());
             statement.setBoolean(6,medicament.isAvailability());
-            statement.setInt(7,medicament.getId());
+            statement.setString(7, medicament.getModeOfApplication());
+            statement.setString(8, medicament.getContraindications());
+            statement.setString(9, medicament.getSideEffects());
+            statement.setInt(10,medicament.getId());
+            System.out.println("//////////!!!!!!!!1//////"+statement);
             logger.info(statement);
             if(statement.executeUpdate()!=0){
                 logger.debug("MedicamentDaoImpl.editMedicament()-success");
@@ -377,7 +384,7 @@ public class MedicamentDaoImpl implements MedicamentDao {
             medicament.setId(resultSet.getInt("idMedicament"));
             medicament.setProducer(resultSet.getString("producer"));
             medicament.setPrescription(resultSet.getBoolean("prescription"));
-            medicament.setPrice(resultSet.getFloat("price"));
+            medicament.setPrice(resultSet.getBigDecimal("price"));
             medicament.setName(resultSet.getString("name"));
             medicament.setImage(resultSet.getString("image"));
             medicament.setAvailability(resultSet.getBoolean("availability"));

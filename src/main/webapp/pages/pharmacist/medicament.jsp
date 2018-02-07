@@ -4,6 +4,7 @@
 <jsp:useBean class="com.epam.entity.User" scope="page" id="user" />
 <fmt:setLocale scope="session" value="${sessionScope.locale}"/>
 <fmt:setBundle basename="localization.locale" scope="session" var="loc"/>
+<fmt:message bundle="${loc}" key="local.word.main_title" var="main_title"/>
 <fmt:message bundle="${loc}" key="local.word.name" var="name"/>
 <fmt:message bundle="${loc}" key="local.word.image" var="image"/>
 <fmt:message bundle="${loc}" key="local.word.producer" var="producer"/>
@@ -25,7 +26,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
     <link href="/css/index.css" rel="stylesheet">
-    <title>PHARMACY</title>
+    <link href="/css/form.css" rel="stylesheet">
+    <title>${main_title}</title>
 </head>
 <body>
 <%@include file="../header.jsp"%>
@@ -64,9 +66,9 @@
                         </c:when>
                     </c:choose>
                     </select>
-                    <p class="title"> ${mode_of_application}: <textarea name="modeOfApplication" id="modeOfApplication" rows="3" placeholder="${medicament.modeOfApplication}" autocomplete="off"></textarea></p>>
-                    <p class="title"> ${contraindications}: <textarea name="contraindications" id="contraindications" rows="3" placeholder="${medicament.contraindications}" autocomplete="off"></textarea></p>
-                    <p class="title"> ${side_effects}: <textarea name="sideEffects" id="sideEffects" rows="2" placeholder="${medicament.sideEffects}" autocomplete="off"></textarea></p>
+                    <p class="title"> ${mode_of_application}: <textarea name="modeOfApplication" id="modeOfApplication" rows="3" autocomplete="off">${medicament.modeOfApplication}</textarea></p>>
+                    <p class="title"> ${contraindications}: <textarea name="contraindications" id="contraindications" rows="3" autocomplete="off">${medicament.contraindications}</textarea></p>
+                    <p class="title"> ${side_effects}: <textarea name="sideEffects" id="sideEffects" rows="2" autocomplete="off">${medicament.sideEffects}</textarea></p>
                     <input type="submit" class="button" value="${ready}"/>
                 </div>
             </form>

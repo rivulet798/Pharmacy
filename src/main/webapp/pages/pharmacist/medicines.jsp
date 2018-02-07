@@ -11,6 +11,7 @@
 <fmt:message bundle="${loc}" key="local.word.name" var="name"/>
 <fmt:message bundle="${loc}" key="local.word.producer" var="producer"/>
 <fmt:message bundle="${loc}" key="local.word.price" var="price"/>
+<fmt:message bundle="${loc}" key="local.word.image" var="image"/>
 <fmt:message bundle="${loc}" key="local.word.unit_of_price" var="unit_of_price"/>
 <fmt:message bundle="${loc}" key="local.button.edit" var="edit"/>
 <fmt:message bundle="${loc}" key="local.button.writing_the_recipe" var="writing_the_recipe"/>
@@ -34,9 +35,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
         <link href="/css/index.css" rel="stylesheet">
+        <link href="/css/form.css" rel="stylesheet">
         <title>${main_title}</title>
     </head>
-    <body>
+    <body class="body">
     <%@include file="../header.jsp"%>
     <div class="page">
     <div class="card">
@@ -86,32 +88,59 @@
 
     <div id="add-medicament" class="popup">
         <div class="card">
-            <form name="Reviews" method="POST" id="form" action="/add_medicament.do" enctype="multipart/form-data" onsubmit="return validMedicament(this)">
-                <h2>${adding_of_medicine}</h2>
-                <input type="text" name="name" id="name" placeholder="${name}" autocomplete="off">
-                <input type="text" name="producer" id="producer" placeholder="${producer}" autocomplete="off">
-                <input type="text" name="price" id="price" placeholder="${price}" autocomplete="off">
-                <select name="prescription">
-                    <option value="" disabled selected>${leave_form}</option>
-                    <option value="false">${released_without_prescription}</option>
-                    <option value="true">${released_by_prescription}</option>
-                </select>
-                <input type="file" accept=".png, .jpg, .jpeg" name="image" id="image">
-                <select name="availability">
-                    <option value="" disabled selected>${availability}</option>
-                    <option value="false">${not_available}</option>
-                    <option value="true">${is_available}</option>
-                </select>
-                <textarea name="modeOfApplication" id="modeOfApplication" rows="3" placeholder="${mode_of_application}" autocomplete="off"></textarea>
-                <textarea name="contraindications" id="contraindications" rows="3" placeholder="${contraindications}" autocomplete="off"></textarea>
-                <textarea name="sideEffects" id="sideEffects" rows="2" placeholder="${side_effects}" autocomplete="off"></textarea>
+            <form name="Reviews" method="POST" class="material-form" action="/add_medicament.do" enctype="multipart/form-data" onsubmit="return validMedicament(this)">
+                <h1>${adding_of_medicine}</h1>
+                <div class="input-block floating-field">
+                    <label>${name}</label>
+                    <input type="text" name="name" id="name" placeholder="${name}" autocomplete="off">
+                </div>
+                <div class="input-block floating-field">
+                    <label>${producer}</label>
+                    <input type="text" name="producer" id="producer" placeholder="${producer}" autocomplete="off">
+                </div>
+                <div class="input-block floating-field">
+                    <label>${price}</label>
+                    <input type="number" step="0.01" min="0.5" name="price" placeholder="${price}" autocomplete="off">
+                </div>
+                <div class="input-block">
+                    <label>${image}</label>
+                    <input type="file" accept=".png, .jpg, .jpeg" name="image" id="image">
+                </div>
+                <div class="select-block">
+                    <label>${leave_form}</label>
+                    <select name="prescription">
+                        <option value="" disabled selected>${leave_form}</option>
+                        <option value="false">${released_without_prescription}</option>
+                        <option value="true">${released_by_prescription}</option>
+                    </select>
+                </div>
+                <div class="select-block">
+                    <label>${availability}</label>
+                    <select name="availability">
+                        <option value="" disabled selected>${availability}</option>
+                        <option value="false">${not_available}</option>
+                        <option value="true">${is_available}</option>
+                    </select>
+                </div>
+                <div class="input-block floating-field textarea">
+                    <label>${mode_of_application}</label>
+                    <textarea name="modeOfApplication" rows="3" placeholder="${mode_of_application}" autocomplete="off"></textarea>
+                </div>
+                <div class="input-block floating-field textarea">
+                    <label>${contraindications}</label>
+                <textarea name="contraindications" rows="3" placeholder="${contraindications}" autocomplete="off"></textarea>
+                </div>
+                <div class="input-block floating-field textarea">
+                        <label>${side_effects}</label>
+                        <textarea name="sideEffects" rows="2" placeholder="${side_effects}" autocomplete="off"></textarea>
+                </div>
                 <div id="dosages">
-                    <input type="number" name="dosage" id="dosage" placeholder="${dosa}" autocomplete="off">
+                    <input type="number" name="dosage" step="1" min="1" placeholder="${dosa}" autocomplete="off">
                     <button onclick="addDosage()">${add_dosage}</button>
                 </div>
                 <input type="hidden" name="csrfToken" value="${csrfToken}"/>
-                <input type="submit" name="Добавить" value="${add}" class="button1"/>
-                <input type="button" name="Закрыть" value="${cancel}" onclick="hidePopUp();" class="button1"/>
+                <input type="submit" value="${add}" class="button1"/>
+                <input type="button" value="${cancel}" onclick="hidePopUp();" class="button1"/>
             </form>
         </div>
     </div>

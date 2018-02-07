@@ -15,10 +15,14 @@ public interface MedicamentService {
     List<Medicament> getMedicamentsByProducer(String producer) throws ServiceException;
     int addMedicament(String name, String producer, String price,
                        String prescroption, Part part,
-                       String image, String availability) throws ServiceException;
+                       String image, String availability,
+                       String modeOfApplication, String contraindications,
+                       String sideEffects) throws ServiceException;
     List<Medicament> getMedicamentByName(String name) throws ServiceException;
     void editMedicament(String idMedicament, String name, String producer, String price,
-                       String prescroption, Part part,
-                       String image, String availability) throws ServiceException;
+                        String prescroption, Part part,
+                        String image, String availability,
+                        String modeOfApplication, String contraindications,
+                        String sideEffects) throws ServiceException;
 
 }

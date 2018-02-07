@@ -14,29 +14,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
     <link href="/css/index.css" rel="stylesheet">
+    <link href="/css/form.css" rel="stylesheet">
     <title>${main_title}</title>
 </head>
 <body>
     <%@include file="../header.jsp"%>
-    <form action="add_prescription.do" method="post" onsubmit="return validPrescription(this)">
-        <input type="hidden" name="idMedicament" value="${idMedicament}">
-        <select name="user">
-            <option value="" disabled selected>${patient}</option>
-            <c:forEach var="user" items="${users}">
-                <option value="${user.id}">${user.name} ${user.surname}</option>
-            </c:forEach>
-        </select>
-        <select name="idDosage">
-            <option value="" disabled selected>${dosa}</option>
-            <c:forEach var="dosage" items="${dosages}">
-                <option value="${dosage.id}">${dosage.dosage}</option>
-            </c:forEach>
-        </select>
-        <input type="number" name="number" autocomplete="off">
-        <input type="date" name="dateOfCompletion" autocomplete="off">
-        <input type="hidden" name="csrfToken" value="${csrfToken}">
-        <input type="submit" value="${writing_the_recipe}">
-    </form>
+    <div class="page">
+        <div class="card">
+            <form class="material-form" action="add_prescription.do" method="post" onsubmit="return validPrescription(this)">
+                <h1>Add prescription</h1>
+                <input type="hidden" name="idMedicament" value="${idMedicament}">
+                <div class="select-block">
+                    <label>User</label>
+                    <select name="user">
+                        <option value="" disabled selected>${patient}</option>
+                        <c:forEach var="user" items="${users}">
+                            <option value="${user.id}">${user.name} ${user.surname}</option>
+                        </c:forEach>
+                    </select>
+                </div>
+                <div class="select-block">
+                    <label>Dosage</label>
+                    <select name="idDosage">
+                        <option value="" disabled selected>${dosa}</option>
+                        <c:forEach var="dosage" items="${dosages}">
+                            <option value="${dosage.id}">${dosage.dosage}</option>
+                        </c:forEach>
+                    </select>
+                </div>
+                <div class="input-block floating-field">
+                    <label>Number</label>
+                    <input type="number" name="number" autocomplete="off">
+                </div>
+                <div class="input-block floating-field">
+                    <label>DateOfCompletion</label>
+                    <input type="date" name="dateOfCompletion" autocomplete="off">
+                </div>
+                <input type="hidden" name="csrfToken" value="${csrfToken}">
+                <input  class="button" type="submit" value="${writing_the_recipe}">
+            </form>
+        </div>
+    </div>
     <%@include file="../footer.html"%>
 </body>
 <script src="/js/index.js"></script>

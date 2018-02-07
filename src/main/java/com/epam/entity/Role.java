@@ -2,8 +2,8 @@ package com.epam.entity;
 
 import java.util.Objects;
 
-public class Role implements Id<Integer>{
-    private Integer id;
+public class Role{
+    private int id;
     private String roleName;
 
     public Role() {
@@ -14,7 +14,7 @@ public class Role implements Id<Integer>{
         this.roleName = roleName;
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 

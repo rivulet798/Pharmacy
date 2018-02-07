@@ -21,6 +21,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
     <link href="/css/index.css" rel="stylesheet">
+    <link href="/css/form.css" rel="stylesheet">
     <title>${main_title}</title>
 </head>
 <body>

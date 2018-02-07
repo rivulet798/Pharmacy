@@ -238,20 +238,18 @@ tr td{
     }
 
     /*POPUP*/
-    #signup{}
     #add-user{
         display: none;
     }
     .popup {
         display: none;
         position: fixed;
-        margin: auto;
         left: 0;
         top: 0;
         background-color: rgba(76, 76, 76, 0.7);
         width: 100vw;
         height: 100vh;
-        z-index: 12;
+        z-index: 100;
     }
 
     .popup .card {
@@ -261,8 +259,9 @@ tr td{
         margin: auto;
         margin-top: 5rem;
         text-align: center;
-        overflow: -webkit-paged-x;
         height: fit-content;
+        z-index: 101;
+        margin: auto;
     }
 
     .signup {
@@ -270,7 +269,6 @@ tr td{
         color: #333;
         margin: auto;
         max-width: 800px;
-        height: 3vh;
     }
 
     #form {
@@ -290,7 +288,7 @@ tr td{
         display: block;
         width: 100%;
         line-height: normal;
-        margin: 20px;
+        margin: 2px;
         border: 1px solid #333;
     }
 
@@ -302,6 +300,9 @@ tr td{
         border: 1px solid #333;
     }
 
+    label{
+        float: left;
+    }
     #form input[type=text] {
         box-shadow: #737373;
     }
@@ -355,6 +356,7 @@ tr td{
         transition: 1s;
         height:auto;
         overflow: auto;
+        z-index: 101;
     }
     .card:hover {
         box-shadow: 0 12px 14px 0 rgba(0, 0, 0, 0.4);
@@ -370,7 +372,9 @@ tr td{
     .medicament {
         overflow: visible;
     }
-
+#add-medicament{
+    overflow: scroll;
+}
     .medicament .container {
         height: auto;
     }
@@ -508,17 +512,24 @@ tr td{
     .popup {
         display: none;
         position: fixed;
-        margin: auto;
         left: 0;
         top: 0;
-        right: 0;
-        bottom: 0;
         background-color: rgba(76, 76, 76, 0.7);
         width: 100vw;
         height: 100vh;
-        z-index: 12;
+        z-index: 100;
+        overflow: auto;
     }
 
+    .popup .card {
+        display: block;
+        background-color: white;
+        max-width: 600px;
+        margin: auto;
+        text-align: center;
+        height: fit-content;
+        z-index: 101;
+    }
     #add-user{
         position: fixed;
         left: 5vw;
@@ -539,7 +550,6 @@ tr td{
         text-align: center;
         overflow: auto;
     }
-    #signup {}
 
     #signup .card {
         position: fixed;
@@ -557,7 +567,6 @@ tr td{
         color: #333;
         margin: auto;
         max-width: 800px;
-        height: 3vh;
     }
 
     #form {
@@ -575,7 +584,6 @@ tr td{
     #form input {
         display: block;
         width: 100%;
-        margin: 20px;
         border: 1px solid #333
     }
 
@@ -611,6 +619,8 @@ tr td{
         transition: 1s;
         margin-top: 20px;
         height:auto;
+        z-index: 101;
+        overflow: auto;
     }
     .card:hover {
         box-shadow: 0 12px 14px 0 rgba(0, 0, 0, 0.4);

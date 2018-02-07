@@ -15,9 +15,11 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 
 public class MedicamentServiceImpl implements MedicamentService {
@@ -125,22 +127,29 @@ public class MedicamentServiceImpl implements MedicamentService {
     @Override
     public int addMedicament(String name, String producer,
                               String price, String prescription,
-                              Part part, String webInfPath, String availability) throws ServiceException {
+                              Part part, String webInfPath, String availability,
+                              String modeOfApplication, String contraindications,
+                              String sideEffects) throws ServiceException {
 
         logger.debug("MedicamentServiceImpl.addMedicament");
         Medicament medicament = new Medicament();
         MedicamentDao medicamentDao = daoFactory.getIMedicamentDao();
         int idMedicament;
         try {
-            Validator.isNull(name, producer, price, prescription, webInfPath, availability);
-            Validator.isEmptyString(name, producer, price, prescription, webInfPath, availability);
-            Validator.matchProperName(producer);
+            Validator.isNull(name, producer, price, prescription, webInfPath, availability, modeOfApplication, contraindications, sideEffects);
+            Validator.isEmptyString(name, producer, price, prescription, webInfPath, availability, modeOfApplication, contraindications, sideEffects);
+            Validator.matchProperName(name, producer);
             medicament.setName(name);
             medicament.setProducer(producer);
-            medicament.setPrice(Float.parseFloat(price));
+            BigDecimal priceDecimal = new BigDecimal(price);
+            logger.info("//////////////FLOAT");
+            medicament.setPrice(priceDecimal);
             medicament.setPrescription(Boolean.parseBoolean(prescription));
             medicament.setAvailability(Boolean.parseBoolean(availability));
-            String imageName = getImageName(part);
+            medicament.setModeOfApplication(modeOfApplication);
+            medicament.setContraindications(contraindications);
+            medicament.setSideEffects(sideEffects);
+            String imageName = Paths.get(part.getSubmittedFileName()).getFileName().toString();
             if (!imageName.isEmpty()) {
                 medicament.setImage(imageName);
             }
@@ -176,23 +185,30 @@ public class MedicamentServiceImpl implements MedicamentService {
 
     @Override
     public void editMedicament(String idMedicament, String name, String producer,
-                               String price, String prescription,
-                               Part part, String webInfPath,
-                               String availability) throws ServiceException {
+                               String price, String prescription, Part part,
+                               String webInfPath, String availability,
+                               String modeOfApplication, String contraindications,
+                               String sideEffects) throws ServiceException {
         logger.debug("MedicamentServiceImpl.editMedicament");
         Medicament medicament = new Medicament();
         MedicamentDao medicamentDao = daoFactory.getIMedicamentDao();
         try {
-            Validator.isNull(idMedicament, name, producer, price, prescription, webInfPath, availability);
-            Validator.isEmptyString(idMedicament, name, producer, price, prescription, webInfPath, availability);
+            Validator.isNull(idMedicament, name, producer, price, prescription, webInfPath, availability, modeOfApplication, contraindications, sideEffects);
+            Validator.isEmptyString(idMedicament, name, producer, price, prescription, webInfPath, availability, modeOfApplication, contraindications, sideEffects);
             Validator.matchProperName(producer);
             medicament.setId(Integer.parseInt(idMedicament));
             medicament.setName(name);
             medicament.setProducer(producer);
-            medicament.setPrice(Float.parseFloat(price));
+            Float priceF = Float.parseFloat(price);
+            BigDecimal priceDecimal = BigDecimal.valueOf(priceF);
+            logger.info("//////////////FLOAT"+priceDecimal);
+            medicament.setPrice(priceDecimal);
             medicament.setPrescription(Boolean.parseBoolean(prescription));
             medicament.setAvailability(Boolean.parseBoolean(availability));
-            String imageName = getImageName(part);
+            medicament.setModeOfApplication(modeOfApplication);
+            medicament.setContraindications(contraindications);
+            medicament.setSideEffects(sideEffects);
+            String imageName = Paths.get(part.getSubmittedFileName()).getFileName().toString();
             if (!imageName.isEmpty()) {
                 medicament.setImage(imageName);
             }
@@ -211,38 +227,51 @@ public class MedicamentServiceImpl implements MedicamentService {
 
     private void uploadImage(Part filePart, String fileName, String webInfPath) throws ServiceException {
         try {
-            logger.debug("MedicamentServiceImpl.uploadImage()");
+
             File dir = new File(webInfPath + "images" + File.separator + "medicaments");
             if (!dir.exists()) {
-                Path path = Paths.get(webInfPath + "images" + File.separator + "medicaments");
+                Path path = Paths.get(webInfPath);
                 Files.createDirectories(path);
             }
             File file = new File(dir, fileName);
-            InputStream fileContent = filePart.getInputStream();
-            FileOutputStream fileOutputStream = new FileOutputStream(file);
-            byte[] buffer = new byte[BUFFER_LENGTH];
-            int len = fileContent.read(buffer);
-            while (len != -1) {
-                fileOutputStream.write(buffer, 0, len);
-                len = fileContent.read(buffer);
-            }
-            if (fileOutputStream != null) {
-                try {
-                    fileOutputStream.close();
-                } catch (IOException e) {
-                    System.out.println("error with closing file" + e);
-                }
+            try (InputStream input = filePart.getInputStream()) {
+                Files.copy(input, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
             }
         } catch (IOException e) {
+            e.printStackTrace();
             throw new ServiceException("error with upload of image", e);
         }
-        logger.debug("MedicamentServiceImpl.uploadImage() - success");
     }
 
-    private String getImageName(Part filePart) {
-        logger.debug("MedicamentServiceImpl.getImageName()"+filePart);
-        String name = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-        logger.debug("MedicamentServiceImpl.getImageName() - success");
-        return name;
-    }
+//    private void uploadImage(Part filePart, String fileName, String webInfPath) throws ServiceException {
+//        try {
+//            logger.debug("MedicamentServiceImpl.uploadImage()");
+//            File dir = new File(webInfPath + "images" + File.separator + "medicaments");
+//            if (!dir.exists()) {
+//                Path path = Paths.get(webInfPath + "images" + File.separator + "medicaments");
+//                Files.createDirectories(path);
+//            }
+//            File file = new File(dir, fileName);
+//            InputStream fileContent = filePart.getInputStream();
+//            FileOutputStream fileOutputStream = new FileOutputStream(file);
+//            byte[] buffer = new byte[BUFFER_LENGTH];
+//            int len = fileContent.read(buffer);
+//            while (len != -1) {
+//                fileOutputStream.write(buffer, 0, len);
+//                len = fileContent.read(buffer);
+//            }
+//            if (fileOutputStream != null) {
+//                try {
+//                    fileOutputStream.close();
+//                } catch (IOException e) {
+//                    System.out.println("error with closing file" + e);
+//                }
+//            }
+//        } catch (IOException e) {
+//            throw new ServiceException("error with upload of image", e);
+//        }
+//        logger.debug("MedicamentServiceImpl.uploadImage() - success");
+//    }
+
+
 }

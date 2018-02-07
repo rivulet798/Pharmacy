@@ -2,8 +2,8 @@ package com.epam.entity;
 
 import java.util.Objects;
 
-public class RequestForRenewal implements Id<Integer> {
-    private Integer id;
+public class RequestForRenewal {
+    private int id;
     private int idPrescription;
     private int complete;
 
@@ -16,8 +16,7 @@ public class RequestForRenewal implements Id<Integer> {
         this.complete = complete;
     }
 
-    @Override
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
