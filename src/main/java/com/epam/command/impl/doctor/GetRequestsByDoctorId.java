@@ -25,17 +25,11 @@ public class GetRequestsByDoctorId implements Command {
         jspPageName = JspPageName.REQUESTS;
         try {
             HttpSession session = request.getSession();
-            String idUser = session.getAttribute(RequestEnum.ID_USER.getValue()).toString();
-            String idRole = session.getAttribute(RequestEnum.USER_ROLE.getValue()).toString();
-            if(Constants.DOCTOR.equals(idRole)) {
-                RequestService requestService = serviceFactory.getRequestServiceImpl();
-                List<RequestForRenewalDto> requestForRenewalList = requestService.getRequestsDtoByDoctorId(idUser);
-                logger.info("Successfully getting requests by doctor id");
-                request.setAttribute("requestForRenewalList", requestForRenewalList);
-            }else{
-                jspPageName = JspPageName.INFORMATION;
-                request.setAttribute(RequestEnum.INFORMATION.getValue(), "Нет прав");
-            }
+            String idDoctor = session.getAttribute(RequestEnum.ID_USER.getValue()).toString();
+            RequestService requestService = serviceFactory.getRequestServiceImpl();
+            List<RequestForRenewalDto> requestForRenewalList = requestService.getRequestsDtoByDoctorId(idDoctor);
+            logger.info("Successfully getting requests by doctor id");
+            request.setAttribute("requestForRenewalList", requestForRenewalList);
         }catch (ServiceException e){
             logger.error(e.getMessage());
             jspPageName = JspPageName.INFORMATION;
@@ -43,6 +37,5 @@ public class GetRequestsByDoctorId implements Command {
         }
         return jspPageName.getPath();
     }
-
 }
 

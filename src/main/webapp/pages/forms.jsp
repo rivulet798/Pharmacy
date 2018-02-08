@@ -8,8 +8,10 @@
 <fmt:message bundle="${loc}" key="local.sentence.hint_password" var="hint_password"/>
 <fmt:message bundle="${loc}" key="local.sentence.confirm_password" var="confirm_password"/>
 <fmt:message bundle="${loc}" key="local.word.firstname" var="firstname"/>
+<fmt:message bundle="${loc}" key="local.sentence.hint_firstname" var="hint_firstname"/>
 <fmt:message bundle="${loc}" key="local.sentence.enter_name" var="enter_name"/>
 <fmt:message bundle="${loc}" key="local.word.lastname" var="lastname"/>
+<fmt:message bundle="${loc}" key="local.sentence.hint_lastname" var="hint_lastname"/>
 <fmt:message bundle="${loc}" key="local.sentence.enter_surname" var="enter_surname"/>
 <fmt:message bundle="${loc}" key="local.sentence.enter_email" var="enter_email"/>
 <fmt:message bundle="${loc}" key="local.word.email" var="email"/>
@@ -30,31 +32,46 @@
                 <h1>${sign_up}</h1>
                 <div class="input-block floating-field">
                     <label>${login}</label>
-                    <input class="signup" type="text" name="login" placeholder="${enter_login}" autocomplete="off">
+                    <div class="tooltip">
+                        <input class="signup" type="text" name="login" placeholder="${enter_login}" autocomplete="off" required/>
+                        <span class="tooltiptext">${hint_login}</span>
+                    </div>
                 </div>
                 <div class="input-block floating-field">
                     <label>${password}</label>
-                    <input class="signup" type="password" name="password" placeholder="${enter_password}" autocomplete="off" >
+                    <div class="tooltip">
+                        <input class="signup" type="password" name="password" placeholder="${enter_password}" autocomplete="off" required/>
+                        <span class="tooltiptext">${hint_password}.</span>
+                    </div>
                 </div>
                 <div class="input-block floating-field">
                     <label>${confirm_password}</label>
-                <input class="signup" type="password" name="rePassword" placeholder="${confirm_password}" autocomplete="off">
+                <input class="signup" type="password" name="rePassword" placeholder="${confirm_password}" autocomplete="off" required/>
                 </div>
                 <div class="input-block floating-field">
                     <label>${firstname}</label>
-                    <input class="signup" type="text" name="name" placeholder="${enter_name}" />
+                    <div class="tooltip">
+                        <input class="signup" type="text" name="name" placeholder="${enter_name}" autocomplete="off" required/>
+                        <span class="tooltiptext">${hint_firstname}.</span>
+                    </div>
                 </div>
                 <div class="input-block floating-field">
                     <label>${lastname}</label>
-                    <input class="signup" type="text" name="surname" placeholder="${enter_surname}" />
+                    <div class="tooltip">
+                        <input class="signup" type="text" name="surname" placeholder="${enter_surname}" autocomplete="off" required/>
+                        <span class="tooltiptext">${hint_lastname}.</span>
+                    </div>
                 </div>
                 <div class="input-block floating-field">
                     <label>${email}</label>
-                    <input class="signup" type="text" name="email" placeholder="${enter_email}" autocomplete="off" />
+                    <div class="tooltip">
+                        <input class="signup" type="text" name="email" placeholder="${enter_email}" autocomplete="off" required/>
+                        <span class="tooltiptext">${hint_email}.</span>
+                    </div>
                 </div>
                 <div class="input-block floating-field">
                     <label>${address}</label>
-                    <input class="signup" type="text" name="address" placeholder="${enter_address}" >
+                    <input class="signup" type="text" name="address" placeholder="${enter_address}" autocomplete="off" required/>
                 </div>
                 <input type="submit" value="${button_sign_up}" class="button1">
                 <input type="button" value="${cancel}" onclick="hideSignUp();" class="button1">
@@ -69,11 +86,11 @@
                 <h1>${sign_in}</h1>
                 <div class="input-block floating-field">
                     <label>${enter_login}</label>
-                    <input class="signup" type="text" name="loglogin" placeholder="${login}" autocomplete="off" />
+                    <input class="signup" type="text" name="loglogin" placeholder="${login}" autocomplete="off" required/>
                 </div>
                 <div class="input-block floating-field">
                     <label>${enter_password}</label>
-                    <input class="signup" type="password" name="logpassword" placeholder="${password}" autocomplete="off">
+                    <input class="signup" type="password" name="logpassword" placeholder="${password}" autocomplete="off" required/>
                 </div>
                 <input type="submit" value="${button_sign_in}" class="button1">
                 <input type="button" value="${cancel}" onclick="hideSignIn();" class="button1">

@@ -104,7 +104,7 @@
                 </div>
                 <div class="input-block">
                     <label>${image}</label>
-                    <input type="file" accept=".png, .jpg, .jpeg" name="image" id="image">
+                    <input type="file" accept=".png, .jpg, .jpeg" name="image">
                 </div>
                 <div class="select-block">
                     <label>${leave_form}</label>

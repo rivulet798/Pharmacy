@@ -76,15 +76,16 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public boolean changeOrderStatus(String idOrder, int idStatus) throws ServiceException {
+    public boolean changeOrderStatus(String idOrder, String idUser, int idStatus) throws ServiceException {
         logger.debug("OrderServiceImpl.changeOrderStatus()");
         OrderDao orderDao = daoFactory.getIOrderDao();
         try {
             Validator.isNull(idOrder);
             Validator.isEmptyString(idOrder);
             int orderId = Integer.parseInt(idOrder);
+            int userId = Integer.parseInt(idUser);
             Order order = orderDao.getOrderById(orderId);
-            if(order.getIdOrderStatus() < idStatus){
+            if(order.getIdOrderStatus() < idStatus && order.getIdUser() == userId){
                 orderDao.changeOrderStatus(orderId, idStatus);
             }else{
                 return false;

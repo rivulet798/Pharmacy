@@ -21,26 +21,6 @@ html{font-family: 'Roboto', sans-serif;background-color: rgba(173,173,173,0.4);}
         height: fit-content;
     }
 
-    /*footer {*/
-        /*font-weight: 400;*/
-        /*font-size: 11px;*/
-        /*line-height: 1.45455;*/
-        /*letter-spacing: .005em;*/
-        /*background-color: #f2f2f2;*/
-        /*color: #333;*/
-        /*overflow: hidden;*/
-        /*position: relative;*/
-        /*z-index: 1;*/
-        /*left: 0%;*/
-        /*bottom: 0%;*/
-        /*position: fixed;*/
-        /*right: 0%;*/
-        /*padding-top: 5px;*/
-        /*padding-left: 10px;*/
-        /*padding-right: 10px;*/
-        /*padding-bottom: 1px;*/
-    /*}*/
-
     footer{margin-top: 100px;}
 
     .footer-content-wrapper {
@@ -159,8 +139,9 @@ html{font-family: 'Roboto', sans-serif;background-color: rgba(173,173,173,0.4);}
         background-color: rgba(193, 171, 147, 0.19);
         font-weight: 400;
         border-radius: 5px;
-        width: 130px;
+        width: 100%;
         height: 30px;
+        display: inline-block;
     }
 
     nav {
@@ -261,7 +242,6 @@ tr td{
         text-align: center;
         height: fit-content;
         z-index: 101;
-        margin: auto;
     }
 
     .signup {
@@ -313,29 +293,7 @@ tr td{
         font-family: 'Roboto', sans-serif;
         font-size: 10pt;
     }
-    /* Tooltip container */
-    .tooltip {
-        display:block;
-    }
 
-    /* Tooltip text */
-    .tooltip .tooltiptext {
-        visibility: hidden;
-        width: 120px;
-        background-color: black;
-        color: #fff;
-        text-align: center;
-        padding: 5px 0;
-        border-radius: 6px;
-        top:20%;
-        left: 62%;
-        position: fixed;
-    }
-
-    /* Show the tooltip text when you mouse over the tooltip container */
-    .tooltip:hover .tooltiptext {
-        visibility: visible;
-    }
     /* ICON */
     #icon-nav{display:none;}
     .icon{max-width:10vw;float:right;}
@@ -372,13 +330,13 @@ tr td{
     .medicament {
         overflow: visible;
     }
-#add-medicament{
-    overflow: scroll;
-}
+    #add-medicament{
+        overflow: scroll;
+    }
     .medicament .container {
         height: auto;
     }
-    .container .bottom-button{}
+
     .container h2{
         display: block;
         font-size: 1.5em;
@@ -592,10 +550,6 @@ tr td{
         line-height: 2;
     }
 
-    .button1 {
-        display: inline-block;
-    }
-
     #form input[placeholder] {
         text-indent: 10px;
         font-family: 'Roboto', sans-serif;
@@ -605,9 +559,7 @@ tr td{
         width: 100%;
         display: block;
     }
-    /* CARD */
-    /* Three columns side by side */
-    /* Three columns side by side */
+
     .column {
         width: 100%;
     }
@@ -680,6 +632,10 @@ tr td{
 
     .button:hover {
         background-color: #555;
+    }
+
+    .filter{
+        display: inline-block;
     }
 
 }

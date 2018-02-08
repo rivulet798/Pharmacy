@@ -29,34 +29,21 @@ public class AddToCart implements Command {
         jspPageName = JspPageName.INFORMATION;
         try {
             int idOrder = 0;
-            if(checkRole(request)){
-                MedicamentService medicamentService = serviceFactory.getMedicamentServiceImpl();
-                String idMedicament = request.getParameter(RequestEnum.ID_MEDICAMENT.getValue());
-                Medicament medicament = medicamentService.getMedicamentById(idMedicament);
-                if(medicament.isPrescription()) {
-                    idOrder = addToCardMedWithPrescription(request);
-                } else if(!medicament.isPrescription()){
-                    idOrder = addToCartMedWithoutPrescription(request);
-                }
-                request.setAttribute(RequestEnum.ID_ORDER.getValue(),idOrder);
-                jspPageName = JspPageName.PAYMENT;
+            MedicamentService medicamentService = serviceFactory.getMedicamentServiceImpl();
+            String idMedicament = request.getParameter(RequestEnum.ID_MEDICAMENT.getValue());
+            Medicament medicament = medicamentService.getMedicamentById(idMedicament);
+            if(medicament.isPrescription()) {
+                idOrder = addToCardMedWithPrescription(request);
+            } else if(!medicament.isPrescription()){
+                idOrder = addToCartMedWithoutPrescription(request);
             }
+            request.setAttribute(RequestEnum.ID_ORDER.getValue(),idOrder);
+            jspPageName = JspPageName.PAYMENT;
         }catch (ServiceException e){
             logger.error(e.getMessage());
             request.setAttribute(RequestEnum.INFORMATION.getValue(), e.getMessage());
         }
         return jspPageName.getPath();
-    }
-
-    private boolean checkRole(HttpServletRequest request){
-        HttpSession session = request.getSession();
-        String idRole = session.getAttribute(RequestEnum.USER_ROLE.getValue()).toString();
-        if(idRole.equals(Constants.USER)){
-            return true;
-        } else{
-            request.setAttribute(RequestEnum.INFORMATION.getValue(), "Нет прав");
-            return false;
-        }
     }
 
     private int addToCardMedWithPrescription(HttpServletRequest request) throws ServiceException{

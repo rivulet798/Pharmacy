@@ -43,7 +43,7 @@
             <button class="button" onclick="showPopUp();">${add_a_pharmacist}</button>
         </c:when>
         <c:otherwise>
-            <button class="button" onclick="showPopUp();">${add_a_pharmacist}</button>
+            <button class="button" onclick="showPopUp();">${add_a_doctor}</button>
         </c:otherwise>
     </c:choose>
 

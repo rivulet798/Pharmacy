@@ -17,13 +17,13 @@
 </head>
 
 <body>
-<%@include file="../header.jsp"%>
-<div class="page">
-${information}
-</div>
-<%@include file="../footer.html"%>
-<%@include file="../forms.jsp"%>
+    <%@include file="../header.jsp"%>
+    <div class="page">
+        ${information}
+    </div>
+    <%@include file="../footer.html"%>
+    <%@include file="../forms.jsp"%>
+</body>
 <script src="/js/index.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-</body>
 </html>

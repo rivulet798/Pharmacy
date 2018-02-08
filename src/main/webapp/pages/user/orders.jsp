@@ -14,7 +14,8 @@
 <fmt:message bundle="${loc}" key="local.word.number" var="number"/>
 <fmt:message bundle="${loc}" key="local.word.dosage" var="dosa"/>
 <fmt:message bundle="${loc}" key="local.sentence.to_pay" var="to_pay"/>
-<fmt:message bundle="${loc}" key="local.word.checkout" var="checkout"/>
+<fmt:message bundle="${loc}" key="local.button.checkout" var="checkout"/>
+<fmt:message bundle="${loc}" key="local.button.delete" var="delete"/>
 <fmt:message bundle="${loc}" key="local.sentence.nothing_found" var="nothing_found"/>
 <fmt:message bundle="${loc}" key="local.word.payment" var="payment"/>
 <fmt:message bundle="${loc}" key="local.sentence.card_number" var="card_number"/>
@@ -43,6 +44,7 @@
             <th>${dosa}</th>
             <th>${to_pay}</th>
             <th></th>
+            <th></th>
         </tr>
         <c:choose>
             <c:when test="${orders!=null}">
@@ -55,7 +57,8 @@
                         <td>${orderDto.price}</td>
                         <c:choose>
                             <c:when test="${orderDto.orderStatus==1}">
-                            <td><a onclick="showPaymentPopUp(${orderDto.idOrder});" class="button">${checkout}</a></td>
+                                <td><a onclick="showPaymentPopUp(${orderDto.idOrder});" class="button">${checkout}</a></td>
+                                <td><a href="/delete_from_cart.do?idOrder=${orderDto.idOrder}" class="button">${delete}</a></td>
                             </c:when>
                         </c:choose>
                     </tr>
@@ -72,13 +75,13 @@
 <div id="payment" class="popup">
     <div class="card">
         <div class="signup">
-            <form method="POST" id="payForm" action="">
-                <h2>${payment}</h2>
-                <input class="signup" type="number" name="cardnumber" placeholder="${card_number}" />
-                <input class="signup" type="number" name="cvv" placeholder="CVV">
-                <input class="signup" type="text" name="name" placeholder="${firstname_lastname}">
-                <input type="submit" name="Оплатить" value="${pay}" class="button1">
-                <input type="button" name="Закрыть" value="${cancel}" onclick="hidePopUp();" class="button1">
+            <form method="POST" id="payForm" class="material-form" action="">
+                <h1>${payment}</h1>
+                <input class="signup" type="number" name="cardNumber" placeholder="${card_number}" pattern="/[0-9]{13,16}/" required autocomplete="off"/>
+                <input class="signup" type="number" name="cvv" placeholder="CVV" pattern="/[0-9]{3}/" required autocomplete="off"/>
+                <input class="signup" type="text" name="name" placeholder="${firstname_lastname}" required autocomplete="off"/>
+                <input type="submit" name="Оплатить" value="${pay}" class="button1"/>
+                <input type="button" name="Закрыть" value="${cancel}" onclick="hidePopUp();" class="button1"/>
             </form>
         </div>
     </div>

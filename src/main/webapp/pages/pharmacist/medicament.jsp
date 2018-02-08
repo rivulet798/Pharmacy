@@ -5,6 +5,7 @@
 <fmt:setLocale scope="session" value="${sessionScope.locale}"/>
 <fmt:setBundle basename="localization.locale" scope="session" var="loc"/>
 <fmt:message bundle="${loc}" key="local.word.main_title" var="main_title"/>
+<fmt:message bundle="${loc}" key="local.sentence.editing_of_medicine" var="editing_of_medicine"/>
 <fmt:message bundle="${loc}" key="local.word.name" var="name"/>
 <fmt:message bundle="${loc}" key="local.word.image" var="image"/>
 <fmt:message bundle="${loc}" key="local.word.producer" var="producer"/>
@@ -33,42 +34,71 @@
 <%@include file="../header.jsp"%>
 <div class="page">
         <div class="card medicament">
-            <form action="edit_medicament.do?idMedicament=${medicament.id}" method="post" enctype="multipart/form-data">
-                <h2>${name}: <input type="text" name="name" value="${medicament.name}"/></h2>
+            <form action="edit_medicament.do?idMedicament=${medicament.id}" method="post" enctype="multipart/form-data" onsubmit="return validMedicament(this)">
+                <h1>${editing_of_medicine}</h1>
                 <img src="images/medicaments/${medicament.image}" class="good">
                 <div class="container" >
-                    <p class="title">${image}: <input type="file" accept=".png, .jpg, .jpeg" name="image" autocomplete="off"/></p>
-                    <p class="title"> ${producer}:<input type="text" name="producer" value="${medicament.producer}" autocomplete="off"/></p>
-                    <p class="title"> ${price}: <input type="text" name="price"  autocomplete="off" value="${medicament.price} "/> ${unit_of_price}</p>
-                    <p><select name="prescription">
-                        <option value="" disabled selected>${leave_form}</option>
-                    <c:choose>
-                        <c:when test="${medicament.prescription}">
-                            <option value="false">${released_without_prescription}</option>
-                            <option selected value="true">${released_by_prescription}</option>
-                        </c:when>
-                        <c:when test="${!medicament.prescription}">
-                            <option selected value="false">${released_without_prescription}</option>
-                            <option value="true">${released_by_prescription}</option>
-                        </c:when>
-                    </c:choose>
-                    </select>
-                    <select name="availability">
-                        <option value="" disabled selected>${availability}</option>
-                    <c:choose>
-                        <c:when test="${medicament.availability}">
-                            <option value="false">${not_available}</option>
-                            <option selected value="true">${is_available}</option>
-                        </c:when>
-                        <c:when test="${!medicament.availability}">
-                            <option selected value="false">${not_available}</option>
-                            <option value="true">${is_available}</option>
-                        </c:when>
-                    </c:choose>
-                    </select>
-                    <p class="title"> ${mode_of_application}: <textarea name="modeOfApplication" id="modeOfApplication" rows="3" autocomplete="off">${medicament.modeOfApplication}</textarea></p>>
-                    <p class="title"> ${contraindications}: <textarea name="contraindications" id="contraindications" rows="3" autocomplete="off">${medicament.contraindications}</textarea></p>
-                    <p class="title"> ${side_effects}: <textarea name="sideEffects" id="sideEffects" rows="2" autocomplete="off">${medicament.sideEffects}</textarea></p>
+                    <div class="input-block floating-field">
+                        <label>${name}</label>
+                        <input type="text" name="name" value="${medicament.name}" autocomplete="off" required/>
+                    </div>
+                    <div class="medImg">
+                        <label>${image}</label>
+                        <input type="file" accept=".png, .jpg, .jpeg" name="image" autocomplete="off" required/>
+                        <label></label>
+                    </div>
+                    <div class="input-block floating-field">
+                        <label>${producer}</label>
+                        <input type="text" name="producer" value="${medicament.producer}" autocomplete="off" required/>
+                    </div>
+                    <div class="input-block floating-field">
+                        <label>${price}</label>
+                        <input type="number" step="0.01" min="0.5" name="price" value="${medicament.price}" required autocomplete="off"/> ${unit_of_price}
+                    </div>
+                    <div class="select-block">
+                        <label>${leave_form}</label>
+                        <select name="prescription">
+                            <option value="" disabled selected>${leave_form}</option>
+                            <c:choose>
+                                <c:when test="${medicament.prescription}">
+                                    <option value="false">${released_without_prescription}</option>
+                                    <option selected value="true">${released_by_prescription}</option>
+                                </c:when>
+                                <c:when test="${!medicament.prescription}">
+                                    <option selected value="false">${released_without_prescription}</option>
+                                    <option value="true">${released_by_prescription}</option>
+                                </c:when>
+                            </c:choose>
+                        </select>
+                    </div>
+                    <div class="select-block">
+                        <label>${availability}</label>
+                        <select name="availability">
+                            <option value="" disabled selected>${availability}</option>
+                            <c:choose>
+                                <c:when test="${medicament.availability}">
+                                    <option value="false">${not_available}</option>
+                                    <option selected value="true">${is_available}</option>
+                                </c:when>
+                                <c:when test="${!medicament.availability}">
+                                    <option selected value="false">${not_available}</option>
+                                    <option value="true">${is_available}</option>
+                                </c:when>
+                            </c:choose>
+                        </select>
+                    </div>
+                    <div class="input-block floating-field textarea">
+                        <label>${mode_of_application}</label>
+                        <textarea name="modeOfApplication" id="modeOfApplication" rows="3" autocomplete="off">${medicament.modeOfApplication}</textarea>
+                    </div>
+                    <div class="input-block floating-field textarea">
+                        <label>${contraindications}</label>
+                        <textarea name="contraindications" id="contraindications" rows="3" autocomplete="off">${medicament.contraindications}</textarea>
+                    </div>
+                    <div class="input-block floating-field textarea">
+                        <label>${side_effects}</label>
+                        <textarea name="sideEffects" id="sideEffects" rows="2" autocomplete="off">${medicament.sideEffects}</textarea>
+                    </div>
                     <input type="submit" class="button" value="${ready}"/>
                 </div>
             </form>

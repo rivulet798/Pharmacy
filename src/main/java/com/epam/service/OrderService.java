@@ -12,7 +12,7 @@ public interface OrderService {
     int addToCartMedWithoutPrescription(String idUser, String idMedicament,
                                      String number, String dosage) throws ServiceException;
 
-    boolean changeOrderStatus(String idOrder, int idStatus) throws ServiceException;
+    boolean changeOrderStatus(String idOrder, String idUser, int idStatus) throws ServiceException;
 
     List<OrderDto> getOrdersDtoByUserIdAndStatus(String idUser, int statusInCart) throws ServiceException;
 }

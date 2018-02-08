@@ -23,8 +23,7 @@ public class AddPrescription implements Command {
         jspPageName = JspPageName.INFORMATION;
         try {
             HttpSession session = request.getSession();
-            String idRole = session.getAttribute(RequestEnum.USER_ROLE.getValue()).toString();
-            if(idRole.equals(Constants.DOCTOR)) {
+            if(checkRole(request)) {
                 String csrfToken  = session.getAttribute(RequestEnum.CSRF_TOKEN.getValue()).toString();
                 session.removeAttribute(RequestEnum.CSRF_TOKEN.getValue());
                 String csrfTokenFromRequest = request.getParameter(RequestEnum.CSRF_TOKEN.getValue());
@@ -42,14 +41,23 @@ public class AddPrescription implements Command {
                 } else{
                     request.setAttribute(RequestEnum.INFORMATION.getValue(),"Возможно ваш запрос является поддельным. Заполните форму заново или обратитесь к администратору.");
                 }
-            } else{
-                request.setAttribute(RequestEnum.INFORMATION.getValue(), "Нет прав");
             }
         }catch (ServiceException e){
             logger.error(e.getMessage());
             request.setAttribute(RequestEnum.INFORMATION.getValue(), e.getMessage());
     }
         return jspPageName.getPath();
+    }
+
+    private boolean checkRole(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        String idRole = session.getAttribute(RequestEnum.USER_ROLE.getValue()).toString();
+        if(idRole.equals(Constants.DOCTOR)){
+            return true;
+        } else{
+            request.setAttribute(RequestEnum.INFORMATION.getValue(), "Нет прав");
+            return false;
+        }
     }
 }
 

@@ -23,22 +23,18 @@ public class ExtendRequest implements com.epam.command.Command {
         jspPageName = JspPageName.INFORMATION;
         try {
             HttpSession session = request.getSession();
-            String idRole = session.getAttribute(RequestEnum.USER_ROLE.getValue()).toString();
             String idDoctor = session.getAttribute(RequestEnum.ID_USER.getValue()).toString();
-            if(Constants.DOCTOR.equals(idRole)) {
-                RequestService requestService = serviceFactory.getRequestServiceImpl();
-                PrescriptionService prescriptionService = serviceFactory.getPrescriptionServiceImpl();
-                String idRequest = request.getParameter(RequestEnum.ID_REQUEST.getValue());
-                prescriptionService.extendPrescription(idRequest, idDoctor);
-                requestService.changeRequestStatus(idRequest, Constants.ACCEPTED_REQUEST);
-                request.setAttribute(RequestEnum.INFORMATION.getValue(), "Запрос на продление электронного рецепта принят");
-            }else{
-                request.setAttribute(RequestEnum.INFORMATION.getValue(), "Нет прав");
-            }
+            RequestService requestService = serviceFactory.getRequestServiceImpl();
+            PrescriptionService prescriptionService = serviceFactory.getPrescriptionServiceImpl();
+            String idRequest = request.getParameter(RequestEnum.ID_REQUEST.getValue());
+            prescriptionService.extendPrescription(idRequest, idDoctor);
+            requestService.changeRequestStatus(idRequest, Constants.ACCEPTED_REQUEST);
+            request.setAttribute(RequestEnum.INFORMATION.getValue(), "Запрос на продление электронного рецепта успешно выполнен");
         }catch (ServiceException e){
             logger.error(e.getMessage());
             request.setAttribute(RequestEnum.INFORMATION.getValue(), e.getMessage());
         }
         return jspPageName.getPath();
     }
+
 }

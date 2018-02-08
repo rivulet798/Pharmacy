@@ -1,5 +1,6 @@
 package com.epam.service.impl;
 
+import com.epam.dao.PrescriptionDao;
 import com.epam.dao.RequestDao;
 import com.epam.dao.exception.DaoException;
 import com.epam.dao.factory.DaoFactory;
@@ -39,12 +40,16 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public void addRequest(String idPrescription, int newRequest) throws ServiceException{
+    public void addRequest(String idPrescription, String idUser, int newRequest) throws ServiceException{
         logger.debug("RequestServiceImpl.addRequest()");
         RequestDao requestDao = daoFactory.getIRequestDao();
+        PrescriptionDao prescriptionDao = daoFactory.getIPrescriptionDao();
         try {
             int prescriptionId = Integer.parseInt(idPrescription);
-            requestDao.addRequest(prescriptionId, newRequest);
+            int userId = Integer.parseInt(idUser);
+            if(prescriptionDao.getUserIdByPrescriptionId(prescriptionId) == userId) {
+                requestDao.addRequest(prescriptionId, newRequest);
+            }
         } catch (DaoException e) {
             throw new ServiceException(e);
         } catch (NumberFormatException e){

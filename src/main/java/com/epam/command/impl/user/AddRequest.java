@@ -25,8 +25,10 @@ public class AddRequest implements Command {
         try {
             RequestService requestService = serviceFactory.getRequestServiceImpl();
             String idPrescription = request.getParameter(RequestEnum.ID_PRESCRIPTION.getValue());
-            if(checkRole(request) && isExpiredPrescription(request) && !checkExistOfRequest(request) ){
-                requestService.addRequest(idPrescription, Constants.NEW_REQUEST);
+            if(isExpiredPrescription(request) && !checkExistOfRequest(request) ){
+                HttpSession session = request.getSession();
+                String idUser = session.getAttribute(RequestEnum.ID_USER.getValue()).toString();
+                requestService.addRequest(idPrescription, idUser, Constants.NEW_REQUEST);
                 request.setAttribute(RequestEnum.INFORMATION.getValue(), "The request for a recipe extension " +
                         "was successfully sent. In the near future it will be reviewed by your doctor.");
              }
@@ -35,17 +37,6 @@ public class AddRequest implements Command {
             request.setAttribute(RequestEnum.INFORMATION.getValue(), e.getMessage());
         }
         return jspPageName.getPath();
-    }
-
-    private boolean checkRole(HttpServletRequest request){
-        HttpSession session = request.getSession();
-        String idRole = session.getAttribute(RequestEnum.USER_ROLE.getValue()).toString();
-        if(idRole.equals(Constants.USER)){
-            return true;
-        } else{
-            request.setAttribute(RequestEnum.INFORMATION.getValue(), "Нет прав");
-            return false;
-        }
     }
 
     private boolean checkExistOfRequest(HttpServletRequest request) throws ServiceException {

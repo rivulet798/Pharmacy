@@ -26,14 +26,16 @@ public class Pay implements Command {
             if(checkRole(request)) {
                 OrderService orderService = serviceFactory.getOrderServiceImpl();
                 PrescriptionService prescriptionService = serviceFactory.getPrescriptionServiceImpl();
+                HttpSession session = request.getSession();
+                String idUser = session.getAttribute(RequestEnum.ID_USER.getValue()).toString();
                 String idOrder = request.getParameter(RequestEnum.ID_ORDER.getValue());
                 if(prescriptionService.isPrescriptionValid(idOrder)){
-                    orderService.changeOrderStatus(idOrder, Constants.STATUS_PAID);
+                    orderService.changeOrderStatus(idOrder, idUser, Constants.STATUS_PAID);
                     prescriptionService.setPrescriptionInvalidByOrderId(idOrder);
                     request.setAttribute(RequestEnum.INFORMATION.getValue(), "Заказ успешно оплачен");
                 }
                 else {
-                    orderService.changeOrderStatus(idOrder, Constants.STATUS_DELETED);
+                    orderService.changeOrderStatus(idOrder, idUser, Constants.STATUS_DELETED);
                     request.setAttribute(RequestEnum.INFORMATION.getValue(), "Вы уже использовали электронный рецепт на данный препарат. Товар будет удален из вашей корзины.");
                 }
             }

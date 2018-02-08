@@ -1,7 +1,6 @@
 package com.epam.command;
 
 
-import com.epam.command.impl.*;
 import com.epam.command.impl.admin.AddUser;
 import com.epam.command.impl.admin.GetUsers;
 import com.epam.command.impl.common.*;
@@ -52,6 +51,7 @@ public final class CommandProvider {
         repository.put(CommandName.REJECT_REQUEST, new RejectRequest());
         repository.put(CommandName.EXTEND_REQUEST, new ExtendRequest());
         repository.put(CommandName.GET_MEDICAMENTS_WITH_PRESCRIPTION, new GetMedicamentsWithPrescription());
+        repository.put(CommandName.DELETE_FROM_CART, new DeleteFromCartByOrderId());
     }
 
     public static CommandProvider getInstance() {

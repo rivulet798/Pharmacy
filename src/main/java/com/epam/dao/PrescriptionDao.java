@@ -15,5 +15,6 @@ public interface PrescriptionDao {
     boolean setPrescriptionInvalidByOrderId(int idOrder)throws DaoException;
     boolean isExpiredPrescription(int prescriptionId) throws DaoException;
     int getDoctorIdByRequestId(int requestId) throws DaoException;
+    int getUserIdByPrescriptionId(int prescriptionId) throws DaoException;
     boolean extendPrescriptionFromRequest(int requestId) throws DaoException;
 }

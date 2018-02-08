@@ -25,32 +25,25 @@ public class EditMedicament implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         jspPageName = JspPageName.INDEX;
         MedicamentService medicamentService = serviceFactory.getMedicamentServiceImpl();
-        logger.debug("\"" + (request.getSession().getAttribute(RequestEnum.USER_LOGIN.getValue())) + "\" try to edit medicament");
         try {
-            HttpSession session = request.getSession();
-            String idRole = session.getAttribute(RequestEnum.USER_ROLE.getValue()).toString();
-            if(idRole.equals(Constants.PHARMACIST)) {
-                    String idMedicament = request.getParameter(RequestEnum.ID_MEDICAMENT.getValue());
-                    String name = request.getParameter(RequestEnum.NAME.getValue());
-                    String producer = request.getParameter(RequestEnum.PRODUCER.getValue());
-                    String price = request.getParameter(RequestEnum.PRICE.getValue());
-                    String prescription = request.getParameter(RequestEnum.PRESCRIPTION.getValue());
-                    Part part = request.getPart(RequestEnum.IMAGE.getValue());
-                    String webInfPath = request.getServletContext().getRealPath("/");
-                    String availability = request.getParameter(RequestEnum.AVAILABILITY.getValue());
-                    String modeOfApplication = request.getParameter(RequestEnum.MODE_OF_APPLICATION.getValue());
-                    String contraindications = request.getParameter(RequestEnum.CONTRAINDICATIONS.getValue());
-                    String sideEffects = request.getParameter(RequestEnum.SIDE_EFFECTS.getValue());
+            String idMedicament = request.getParameter(RequestEnum.ID_MEDICAMENT.getValue());
+            String name = request.getParameter(RequestEnum.NAME.getValue());
+            String producer = request.getParameter(RequestEnum.PRODUCER.getValue());
+            String price = request.getParameter(RequestEnum.PRICE.getValue());
+            String prescription = request.getParameter(RequestEnum.PRESCRIPTION.getValue());
+            Part part = request.getPart(RequestEnum.IMAGE.getValue());
+            String webInfPath = request.getServletContext().getRealPath("/");
+            String availability = request.getParameter(RequestEnum.AVAILABILITY.getValue());
+            String modeOfApplication = request.getParameter(RequestEnum.MODE_OF_APPLICATION.getValue());
+            String contraindications = request.getParameter(RequestEnum.CONTRAINDICATIONS.getValue());
+            String sideEffects = request.getParameter(RequestEnum.SIDE_EFFECTS.getValue());
 
-                    medicamentService.editMedicament(idMedicament, name, producer, price,
-                            prescription, part, webInfPath, availability, modeOfApplication,
-                            contraindications, sideEffects);
+            medicamentService.editMedicament(idMedicament, name, producer, price,
+                    prescription, part, webInfPath, availability, modeOfApplication,
+                    contraindications, sideEffects);
 
-                    request.setAttribute(RequestEnum.INFORMATION.getValue(), "Medicament is changed");
-                }else{
-                    jspPageName = JspPageName.INFORMATION;
-                    request.setAttribute(RequestEnum.INFORMATION.getValue(), "Нет прав");
-                }
+            jspPageName = JspPageName.INFORMATION;
+            request.setAttribute(RequestEnum.INFORMATION.getValue(), "Medicament is changed");
         }catch (ServiceException | IOException | ServletException e){
             logger.error(e.getMessage());
             jspPageName = JspPageName.INFORMATION;

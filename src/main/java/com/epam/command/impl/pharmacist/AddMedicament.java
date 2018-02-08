@@ -7,7 +7,6 @@ import com.epam.service.DosageService;
 import com.epam.service.MedicamentService;
 import com.epam.service.factory.ServiceFactory;
 import com.epam.service.exception.ServiceException;
-import com.epam.service.utils.Constants;
 import com.epam.servlet.RequestEnum;
 import org.apache.log4j.Logger;
 
@@ -29,36 +28,30 @@ public class AddMedicament implements Command {
         jspPageName = JspPageName.INFORMATION;
         try {
             HttpSession session = request.getSession();
-            String idRole = session.getAttribute(RequestEnum.USER_ROLE.getValue()).toString();
-            if(idRole.equals(Constants.PHARMACIST)) {
-                String csrfToken  = session.getAttribute(RequestEnum.CSRF_TOKEN.getValue()).toString();
-                session.removeAttribute(RequestEnum.CSRF_TOKEN.getValue());
-                String csrfTokenFromRequest = request.getParameter(RequestEnum.CSRF_TOKEN.getValue());
-                if(csrfToken.equals(csrfTokenFromRequest)) {
-                    MedicamentService medicamentService = serviceFactory.getMedicamentServiceImpl();
-                    DosageService dosageService = serviceFactory.getDosageServiceImpl();
-                    String name = request.getParameter(RequestEnum.NAME.getValue());
-                    String producer = request.getParameter(RequestEnum.PRODUCER.getValue());
-                    String price = request.getParameter(RequestEnum.PRICE.getValue());
-                    String prescription = request.getParameter(RequestEnum.PRESCRIPTION.getValue());
-                    Part part = request.getPart(RequestEnum.IMAGE.getValue());
-                    String webInfPath = request.getServletContext().getRealPath("/");
-                    String availability = request.getParameter(RequestEnum.AVAILABILITY.getValue());
-                    String modeOfApplication = request.getParameter(RequestEnum.MODE_OF_APPLICATION.getValue());
-                    String contraindications = request.getParameter(RequestEnum.CONTRAINDICATIONS.getValue());
-                    String sideEffects = request.getParameter(RequestEnum.SIDE_EFFECTS.getValue());
-                    String[] dosages = request.getParameterValues("dosage");
-                    int idMedicament = medicamentService.addMedicament(name, producer, price, prescription, part, webInfPath, availability, modeOfApplication, contraindications, sideEffects);
-                    dosageService.addDosage(idMedicament, dosages);
-                    request.setAttribute(RequestEnum.INFORMATION.getValue(), "Medicament is added");
-                    logger.debug("\"" + name + "\" added medicament");
-                } else{
-                    jspPageName = JspPageName.INFORMATION;
-                    request.setAttribute(RequestEnum.INFORMATION.getValue(),"Возможно ваш запрос является поддельным. Заполните форму заново или обратитесь к администратору.");
-                }
-            }
-            else{
-                request.setAttribute(RequestEnum.INFORMATION.getValue(), "Нет прав");
+            String csrfToken  = session.getAttribute(RequestEnum.CSRF_TOKEN.getValue()).toString();
+            session.removeAttribute(RequestEnum.CSRF_TOKEN.getValue());
+            String csrfTokenFromRequest = request.getParameter(RequestEnum.CSRF_TOKEN.getValue());
+            if(csrfToken.equals(csrfTokenFromRequest)) {
+                MedicamentService medicamentService = serviceFactory.getMedicamentServiceImpl();
+                DosageService dosageService = serviceFactory.getDosageServiceImpl();
+                String name = request.getParameter(RequestEnum.NAME.getValue());
+                String producer = request.getParameter(RequestEnum.PRODUCER.getValue());
+                String price = request.getParameter(RequestEnum.PRICE.getValue());
+                String prescription = request.getParameter(RequestEnum.PRESCRIPTION.getValue());
+                Part part = request.getPart(RequestEnum.IMAGE.getValue());
+                String webInfPath = request.getServletContext().getRealPath("/");
+                String availability = request.getParameter(RequestEnum.AVAILABILITY.getValue());
+                String modeOfApplication = request.getParameter(RequestEnum.MODE_OF_APPLICATION.getValue());
+                String contraindications = request.getParameter(RequestEnum.CONTRAINDICATIONS.getValue());
+                String sideEffects = request.getParameter(RequestEnum.SIDE_EFFECTS.getValue());
+                String[] dosages = request.getParameterValues("dosage");
+                int idMedicament = medicamentService.addMedicament(name, producer, price, prescription, part, webInfPath, availability, modeOfApplication, contraindications, sideEffects);
+                dosageService.addDosage(idMedicament, dosages);
+                request.setAttribute(RequestEnum.INFORMATION.getValue(), "Medicament is added");
+                logger.debug("\"" + name + "\" added medicament");
+            } else{
+                jspPageName = JspPageName.INFORMATION;
+                request.setAttribute(RequestEnum.INFORMATION.getValue(),"Возможно ваш запрос является поддельным. Заполните форму заново или обратитесь к администратору.");
             }
         }catch (ServiceException | IOException | ServletException e){
             logger.error(e.getMessage());

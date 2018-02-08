@@ -31,44 +31,31 @@ public class NewPrescription implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         jspPageName = JspPageName.ADD_PRESCRIPTION;
         HttpSession session = request.getSession();
-        if(checkRole(request)){
-            MedicamentService medicamentService = serviceFactory.getMedicamentServiceImpl();
-            UserService userService = serviceFactory.getUserServiceImpl();
-            DosageService dosageService = serviceFactory.getDosageServiceImpl();
-            try {
-                SecureRandom secureRandom = new SecureRandom();
-                String csrfToken = String.valueOf(secureRandom.nextLong());
-                csrfToken = Hasher.hashBySha1(csrfToken);
-                String idMedicament = request.getParameter(RequestEnum.ID_MEDICAMENT.getValue());
-                Medicament medicament = medicamentService.getMedicamentById(idMedicament);
-                if(medicament.isPrescription()) {
-                    List<User> users = userService.getAllUsersByRoleId(Constants.USER);
-                    List<Dosage> dosages = dosageService.getDosagesByMedicamentId(idMedicament);
-                    request.setAttribute(RequestEnum.ID_MEDICAMENT.getValue(),idMedicament);
-                    request.setAttribute(RequestEnum.USERS.getValue(), users);
-                    request.setAttribute(RequestEnum.DOSAGES.getValue(), dosages);
-                    session.setAttribute(RequestEnum.CSRF_TOKEN.getValue(), csrfToken);
-                }else{
-                    jspPageName = JspPageName.INFORMATION;
-                    request.setAttribute(RequestEnum.INFORMATION.getValue(),"Данный медикамент не нуждается в электронном рецепте");
-                }
-            }catch (ServiceException e){
-                logger.error(e.getMessage());
+        MedicamentService medicamentService = serviceFactory.getMedicamentServiceImpl();
+        UserService userService = serviceFactory.getUserServiceImpl();
+        DosageService dosageService = serviceFactory.getDosageServiceImpl();
+        try {
+            SecureRandom secureRandom = new SecureRandom();
+            String csrfToken = String.valueOf(secureRandom.nextLong());
+            csrfToken = Hasher.hashBySha1(csrfToken);
+            String idMedicament = request.getParameter(RequestEnum.ID_MEDICAMENT.getValue());
+            Medicament medicament = medicamentService.getMedicamentById(idMedicament);
+            if(medicament.isPrescription()) {
+                List<User> users = userService.getAllUsersByRoleId(Constants.USER);
+                List<Dosage> dosages = dosageService.getDosagesByMedicamentId(idMedicament);
+                request.setAttribute(RequestEnum.ID_MEDICAMENT.getValue(),idMedicament);
+                request.setAttribute(RequestEnum.USERS.getValue(), users);
+                request.setAttribute(RequestEnum.DOSAGES.getValue(), dosages);
+                session.setAttribute(RequestEnum.CSRF_TOKEN.getValue(), csrfToken);
+            }else{
                 jspPageName = JspPageName.INFORMATION;
-                request.setAttribute(RequestEnum.INFORMATION.getValue(), e.getMessage());
+                request.setAttribute(RequestEnum.INFORMATION.getValue(),"Данный медикамент не нуждается в электронном рецепте");
             }
+        }catch (ServiceException e){
+            logger.error(e.getMessage());
+            jspPageName = JspPageName.INFORMATION;
+            request.setAttribute(RequestEnum.INFORMATION.getValue(), e.getMessage());
         }
         return jspPageName.getPath();
-    }
-
-    private boolean checkRole(HttpServletRequest request){
-        HttpSession session = request.getSession();
-        String userRole = session.getAttribute(RequestEnum.USER_ROLE.getValue()).toString();
-        if(userRole.equals(Constants.DOCTOR)){
-            return true;
-        } else{
-            request.setAttribute(RequestEnum.INFORMATION.getValue(), "Нет прав");
-            return false;
-        }
     }
 }

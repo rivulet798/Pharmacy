@@ -31,11 +31,11 @@ ${information}
 <div id="payment" class="popup">
     <div class="card">
         <div class="signup">
-            <form method="POST" id="form" action="/pay.do?idOrder=${idOrder}">
-                <h2>${payment}</h2>
-                <input class="signup" type="number" name="cardnumber" placeholder="${card_number}" />
-                <input class="signup" type="number" name="cvv" placeholder="CVV">
-                <input class="signup" type="text" name="name" placeholder="${firstname_lastname}">
+            <form method="POST" id="form"  class="material-form" action="/pay.do?idOrder=${idOrder}">
+                <h1>${payment}</h1>
+                <input class="signup" type="number" name="cardNumber" placeholder="${card_number}" pattern="/[0-9]{13,16}/" required autocomplete="off"/>
+                <input class="signup" type="number" name="cvv" placeholder="CVV" pattern="/[0-9]{3}/" required autocomplete="off"/>
+                <input class="signup" type="text" name="name" placeholder="${firstname_lastname}" required autocomplete="off"/>
                 <input type="submit" name="Оплатить" value="${pay}" class="button1">
                 <input type="button" name="Закрыть" value="${cancel}" onclick="hidePopUp();" class="button1">
             </form>

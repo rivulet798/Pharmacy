@@ -18,6 +18,7 @@
 <fmt:message bundle="${loc}" key="local.word.contraindications" var="contraindications"/>
 <fmt:message bundle="${loc}" key="local.word.side_effects" var="side_effects"/>
 <fmt:message bundle="${loc}" key="local.word.dosage" var="dosa"/>
+<fmt:message bundle="${loc}" key="local.word.unit_of_dosage" var="unit_of_dosage"/>
 <fmt:message bundle="${loc}" key="local.sentence.number_of_packages" var="number_of_packages"/>
 <fmt:message bundle="${loc}" key="local.word.order" var="order"/>
 <fmt:message bundle="${loc}" key="local.sentence.select_a_recipe" var="select_a_recipe"/>
@@ -38,54 +39,52 @@
             <h2>${med.name}</h2>
             <div><img src="images/medicaments/${med.image}" class="good"></div>
             <div class="container medicament" >
-            <p class="title"> ${producer}: ${med.producer}</p>
-                <p class="title"> ${price}: ${med.price} ${unit_of_price}</p>
+            <p class="title"> <b>${producer}</b>: ${med.producer}</p>
+                <p class="title"> <b>${price}</b>: ${med.price} ${unit_of_price}</p>
                 <c:choose>
                     <c:when test="${med.prescription}">
-                        <p class="title"> ${released_by_prescription}.</p>
+                        <p class="title"> <i>${released_by_prescription}</i>.</p>
                     </c:when>
                     <c:when test="${!med.prescription}">
-                        <p class="title"> ${released_without_prescription}.</p>
+                        <p class="title"> <i>${released_without_prescription}</i>.</p>
                     </c:when>
                 </c:choose>
                 <c:choose>
                     <c:when test="${med.availability}">
-                        <p class="title"> ${is_available}.</p>
+                        <p class="title"> <i>${is_available}</i>.</p>
                     </c:when>
                     <c:when test="${!med.availability}">
-                        <p class="title"> ${not_available}.</p>
+                        <p class="title"> <i>${not_available}</i>.</p>
                     </c:when>
                 </c:choose>
-                <p class="title"> ${mode_of_application}: ${med.modeOfApplication}</p>
-                <p class="title"> ${contraindications}: ${med.contraindications}</p>
-                <p class="title"> ${side_effects}: ${med.sideEffects}</p>
+                <p class="title"> <b>${mode_of_application}</b>: ${med.modeOfApplication}</p>
+                <p class="title"> <b>${contraindications}</b>: ${med.contraindications}</p>
+                <p class="title"> <b>${side_effects}</b>: ${med.sideEffects}</p>
                 <c:choose>
                     <c:when test="${roleUser==1}">
                         <c:choose>
                             <c:when test="${med.prescription}">
-                                <form  method="POST" action="/add_to_cart.do?idMedicament=${med.id}" >
+                                <form  method="POST" action="/add_to_cart.do?idMedicament=${med.id}" onsubmit="return validOrderWithPrescription(this)">
                                     <select name="idPrescription">
                                         <option value="" disabled selected>${select_a_recipe}</option>
                                         <c:forEach var="prescription" items="${prescriptions}">
-                                            <option value=${prescription.idPrescription}>${dosa}: ${prescription.dosage}. ${number_of_packages}: ${prescription.number}</option>
+                                            <option value=${prescription.idPrescription}>${dosa}: ${prescription.dosage}${unit_of_dosage}. ${number_of_packages}: ${prescription.number}</option>
                                         </c:forEach>
                                     </select>
                                     <input type="submit" class="button" value="${order}" />
                                 </form>
                             </c:when>
                             <c:when test="${!med.prescription}">
-                                <form  method="POST" action="/add_to_cart.do?idMedicament=${med.id}" >
-                                    <c:choose>
-                                        <c:when test="${dosages!=null}">
-                                            <select name="idDosage">
-                                                <option value="" disabled selected>${dosa}</option>
-                                                <c:forEach var="dosage" items="${dosages}">
-                                                    <option value=${dosage.id}>${dosage.dosage}</option>
-                                                </c:forEach>
-                                            </select>
-                                        </c:when>
-                                    </c:choose>
-                                    <input type="number" name="number" id="number" placeholder="${number_of_packages}"/>
+                                <form  method="POST" action="/add_to_cart.do?idMedicament=${med.id}" onsubmit="return validOrderWithoutPrescription(this)">
+                                    <c:if test="${dosages!=null}">
+                                        <select name="idDosage">
+                                            <option value="" disabled selected>${dosa}</option>
+                                            <c:forEach var="dosage" items="${dosages}">
+                                                <option value=${dosage.id}>${dosage.dosage}${unit_of_dosage}</option>
+                                            </c:forEach>
+                                        </select>
+                                    </c:if>
+                                    <input type="number" step="1" min="1" name="number" placeholder="${number_of_packages}" required/>
                                     <input type="submit" class="button" value="${order}" />
                                 </form>
                             </c:when>

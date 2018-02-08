@@ -21,6 +21,13 @@
 <body>
 <%@include file="../header.jsp"%>
 <div class="page">
+    <div class="filter">
+        <a href="medicaments_asc_sorted_by_price.do"><li>Сортировать по возрастанию цены</a>
+        <a href="medicaments_desc_sorted_by_price.do"><li>Сортировать по убыванию цены</a>
+        <form id="searchForm" method="POST" action="/medicaments_by_producer.do" onsubmit="return checkSearchProducer()">
+            <input onkeyup="checkSearchProducer()"  type="text" name="name" placeholder="Поиск по производителю" id="searchProducer" autocomplete="off" required>
+        </form>
+    </div>
     <div class="row">
         <c:choose>
             <c:when test="${medicaments!=null}">

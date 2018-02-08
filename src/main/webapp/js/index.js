@@ -49,7 +49,6 @@
     {
         alert(fail);
         return false;
-        form.submit1.style.display='none';
     }
     else
     {
@@ -99,15 +98,14 @@ function validMedicament(form)
         fail=fail+"Заполните поле побочные эффекты.\n";
         n++;
     }
-    if(form.dosage.value == ""){
-        fail=fail+"Введите дозировку активного вещества.\n";
+    if(form.dosage[0].value == ""){
+        fail=fail+form.dosage.value+"Введите дозировку активного вещества.\n";
         n++;
     }
     if(n!=1)
     {
         alert(fail);
         return false;
-        form.submit1.style.display='none';
     }
     else
     {
@@ -141,6 +139,46 @@ function validPrescription(form)
         n++;
     }
 
+    if(n!=1)
+    {
+        alert(fail);
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}
+
+function validOrderWithPrescription(form){
+    var fail;
+    var n=1;
+    fail="";
+
+    if(form.idPrescription.selectedIndex == 0){
+        fail="Выберите рецепт.\n";
+        n++;
+    }
+    if(n!=1)
+    {
+        alert(fail);
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}
+
+function validOrderWithoutPrescription(form){
+    var fail;
+    var n=1;
+    fail="";
+
+    if(form.idDosage.selectedIndex == 0){
+        fail="Выберите дозировку.\n";
+        n++;
+    }
     if(n!=1)
     {
         alert(fail);
@@ -188,6 +226,16 @@ function checkSearch(){
     }
     else{
         $("#searchInput").css('border-bottom','2px solid #0fde58');
+        return true;
+    }
+}
+function checkSearchByProducer(){
+    if($("#searchProducer").val().length<3){
+        $("#searchProducer").css('border-bottom','2px solid #e40202');
+        return false;
+    }
+    else{
+        $("#searchProducer").css('border-bottom','2px solid #0fde58');
         return true;
     }
 }

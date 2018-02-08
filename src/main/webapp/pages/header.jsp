@@ -36,7 +36,7 @@
             </c:choose>
             <li id="search">
                 <form id="searchForm" method="POST" action="/medicaments_by_name.do" onsubmit="return checkSearch()">
-                    <input onkeyup="checkSearch()"  type="text" name="name" placeholder="${search}" id="searchInput" required>
+                    <input onkeyup="checkSearch()"  type="text" name="name" placeholder="${search}" id="searchInput" autocomplete="off" required>
                 </form>
             </li>
         </ul>

@@ -27,6 +27,7 @@ public class PrescriptionDaoImpl implements PrescriptionDao {
     private static final String GET_PRESCRIPTIONS_BY_USER_ID_AND_MED_ID = "SELECT d.id as idDosage, dosage, number, valid, p.idPrescription FROM prescription p JOIN dosage d ON p.idDosage = d.id WHERE p.idUser=? AND p.idMedicament=? AND p.valid=1 AND DATEDIFF(p.dateOfCompletion, curdate())>=0;";
     private static final String GET_EXPIRED_PRESCRIPTION_BY_ID = "SELECT * FROM pharmacy.prescription p WHERE p.idPrescription=? AND DATEDIFF(p.dateOfCompletion, curdate())<0;";
     private static final String GET_DOCTOR_ID_BY_REQUEST_ID = "SELECT idDoctor FROM pharmacy.prescription p JOIN pharmacy.request_for_renewal req ON p.idPrescription = req.idPrescription WHERE req.id=?;";
+    private static final String GET_USER_ID_BY_PRESCRIPTION_ID = "SELECT idUser FROM pharmacy.prescription p WHERE p.idPrescription=?;";
     private static final String EXTEND_PRESCRIPTION_BY_ID_REQUEST = "UPDATE pharmacy.prescription p  JOIN pharmacy.request_for_renewal req ON p.idPrescription = req.idPrescription SET p.dateOfCompletion=adddate(p.dateOfCompletion, INTERVAL 2 MONTH ) WHERE req.id=?;";
 
     private ConnectionPool connectionPool;
@@ -286,6 +287,42 @@ public class PrescriptionDaoImpl implements PrescriptionDao {
             resultSet = statement.executeQuery();
             if(resultSet.next()){
                 return resultSet.getInt("idDoctor");
+            } else{
+                throw new DaoException("У вас нет прав на выполнение данной операции");
+            }
+
+        } catch (SQLException e) {
+            try {
+                connection.rollback();
+            } catch (SQLException e1) {
+                throw new DaoException(e);
+            }
+            throw new DaoException("Error of query to database(GetDoctorByRequestId)", e);
+        } catch (ConnectionException e){
+            throw new DaoException("Error with connection with database"+e);
+        } finally {
+            if (connectionPool != null) {
+                connectionPool.putBackConnection(connection, statement, resultSet);
+            }
+        }
+    }
+
+    @Override
+    public int getUserIdByPrescriptionId(int prescriptionId) throws DaoException {
+        logger.debug("PrescriptionDaoImpl.getUserIdByPrescriptionId()");
+        try {
+            statement = null;
+            resultSet = null;
+
+            connectionPool = ConnectionPool.getInstance();
+            connection = connectionPool.retrieve();
+
+            statement = connection.prepareStatement(GET_USER_ID_BY_PRESCRIPTION_ID);
+            statement.setInt(1,prescriptionId);
+
+            resultSet = statement.executeQuery();
+            if(resultSet.next()){
+                return resultSet.getInt("idUser");
             } else{
                 throw new DaoException("У вас нет прав на выполнение данной операции");
             }

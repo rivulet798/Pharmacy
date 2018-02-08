@@ -1,9 +1,9 @@
-package com.epam.command.impl.admin;
+package com.epam.command.impl.doctor;
 
-import com.epam.command.Command;
 import com.epam.command.impl.JspPageName;
-import com.epam.entity.User;
-import com.epam.service.UserService;
+import com.epam.command.impl.common.GetMedicamentsByProducer;
+import com.epam.entity.Medicament;
+import com.epam.service.MedicamentService;
 import com.epam.service.exception.ServiceException;
 import com.epam.service.factory.ServiceFactory;
 import com.epam.service.utils.Constants;
@@ -15,20 +15,18 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
-public class GetUsers implements Command {
+public class GetMedicamentsWithPrescription implements com.epam.command.Command {
     private ServiceFactory serviceFactory = ServiceFactory.getInstance();
-    private static Logger logger = Logger.getLogger(GetUsers.class);
+    private static Logger logger = Logger.getLogger(GetMedicamentsByProducer.class);
     private JspPageName jspPageName;
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        jspPageName = JspPageName.USERS;
+        jspPageName = JspPageName.MEDICAMENTS;
         try {
-            String usersRole = request.getParameter(RequestEnum.USERS_ROLE.getValue());
-            UserService userService = serviceFactory.getUserServiceImpl();
-            List<User> users = userService.getAllUsersByRoleId(usersRole);
-            request.setAttribute("users", users);
-            request.setAttribute("newUserRole",usersRole);
+            MedicamentService medicamentService = serviceFactory.getMedicamentServiceImpl();
+            List<Medicament> medicaments = medicamentService.getMedicamentsWithPrescription();
+            request.setAttribute("medicaments", medicaments);
         }catch (ServiceException e){
             logger.error(e.getMessage());
             jspPageName = JspPageName.INFORMATION;
@@ -36,5 +34,4 @@ public class GetUsers implements Command {
         }
         return jspPageName.getPath();
     }
-
 }
