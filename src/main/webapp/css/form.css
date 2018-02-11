@@ -1,96 +1,259 @@
-.material-form {
-    padding: 5px;
-    background-color: #fff;
-    max-width: 400px;
-    margin:auto;
-}
-.input-block {
-    background-color: #fff;
-    border-bottom: solid 1px #c8c8c8;
-    width: 100%;
-    height: auto;
-    padding: 0;
-    position: relative;
-}
-.input-block input{
-    width:100%;
-    display: block;
-    border-radius: 3px;
+@media only screen and (min-width: 981px) {
+    .material-form {
+        padding: 5px;
+        background-color: #fff;
+        max-width: 400px;
+        margin: auto;
+    }
+
+    .input-block {
+        background-color: #fff;
+        border-bottom: solid 1px #c8c8c8;
+        width: 100%;
+        height: auto;
+        padding: 0;
+        position: relative;
+    }
+
+    .input-block input {
+        width: 100%;
+        display: block;
+        border-radius: 3px;
+    }
+
+    .material-form input[type=submit] {
+        width: 100%;
+        display: block;
+        margin-top: 20px !important;
+    }
+
+    .select-block {
+        background-color: #fff;
+        width: 100%;
+        padding: 5px 0 0;
+        position: relative;
+        margin-bottom: 20px;
+    }
+
+    .select-block select {
+        display: block;
+        width: 100%;
+        margin: auto;
+    }
+
+    label {
+        color: #b4b4b4;
+        top: 0;
+        font-size: 13px;
+        margin-bottom: 2px;
+    }
+
+    .floating-field {
+        padding: 2px 0 0;
+        height: auto;
+    }
+
+    .material-form h1 {
+        color: #333;
+        padding: 10px 0 0;
+        margin-bottom: 8px;
+        font-size: 20px;
+        text-transform: uppercase;
+        font-weight: 700;
+        text-align: center;
+    }
+
+    textarea {
+        height: auto;
+        width: 100%;
+        display: block;
+        border-radius: 3px;
+    }
+
+    textarea .form-control {
+        height: auto;
+        resize: none;
+        padding-top: 20px;
+        font-family: 'Roboto', sans-serif;
+    }
+
+    .input-block .form-control {
+        font-size: 18px;
+    }
+
+    /* Tooltip container */
+    .tooltip {
+        display: block;
+    }
+
+    /* Tooltip text */
+    .tooltip .tooltiptext {
+        visibility: hidden;
+        width: 120px;
+        background-color: black;
+        color: #fff;
+        text-align: center;
+        padding: 5px 0;
+        border-radius: 6px;
+        top: 20%;
+        left: 65%;
+        position: fixed;
+    }
+
+    /* Show the tooltip text when you mouse over the tooltip container */
+    .tooltip:hover .tooltiptext {
+        visibility: visible;
+    }
+
+    form h1 {
+        color: #333;
+        display: block;
+        width: 100%;
+        font-size: 14pt;
+        text-indent: 5px;
+    }
+
+    form img {
+        display: block;
+    }
+
+    .g-recaptcha {
+        width: 100%;
+        margin: auto;
+        text-align: center;
+    }
+
+    .input-text {
+        line-height: 2;
+    }
 }
 
-.material-form input[type=submit]{
-    width:100%;
-    display: block;
-    margin-top: 20px !important;
-}
+@media only screen and (max-width: 981px) {
+    .material-form {
+        padding: 5px;
+        background-color: #fff;
+        max-width: 400px;
+        margin: auto;
+    }
 
-.select-block{
-    background-color: #fff;
-    width: 100%;
-    padding: 5px 0 0;
-    position: relative;
-    margin-bottom: 20px;
-}
-.select-block select{
-    display: block;
-    width:100%;
-    margin:auto;
-}
-label {
-    color: #b4b4b4;
-    top: 0;
-    font-size: 13px;
-    margin-bottom: 2px;
-}
-.floating-field {
-    padding: 2px 0 0;
-    height: auto;
-}
-.material-form h1{
-    color: #333;
-    padding: 10px 0 0;
-    margin-bottom: 8px;
-    font-size: 20px;
-    text-transform: uppercase;
-    font-weight: 700;
-    text-align: center;
-}
-textarea {
-    height: auto;
-    width:100%;
-    display: block;
-    border-radius: 3px;
-}
-textarea .form-control {
-    height: auto;
-    resize: none;
-    padding-top: 20px;
-    font-family: 'Roboto', sans-serif;
-}
-.input-block .form-control {
-    font-size: 18px;
-}
+    .input-block {
+        background-color: #fff;
+        border-bottom: solid 1px #c8c8c8;
+        width: 100%;
+        height: auto;
+        padding: 0;
+        position: relative;
+    }
 
-/* Tooltip container */
-.tooltip {
-    display:block;
-}
+    .input-block input[type=text], .input-block input[type=password] {
+        width: 100%;
+        display: block;
+        border-radius: 3px;
+        line-height: 3;
+    }
 
-/* Tooltip text */
-.tooltip .tooltiptext {
-    visibility: hidden;
-    width: 120px;
-    background-color: black;
-    color: #fff;
-    text-align: center;
-    padding: 5px 0;
-    border-radius: 6px;
-    top:20%;
-    left: 65%;
-    position: fixed;
-}
+    .material-form input[type=submit], .material-form input[type=button] {
+        width: 100%;
+        display: block;
+        margin-top: 20px !important;
+        padding: 10px 0;
+        background-color: rgba(42, 112, 139, 1);
+        color: #FFFFFF;
+    }
 
-/* Show the tooltip text when you mouse over the tooltip container */
-.tooltip:hover .tooltiptext {
-    visibility: visible;
+    .select-block {
+        background-color: #fff;
+        width: 100%;
+        padding: 5px 0 0;
+        position: relative;
+        margin-bottom: 20px;
+    }
+
+    .select-block select {
+        display: block;
+        width: 100%;
+        margin: auto;
+    }
+
+    label {
+        color: #b4b4b4;
+        top: 0;
+        font-size: 13px;
+        margin-bottom: 2px;
+    }
+
+    .g-recaptcha {
+        width: 100%;
+        margin: auto;
+        text-align: center;
+    }
+
+    .floating-field {
+        padding: 2px 0 0;
+        height: auto;
+    }
+
+    .material-form h1 {
+        color: #333;
+        padding: 10px 0 0;
+        margin-bottom: 8px;
+        font-size: 20px;
+        text-transform: uppercase;
+        font-weight: 700;
+        text-align: center;
+    }
+
+    textarea {
+        height: auto;
+        width: 100%;
+        display: block;
+        border-radius: 3px;
+    }
+
+    textarea .form-control {
+        height: auto;
+        resize: none;
+        padding-top: 20px;
+        font-family: 'Roboto', sans-serif;
+    }
+
+    .input-block .form-control {
+        font-size: 18px;
+    }
+
+    /* Tooltip container */
+    .tooltip {
+        display: block;
+    }
+
+    /* Tooltip text */
+    .tooltip .tooltiptext {
+        visibility: hidden;
+        width: 120px;
+        background-color: black;
+        color: #fff;
+        text-align: center;
+        padding: 5px 0;
+        border-radius: 6px;
+        top: 20%;
+        left: 65%;
+        position: fixed;
+    }
+
+    /* Show the tooltip text when you mouse over the tooltip container */
+    .tooltip:hover .tooltiptext {
+        visibility: visible;
+    }
+
+    form h1 {
+        color: #333;
+        display: block;
+        width: 100%;
+        font-size: 14pt;
+        text-indent: 5px;
+    }
+
+    form img {
+        display: block;
+    }
 }

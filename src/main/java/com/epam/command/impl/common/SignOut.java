@@ -24,6 +24,8 @@ public class SignOut implements Command {
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals(RequestEnum.J_SESSION_ID.getValue())) {
                     cookie.setMaxAge(0);
+                    cookie.setSecure(true);
+                    cookie.setHttpOnly(true);
                     response.addCookie(cookie);
                 }
             }
@@ -32,7 +34,7 @@ public class SignOut implements Command {
             request.getSession().removeAttribute(RequestEnum.ID_USER.toString());
             request.getSession().invalidate();
             logger.debug(login + " came out");
-            response.sendRedirect("/index.do");
+            response.sendRedirect("index.do");
         }catch (IOException e){
             logger.error(e.getMessage());
             request.setAttribute(RequestEnum.INFORMATION.getValue(), e.getMessage());

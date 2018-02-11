@@ -12,19 +12,21 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
-    <link href="/css/index.css" rel="stylesheet">
-    <link href="/css/form.css" rel="stylesheet">
+    <link href="css/index.css" rel="stylesheet">
+    <link href="css/form.css" rel="stylesheet">
     <title>${error_title}</title>
 </head>
 
 <body>
 <%@include file="../header.jsp"%>
 <div class="page">
-    ${error_message}
+    <div class="card">
+        <p class="information"> ${error_message}</p>
+    </div>
 </div>
 </body>
 <%@include file="../footer.html"%>
 <%@include file="../forms.jsp"%>
-<script src="/js/index.js"></script>
+<script src="js/index.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 </html>

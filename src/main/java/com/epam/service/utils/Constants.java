@@ -15,4 +15,7 @@ public class Constants {
     public static final String RU = "ru_RU";
     public static final String EN = "en_US";
     public static final int IS_VALID = 1;
+    public static final String SITE_KEY = "6LdDwEIUAAAAAH6IZslfi8wPoxHQpUHIuL0wN6GX\n";
+    public static final String SECRET_KEY = "6LdDwEIUAAAAAF2xTbuR4VwCF-q_c9Sild9Oqnnt";
+
 }

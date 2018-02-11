@@ -9,8 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class SetLocale implements com.epam.command.Command {
-    private static Logger logger = Logger.getLogger(SetLocale.class);
-    private ServiceFactory serviceFactory = ServiceFactory.getInstance();
     private JspPageName jspPageName;
 
     @Override

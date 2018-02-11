@@ -35,9 +35,6 @@ public class NewPrescription implements Command {
         UserService userService = serviceFactory.getUserServiceImpl();
         DosageService dosageService = serviceFactory.getDosageServiceImpl();
         try {
-            SecureRandom secureRandom = new SecureRandom();
-            String csrfToken = String.valueOf(secureRandom.nextLong());
-            csrfToken = Hasher.hashBySha1(csrfToken);
             String idMedicament = request.getParameter(RequestEnum.ID_MEDICAMENT.getValue());
             Medicament medicament = medicamentService.getMedicamentById(idMedicament);
             if(medicament.isPrescription()) {
@@ -46,7 +43,7 @@ public class NewPrescription implements Command {
                 request.setAttribute(RequestEnum.ID_MEDICAMENT.getValue(),idMedicament);
                 request.setAttribute(RequestEnum.USERS.getValue(), users);
                 request.setAttribute(RequestEnum.DOSAGES.getValue(), dosages);
-                session.setAttribute(RequestEnum.CSRF_TOKEN.getValue(), csrfToken);
+                session.setAttribute(RequestEnum.CSRF_TOKEN.getValue(), Hasher.generateCsrfToken());
             }else{
                 jspPageName = JspPageName.INFORMATION;
                 request.setAttribute(RequestEnum.INFORMATION.getValue(),"Данный медикамент не нуждается в электронном рецепте");

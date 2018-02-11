@@ -31,7 +31,8 @@ public class AuthorizationFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 
-        String commandForFilter = ((HttpServletRequest)request).getRequestURI().replace("/","");
+        String commandForFilter = ((HttpServletRequest)request).getServletPath();
+        commandForFilter = commandForFilter.replace("/","");
         commandForFilter = commandForFilter.replace(".do","");
         HttpSession session = ((HttpServletRequest)request).getSession();
         if (session.isNew()) {

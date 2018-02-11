@@ -20,22 +20,22 @@
             <a href="index.do"><li>${main_page}</li></a>
             <c:choose>
                 <c:when test="${roleUser==1}">
-                    <a href="/get_my_prescriptions.do"><li>${my_recipes}</li></a>
+                    <a href="get_my_prescriptions.do"><li>${my_recipes}</li></a>
                 </c:when>
                 <c:when test="${roleUser==2}">
-                    <a href="/get_medicaments.do"><li>${medicines}</li></a>
+                    <a href="get_medicaments.do"><li>${medicines}</li></a>
                 </c:when>
                 <c:when test="${roleUser==3}">
-                    <a href="/get_my_requests.do"><li>${queries}</li></a>
-                    <a href="/get_medicaments_with_prescription.do"><li>${writing_the_recipe}</li></a>
+                    <a href="get_my_requests.do"><li>${queries}</li></a>
+                    <a href="get_medicaments_with_prescription.do"><li>${writing_the_recipe}</li></a>
                 </c:when>
                 <c:when test="${roleUser==4}">
-                    <a href="/get_users.do?usersRole=2"><li>${pharmacists}</li></a>
-                    <a href="/get_users.do?usersRole=3"><li>${doctors}</li></a>
+                    <a href="get_users.do?usersRole=2"><li>${pharmacists}</li></a>
+                    <a href="get_users.do?usersRole=3"><li>${doctors}</li></a>
                 </c:when>
             </c:choose>
             <li id="search">
-                <form id="searchForm" method="POST" action="/medicaments_by_name.do" onsubmit="return checkSearch()">
+                <form id="searchForm" method="POST" action="medicaments_by_name.do" onsubmit="return checkSearch()">
                     <input onkeyup="checkSearch()"  type="text" name="name" placeholder="${search}" id="searchInput" autocomplete="off" required>
                 </form>
             </li>
@@ -46,13 +46,13 @@
                 <ul id="auth">
                     <c:choose>
                         <c:when test="${roleUser==1}">
-                            <a href="/get_my_cart.do"><li>${loginUser}</li></a>
+                            <a href="get_my_cart.do"><li>${loginUser}</li></a>
                         </c:when>
                         <c:otherwise>
                             <li>${loginUser}</li>
                         </c:otherwise>
                     </c:choose>
-                    <a href="/sign_out.do"><li>${exit}</li></a>
+                    <a href="sign_out.do"><li>${exit}</li></a>
                 </ul>
             </c:when>
             <c:otherwise>

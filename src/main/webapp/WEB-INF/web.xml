@@ -6,7 +6,6 @@
   <display-name>pharmacy</display-name>
   <welcome-file-list>
     <welcome-file>/index.html</welcome-file>
-    <welcome-file>/index.jsp</welcome-file>
   </welcome-file-list>
   <security-constraint>
     <display-name>Restrict direct access to certain folders</display-name>

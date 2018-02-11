@@ -17,7 +17,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
-    <link href="/css/index.css" rel="stylesheet">
+    <link href="css/index.css" rel="stylesheet">
     <title>${main_title}</title>
 </head>
 <body>
@@ -43,6 +43,6 @@ ${information}
     </div>
 </div>
 </body>
-<script src="/js/index.js"></script>
+<script src="js/index.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 </html>

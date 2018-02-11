@@ -28,7 +28,7 @@
 <div id="signup" class="popup">
     <div class="card">
         <div class="signup">
-            <form name="Reviews" method="POST" id="form" class="material-form" action="/sign_up.do" onsubmit="return valid(this)">
+            <form name="Reviews" method="POST" class="material-form" action="sign_up.do" onsubmit="return valid(this)">
                 <h1>${sign_up}</h1>
                 <div class="input-block floating-field">
                     <label>${login}</label>
@@ -46,7 +46,7 @@
                 </div>
                 <div class="input-block floating-field">
                     <label>${confirm_password}</label>
-                <input class="signup" type="password" name="rePassword" placeholder="${confirm_password}" autocomplete="off" required/>
+                    <input class="signup" type="password" name="rePassword" placeholder="${confirm_password}" autocomplete="off" required/>
                 </div>
                 <div class="input-block floating-field">
                     <label>${firstname}</label>
@@ -73,6 +73,7 @@
                     <label>${address}</label>
                     <input class="signup" type="text" name="address" placeholder="${enter_address}" autocomplete="off" required/>
                 </div>
+                <div class="g-recaptcha" data-sitekey="6LdDwEIUAAAAAH6IZslfi8wPoxHQpUHIuL0wN6GX"></div>
                 <input type="submit" value="${button_sign_up}" class="button1">
                 <input type="button" value="${cancel}" onclick="hideSignUp();" class="button1">
             </form>
@@ -82,7 +83,7 @@
 <div id="login" class="popup">
     <div class="card">
         <div class="signup">
-            <form name="Reviews" method="POST" id="form" class="material-form" action="/sign_in.do" onsubmit="return valid(this)">
+            <form name="Reviews" method="POST" class="material-form" action="sign_in.do" onsubmit="return valid(this)">
                 <h1>${sign_in}</h1>
                 <div class="input-block floating-field">
                     <label>${enter_login}</label>
@@ -92,6 +93,7 @@
                     <label>${enter_password}</label>
                     <input class="signup" type="password" name="logpassword" placeholder="${password}" autocomplete="off" required/>
                 </div>
+                <div class="g-recaptcha" data-sitekey="6LdDwEIUAAAAAH6IZslfi8wPoxHQpUHIuL0wN6GX"></div>
                 <input type="submit" value="${button_sign_in}" class="button1">
                 <input type="button" value="${cancel}" onclick="hideSignIn();" class="button1">
             </form>

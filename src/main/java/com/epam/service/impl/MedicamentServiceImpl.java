@@ -12,8 +12,7 @@ import org.apache.log4j.Logger;
 
 import javax.servlet.http.Part;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+ import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.nio.file.Files;
@@ -25,7 +24,6 @@ import java.util.List;
 public class MedicamentServiceImpl implements MedicamentService {
 
     private static Logger logger = Logger.getLogger(MedicamentServiceImpl.class);
-    private static final int BUFFER_LENGTH = 1024;
     private static final int RECIPE_NEED = 1;
     private static final int RECIPE_NOT_NEED = 0;
     private DaoFactory daoFactory = DaoFactory.getInstance();
@@ -142,7 +140,6 @@ public class MedicamentServiceImpl implements MedicamentService {
             medicament.setName(name);
             medicament.setProducer(producer);
             BigDecimal priceDecimal = new BigDecimal(price);
-            logger.info("//////////////FLOAT");
             medicament.setPrice(priceDecimal);
             medicament.setPrescription(Boolean.parseBoolean(prescription));
             medicament.setAvailability(Boolean.parseBoolean(availability));
@@ -201,7 +198,6 @@ public class MedicamentServiceImpl implements MedicamentService {
             medicament.setProducer(producer);
             Float priceF = Float.parseFloat(price);
             BigDecimal priceDecimal = BigDecimal.valueOf(priceF);
-            logger.info("//////////////FLOAT"+priceDecimal);
             medicament.setPrice(priceDecimal);
             medicament.setPrescription(Boolean.parseBoolean(prescription));
             medicament.setAvailability(Boolean.parseBoolean(availability));
@@ -242,36 +238,5 @@ public class MedicamentServiceImpl implements MedicamentService {
             throw new ServiceException("error with upload of image", e);
         }
     }
-
-//    private void uploadImage(Part filePart, String fileName, String webInfPath) throws ServiceException {
-//        try {
-//            logger.debug("MedicamentServiceImpl.uploadImage()");
-//            File dir = new File(webInfPath + "images" + File.separator + "medicaments");
-//            if (!dir.exists()) {
-//                Path path = Paths.get(webInfPath + "images" + File.separator + "medicaments");
-//                Files.createDirectories(path);
-//            }
-//            File file = new File(dir, fileName);
-//            InputStream fileContent = filePart.getInputStream();
-//            FileOutputStream fileOutputStream = new FileOutputStream(file);
-//            byte[] buffer = new byte[BUFFER_LENGTH];
-//            int len = fileContent.read(buffer);
-//            while (len != -1) {
-//                fileOutputStream.write(buffer, 0, len);
-//                len = fileContent.read(buffer);
-//            }
-//            if (fileOutputStream != null) {
-//                try {
-//                    fileOutputStream.close();
-//                } catch (IOException e) {
-//                    System.out.println("error with closing file" + e);
-//                }
-//            }
-//        } catch (IOException e) {
-//            throw new ServiceException("error with upload of image", e);
-//        }
-//        logger.debug("MedicamentServiceImpl.uploadImage() - success");
-//    }
-
 
 }

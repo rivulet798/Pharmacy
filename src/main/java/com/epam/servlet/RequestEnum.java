@@ -41,7 +41,8 @@ public enum RequestEnum {
     ID_REQUEST("idRequest"),
 
     CSRF_TOKEN("csrfToken"),
-    LOCALE("locale");
+    LOCALE("locale"),
+    G_RECAPTURE("g-recaptcha-response");
 
     private String value;
 

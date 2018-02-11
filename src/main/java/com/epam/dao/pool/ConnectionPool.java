@@ -144,10 +144,6 @@ public class ConnectionPool implements ICloseConnectionPool {
         }
     }
 
-    public void putBackConnection(Connection con, Statement st) {
-        this.putBackConnection(con, st, null);
-    }
-
     @Override
     public void  releasePool() {
         while (!givenAwayConQueue.isEmpty()) {

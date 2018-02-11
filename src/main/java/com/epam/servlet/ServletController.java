@@ -24,7 +24,7 @@ import java.util.Locale;
 @MultipartConfig
 
 public class ServletController extends HttpServlet {
-    private static final String LOG4J_PARAM = "init_log4j";
+    private static final String LOG4J_PARAM = "log4j";
     private static final long serialVersionUID = 1L;
 
     private CommandProvider commandProvider = CommandProvider.getInstance();

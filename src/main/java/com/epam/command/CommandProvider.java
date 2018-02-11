@@ -60,13 +60,14 @@ public final class CommandProvider {
 
     public Command getCommand(HttpServletRequest request) {
         Command iCommand = repository.get(CommandName.WRONG_REQUEST);
-        String command = request.getRequestURI().replace("/","");
+        String command = request.getServletPath().replace("/","");
         command = command.replace(".do","");
         try {
             CommandName commandName = CommandName.valueOf(command.toUpperCase().replace('-', '_'));
             iCommand = repository.get(commandName);
         } catch (IllegalArgumentException e) {
             request.setAttribute("wrongAction", e.getMessage());
+            logger.error(e.getMessage());
         }
         return iCommand;
     }

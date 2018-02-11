@@ -7,6 +7,9 @@
 <fmt:message bundle="${loc}" key="local.sentence.nothing_found" var="nothing_found"/>
 <fmt:message bundle="${loc}" key="local.button.view" var="view"/>
 <fmt:message bundle="${loc}" key="local.word.unit_of_price" var="unit_of_price"/>
+
+<fmt:message bundle="${loc}" key="local.sentence.asc_sort" var="asc_sort_by_price"/>
+<fmt:message bundle="${loc}" key="local.sentence.desc_sort" var="desc_sort_by_price"/>
 <jsp:useBean class="com.epam.entity.Medicament" scope="page" id="medicament" />
 <jsp:useBean class="com.epam.entity.User" scope="page" id="user" />
 
@@ -14,21 +17,30 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
-    <link href="/css/index.css" rel="stylesheet">
-    <link href="/css/form.css" rel="stylesheet">
+    <link href="css/index.css" rel="stylesheet">
+    <link href="css/form.css" rel="stylesheet">
     <title>${main_title}</title>
 </head>
 <body>
 <%@include file="../header.jsp"%>
 <div class="page">
-    <div class="filter">
-        <a href="medicaments_asc_sorted_by_price.do"><li>Сортировать по возрастанию цены</a>
-        <a href="medicaments_desc_sorted_by_price.do"><li>Сортировать по убыванию цены</a>
-        <form id="searchForm" method="POST" action="/medicaments_by_producer.do" onsubmit="return checkSearchProducer()">
-            <input onkeyup="checkSearchProducer()"  type="text" name="name" placeholder="Поиск по производителю" id="searchProducer" autocomplete="off" required>
-        </form>
-    </div>
+    <c:choose>
+        <c:when test="${ information}">
+            <p class="information"> ${information}</p>
+        </c:when>
+    </c:choose>
     <div class="row">
+        <div class="filter">
+            <form method="POST" action="medicaments_by_producer.do" onsubmit="return checkSearchProducer()">
+                <input onkeyup="checkSearchProducer()" type="text" name="producer" placeholder="${search}" id="searchProducer" autocomplete="off" required>
+                <input style="color:#FFFFFF;padding: 5px 20px;background-color:rgba(98, 162, 183, 1);" type="submit" value="${search}">
+            </form>
+            <div class="right">
+                <a href="medicaments_asc_sorted_by_price.do">▲ ${asc_sort_by_price}</a>
+                <a href="medicaments_desc_sorted_by_price.do">▼ ${desc_sort_by_price}</a>
+            </div>
+        </div>
+
         <c:choose>
             <c:when test="${medicaments!=null}">
                 <c:forEach var="medicament" items="${medicaments}">
@@ -39,7 +51,7 @@
                                 <h2>${medicament.name}</h2>
                                 <p class="title">${medicament.producer}</p>
                                 <p class="title">${medicament.price} ${unit_of_price}</p>
-                                <p class="bottom-button"><a href="/medicament.do?idMedicament=${medicament.id}"><button class="button">${view}</button></a></p>
+                                <p class="bottom-button"><a href="medicament.do?idMedicament=${medicament.id}"><button class="button">${view}</button></a></p>
                             </div>
                         </div>
                     </div>
@@ -53,7 +65,9 @@
 </div>
 <%@include file="../forms.jsp"%>
 <%@include file="../footer.html"%>
-<%@include file="../scripts.jsp"%>
+<script src="js/index.js"></script>
+<script src='https://www.google.com/recaptcha/api.js'></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 </body>
 </html>
 

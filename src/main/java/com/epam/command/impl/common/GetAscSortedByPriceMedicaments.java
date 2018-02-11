@@ -20,7 +20,7 @@ public class GetAscSortedByPriceMedicaments implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        jspPageName = JspPageName.MEDICAMENTS;
+        jspPageName = JspPageName.INDEX;
         try {
             MedicamentService medicamentService = serviceFactory.getMedicamentServiceImpl();
             List<Medicament> medicaments = medicamentService.getAscSortedByPriceMedicaments();

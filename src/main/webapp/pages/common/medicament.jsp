@@ -27,15 +27,15 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
-    <link href="/css/index.css" rel="stylesheet">
-    <link href="/css/form.css" rel="stylesheet">
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    <link href="css/index.css" rel="stylesheet">
+    <link href="css/form.css" rel="stylesheet">
     <title>${main_title}</title>
 </head>
 <body>
 <%@include file="../header.jsp"%>
 <div class="page">
-        <div class="card medicament">
+        <div class="card medicament big">
             <h2>${med.name}</h2>
             <div><img src="images/medicaments/${med.image}" class="good"></div>
             <div class="container medicament" >
@@ -64,7 +64,7 @@
                     <c:when test="${roleUser==1}">
                         <c:choose>
                             <c:when test="${med.prescription}">
-                                <form  method="POST" action="/add_to_cart.do?idMedicament=${med.id}" onsubmit="return validOrderWithPrescription(this)">
+                                <form  method="POST" action="add_to_cart.do?idMedicament=${med.id}" onsubmit="return validOrderWithPrescription(this)">
                                     <select name="idPrescription">
                                         <option value="" disabled selected>${select_a_recipe}</option>
                                         <c:forEach var="prescription" items="${prescriptions}">
@@ -75,7 +75,7 @@
                                 </form>
                             </c:when>
                             <c:when test="${!med.prescription}">
-                                <form  method="POST" action="/add_to_cart.do?idMedicament=${med.id}" onsubmit="return validOrderWithoutPrescription(this)">
+                                <form  method="POST" action="add_to_cart.do?idMedicament=${med.id}" onsubmit="return validOrderWithoutPrescription(this)">
                                     <c:if test="${dosages!=null}">
                                         <select name="idDosage">
                                             <option value="" disabled selected>${dosa}</option>
@@ -101,6 +101,6 @@
 <%@include file="../forms.jsp"%>
 <%@include file="../footer.html"%>
 </body>
-<script src="/js/index.js"></script>
+<script src="js/index.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 </html>
