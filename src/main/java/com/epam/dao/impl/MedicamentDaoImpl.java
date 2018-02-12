@@ -17,7 +17,7 @@ import java.util.List;
 public class MedicamentDaoImpl implements MedicamentDao {
     private static Logger logger = Logger.getLogger(MedicamentDaoImpl.class);
 
-    private static final String GET_ALL_MEDICAMENTS = "SELECT * FROM pharmacy.medicament;";
+    private static final String GET_ALL_MEDICAMENTS = "SELECT * FROM pharmacy.medicament;"; 
     private static final String GET_SORTED_BY_PRICE_MEDICAMENTS_ASC = "SELECT * FROM pharmacy.medicament ORDER BY price ASC;";
     private static final String GET_SORTED_BY_PRICE_MEDICAMENTS_DESC = "SELECT * FROM pharmacy.medicament ORDER BY price DESC;";
     private static final String GET_MEDICAMENT_BY_ID = "SELECT * FROM pharmacy.medicament WHERE idMedicament=?;";

@@ -191,7 +191,7 @@ public class MedicamentServiceImpl implements MedicamentService {
         try {
             Validator.isNull(idMedicament, name, producer, price, prescription, webInfPath, availability, modeOfApplication, contraindications, sideEffects);
             Validator.isEmptyString(idMedicament, name, producer, price, prescription, webInfPath, availability, modeOfApplication, contraindications, sideEffects);
-            Validator.matchProperName(producer);
+            Validator.matchProperName(name, producer);
             medicament.setId(Integer.parseInt(idMedicament));
             medicament.setName(name);
             medicament.setProducer(producer);

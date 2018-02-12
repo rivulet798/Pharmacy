@@ -114,19 +114,19 @@
             <h1>${adding_of_medicine}</h1>
             <div class="input-block floating-field">
                 <label>${name}</label>
-                <input type="text" name="name" id="name" placeholder="${name}" autocomplete="off">
+                <input type="text" name="name" placeholder="${name}" autocomplete="off" required>
             </div>
             <div class="input-block floating-field">
                 <label>${producer}</label>
-                <input type="text" name="producer" id="producer" placeholder="${producer}" autocomplete="off">
+                <input type="text" name="producer" placeholder="${producer}" autocomplete="off" required>
             </div>
             <div class="input-block floating-field">
                 <label>${price}</label>
-                <input type="number" step="0.01" min="0.5" name="price" placeholder="${price}" autocomplete="off">
+                <input type="number" step="0.01" min="0.5" name="price" placeholder="${price}" autocomplete="off" required>
             </div>
             <div class="input-block">
                 <label>${image}</label>
-                <input type="file" accept=".png, .jpg, .jpeg" name="image">
+                <input type="file" accept=".png, .jpg, .jpeg" name="image" required>
             </div>
             <div class="select-block">
                 <label>${leave_form}</label>
@@ -147,19 +147,19 @@
             <div class="input-block floating-field textarea">
                 <label>${mode_of_application}</label>
                 <textarea name="modeOfApplication" rows="3" placeholder="${mode_of_application}"
-                          autocomplete="off"></textarea>
+                          autocomplete="off" required></textarea>
             </div>
             <div class="input-block floating-field textarea">
                 <label>${contraindications}</label>
                 <textarea name="contraindications" rows="3" placeholder="${contraindications}"
-                          autocomplete="off"></textarea>
+                          autocomplete="off" required></textarea>
             </div>
             <div class="input-block floating-field textarea">
                 <label>${side_effects}</label>
-                <textarea name="sideEffects" rows="2" placeholder="${side_effects}" autocomplete="off"></textarea>
+                <textarea name="sideEffects" rows="2" placeholder="${side_effects}" autocomplete="off" required></textarea>
             </div>
             <div id="dosages">
-                <input type="number" name="dosage" step="1" min="1" placeholder="${dosa}" autocomplete="off">
+                <input type="number" name="dosage" step="1" min="1" placeholder="${dosa}" autocomplete="off" required>
                 <button onclick="addDosage()">${add_dosage}</button>
             </div>
             <input type="hidden" name="csrfToken" value="${csrfToken}"/>
@@ -168,8 +168,8 @@
         </form>
     </div>
 </div>
-</body>
 <script src="js/sort.js"></script>
 <script src="js/index.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+</body>
 </html>

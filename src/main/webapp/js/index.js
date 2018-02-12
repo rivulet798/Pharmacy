@@ -98,10 +98,10 @@ function validMedicament(form)
         fail=fail+"Заполните поле побочные эффекты.\n";
         n++;
     }
-    if(form.dosage[0].value == ""){
-        fail=fail+form.dosage.value+"Введите дозировку активного вещества.\n";
-        n++;
-    }
+    // if(form.dosage[0].value == ""){
+    //     fail=fail+form.dosage.value+"Введите дозировку активного вещества.\n";
+    //     n++;
+    // }
     if(n!=1)
     {
         alert(fail);

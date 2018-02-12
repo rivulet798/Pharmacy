@@ -19,7 +19,7 @@ import java.util.List;
 
 public class GetMedicaments implements Command {
     private ServiceFactory serviceFactory = ServiceFactory.getInstance();
-    private static Logger logger = Logger.getLogger(GetMedicamentsByProducer.class);
+    private static Logger logger = Logger.getLogger(GetMedicaments.class);
     private JspPageName jspPageName;
 
     @Override

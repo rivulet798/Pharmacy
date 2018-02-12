@@ -1,5 +1,6 @@
 package com.epam.service.impl;
 
+import com.epam.dao.MedicamentDao;
 import com.epam.dao.OrderDao;
 import com.epam.dao.exception.DaoException;
 import com.epam.dao.factory.DaoFactory;
@@ -53,6 +54,7 @@ public class OrderServiceImpl implements OrderService {
                                             String number, String idDosage) throws ServiceException {
         logger.debug("OrderServiceImpl.addToCartMedWithoutPrescription");
         OrderDao orderDao = daoFactory.getIOrderDao();
+        MedicamentDao medicanentDao = daoFactory.getIMedicamentDao();
         Order order = new Order();
         try {
             Validator.isNull(idUser, idMedicament, number, idDosage);
