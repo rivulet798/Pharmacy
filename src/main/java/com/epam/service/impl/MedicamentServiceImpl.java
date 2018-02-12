@@ -113,7 +113,6 @@ public class MedicamentServiceImpl implements MedicamentService {
         try {
             Validator.isNull(producer);
             Validator.isEmptyString(producer);
-            Validator.matchProperName(producer);
             medicaments = medicamentDao.getMedicamentsByProducer(producer);
         } catch (DaoException | ValidatorException e) {
             throw new ServiceException(e);

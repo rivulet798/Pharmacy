@@ -24,14 +24,14 @@
 <%@include file="../header.jsp"%>
 <div class="page">
 ${information}
-    <a href="/index.do" class="button">${continue_browsing}</a>
+    <a href="index.do" class="button">${continue_browsing}</a>
     <a onclick="showPopUp();" class="button">${pay_an_order}</a>
 </div>
 <%@include file="../footer.html"%>
 <div id="payment" class="popup">
     <div class="card">
         <div class="signup">
-            <form method="POST" id="form"  class="material-form" action="/pay.do?idOrder=${idOrder}">
+            <form method="POST" id="form"  class="material-form" action="pay.do?idOrder=${idOrder}">
                 <h1>${payment}</h1>
                 <input class="signup" type="number" name="cardNumber" placeholder="${card_number}" pattern="/[0-9]{13,16}/" required autocomplete="off"/>
                 <input class="signup" type="number" name="cvv" placeholder="CVV" pattern="/[0-9]{3}/" required autocomplete="off"/>

@@ -74,9 +74,9 @@
                             <td>${requestDto.dosage} ${unit_of_dosage}</td>
                             <td>${requestDto.dateOfIssue}</td>
                             <td>${requestDto.dateOfCompletion}</td>
-                            <td><a href="/extend_request.do?idRequest=${requestDto.idRequest}"
+                            <td><a href="extend_request.do?idRequest=${requestDto.idRequest}"
                                    class="button">${extend}</a></td>
-                            <td><a href="/reject_request.do?idRequest=${requestDto.idRequest}"
+                            <td><a href="reject_request.do?idRequest=${requestDto.idRequest}"
                                    class="button">${reject}</a></td>
                         </tr>
                     </c:forEach>

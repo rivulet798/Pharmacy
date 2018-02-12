@@ -109,7 +109,7 @@
 <%@include file="../footer.html" %>
 <div id="add-medicament" class="popup">
     <div class="card">
-        <form name="Reviews" method="POST" class="material-form" action="/add_medicament.do"
+        <form method="POST" class="material-form" action="add_medicament.do"
               enctype="multipart/form-data" onsubmit="return validMedicament(this)">
             <h1>${adding_of_medicine}</h1>
             <div class="input-block floating-field">
@@ -169,7 +169,7 @@
     </div>
 </div>
 </body>
-<script src="js/index.js"></script>
 <script src="js/sort.js"></script>
+<script src="js/index.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 </html>

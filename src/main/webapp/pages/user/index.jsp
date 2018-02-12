@@ -7,7 +7,7 @@
 <fmt:message bundle="${loc}" key="local.sentence.nothing_found" var="nothing_found"/>
 <fmt:message bundle="${loc}" key="local.button.view" var="view"/>
 <fmt:message bundle="${loc}" key="local.word.unit_of_price" var="unit_of_price"/>
-
+<fmt:message bundle="${loc}" key="local.sentence.search_by_producer" var="search_by_producer"/>
 <fmt:message bundle="${loc}" key="local.sentence.asc_sort" var="asc_sort_by_price"/>
 <fmt:message bundle="${loc}" key="local.sentence.desc_sort" var="desc_sort_by_price"/>
 <jsp:useBean class="com.epam.entity.Medicament" scope="page" id="medicament" />
@@ -32,7 +32,7 @@
     <div class="row">
         <div class="filter">
             <form method="POST" action="medicaments_by_producer.do" onsubmit="return checkSearchProducer()">
-                <input onkeyup="checkSearchProducer()" type="text" name="producer" placeholder="${search}" id="searchProducer" autocomplete="off" required>
+                <input onkeyup="checkSearchProducer()" type="text" name="producer" placeholder="${search_by_producer}" id="searchProducer" autocomplete="off" required>
                 <input style="color:#FFFFFF;padding: 5px 20px;background-color:rgba(98, 162, 183, 1);" type="submit" value="${search}">
             </form>
             <div class="right">

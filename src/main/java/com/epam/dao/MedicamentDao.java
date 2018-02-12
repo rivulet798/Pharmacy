@@ -7,7 +7,6 @@ import java.util.List;
 
 public interface MedicamentDao {
     int addMedicament(Medicament medicament) throws DaoException;
-    boolean deleteMedicament();
 
     Medicament getMedicamentById(int id) throws DaoException;
     List<Medicament> getAllMedicaments() throws DaoException;

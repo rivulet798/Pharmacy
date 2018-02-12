@@ -22,7 +22,7 @@ public class MedicamentDaoImpl implements MedicamentDao {
     private static final String GET_SORTED_BY_PRICE_MEDICAMENTS_DESC = "SELECT * FROM pharmacy.medicament ORDER BY price DESC;";
     private static final String GET_MEDICAMENT_BY_ID = "SELECT * FROM pharmacy.medicament WHERE idMedicament=?;";
     private static final String ADD_MEDICAMENT = "INSERT INTO medicament (name,producer,price,prescription,image,availability,modeOfApplication,contraindications,sideEffects) VALUES(?,?,?,?,?,?,?,?,?);";
-    private static final String GET_MEDICAMENTS_BY_PRODUCER = "SELECT * FROM pharmacy.medicament WHERE producer=?;";
+    private static final String GET_MEDICAMENTS_BY_PRODUCER = "SELECT * FROM pharmacy.medicament WHERE producer LIKE ?;";
     private static final String GET_MEDICAMENT_BY_NAME = "SELECT * FROM pharmacy.medicament WHERE name LIKE ?;";
     private static final String EDIT_MEDICAMENT = "UPDATE pharmacy.medicament m SET m.name=?, m.producer=?, m.price=?, m.prescription=?, m.image=?, m.availability=?, m.modeOfApplication=?, m.contraindications=?, m.sideEffects=? WHERE m.idMedicament=?;";
     private static final String GET_MEDICAMENTS_BY_PRESCRIPTION = "SELECT * FROM pharmacy.medicament WHERE prescription=?;";
@@ -80,12 +80,6 @@ public class MedicamentDaoImpl implements MedicamentDao {
             }
         }
     }
-
-    @Override
-    public boolean deleteMedicament() {
-        return false;
-    }
-
 
     @Override
     public Medicament getMedicamentById(int id) throws DaoException{
@@ -234,7 +228,7 @@ public class MedicamentDaoImpl implements MedicamentDao {
             connection = connectionPool.retrieve();
             statement = null;
             statement = connection.prepareStatement(GET_MEDICAMENTS_BY_PRODUCER);
-            statement.setString(1,producer);
+            statement.setString(1,"%"+producer+"%");
             resultSet = null;
             resultSet = statement.executeQuery();
             medicament = null;

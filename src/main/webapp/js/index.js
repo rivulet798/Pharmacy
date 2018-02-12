@@ -245,7 +245,7 @@ function addDosage(){
 
 function showPaymentPopUp(idOrder){
     showPopUp();
-    $("#payForm").attr('action', '/pay.do?idOrder='+idOrder);
+    $("#payForm").attr('action', 'pay.do?idOrder='+idOrder);
 }
 
 
