@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<jsp:useBean class="com.epam.entity.User" scope="page" id="user" />
+<jsp:useBean class="com.bsuir.entity.User" scope="page" id="user" />
 <fmt:setLocale scope="session" value="${sessionScope.locale}"/>
 <fmt:setBundle basename="localization.locale" scope="session" var="loc"/>
 <fmt:message bundle="${loc}" key="local.word.main_title" var="main_title"/>

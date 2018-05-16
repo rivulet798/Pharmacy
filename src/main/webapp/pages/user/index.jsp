@@ -10,8 +10,8 @@
 <fmt:message bundle="${loc}" key="local.sentence.search_by_producer" var="search_by_producer"/>
 <fmt:message bundle="${loc}" key="local.sentence.asc_sort" var="asc_sort_by_price"/>
 <fmt:message bundle="${loc}" key="local.sentence.desc_sort" var="desc_sort_by_price"/>
-<jsp:useBean class="com.epam.entity.Medicament" scope="page" id="medicament" />
-<jsp:useBean class="com.epam.entity.User" scope="page" id="user" />
+<jsp:useBean class="com.bsuir.entity.Medicament" scope="page" id="medicament" />
+<jsp:useBean class="com.bsuir.entity.User" scope="page" id="user" />
 
 <html>
 <head>
